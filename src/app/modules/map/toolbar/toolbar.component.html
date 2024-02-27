@@ -1,0 +1,59 @@
+<div class="map-toolbar">
+    <div class="aside-primary d-flex flex-column align-items-lg-center flex-row-auto">
+        <!--begin::Logo-->
+        <div class="aside-logo d-none d-lg-flex flex-column align-items-center flex-column-auto py-10 px-8"
+            id="kt_aside_logo">
+            <a routerLink="/dashboard">
+                <img alt="Logo" src="./assets/media/logos/favicon.png" class="h-35px" />
+            </a>
+
+            <div class="menu-item pt-10 pb-3" routerLinkActive="here show">
+                <button class="btn btn-icon bg-light-primary btn-lg
+                    me-1" title="Go To Home" (click)="goToHome()">
+                    <span [inlineSVG]="'./assets/media/icons/duotune/general/gen001.svg'" class="svg-icon svg-icon-3"
+                        [ngClass]="'svg-icon-primary'"></span>
+                </button>
+            </div>
+            <hr class="hr">
+            
+            <div class="menu-item py-3" routerLinkActive="here show">
+                <button class="btn btn-icon bg-light-primary btn-lg
+                    me-1" title="Go To Coordinate" (click)="goToCoordinate()">
+                    <span [inlineSVG]="'./assets/media/icons/duotune/general/gen018.svg'" class="svg-icon svg-icon-3"
+                        [ngClass]="'svg-icon-primary'"></span>
+                </button>
+            </div>
+            <hr class="hr">
+
+            <div class="menu-item py-3" routerLinkActive="here show">
+                <button class="btn btn-icon bg-light-primary btn-lg
+                    me-1" title="Area Measurement" (click)="areaMeasurement()">
+                    <span [inlineSVG]="'./assets/media/icons/duotune/general/gen022.svg'" class="svg-icon svg-icon-3"
+                        [ngClass]="'svg-icon-primary'"></span>
+                </button>
+            </div>
+            <hr class="hr">
+
+            <div class="menu-item py-3" routerLinkActive="here show">
+                <button class="btn btn-icon bg-light-primary btn-lg
+                    me-1" title="Length Measurement" (click)="lengthMeasurement()">
+                    <span [inlineSVG]="'./assets/media/icons/duotune/art/art009.svg'" class="svg-icon svg-icon-3"
+                        [ngClass]="'svg-icon-primary'"></span>
+                </button>
+            </div>
+            <hr class="hr">
+
+            <div class="menu-item py-3" routerLinkActive="here show">
+                <button class="btn btn-icon bg-light-primary btn-lg
+                    me-1" title="Export Map" (click)="exportMap()">
+                    <span [inlineSVG]="'./assets/media/icons/duotune/files/fil017.svg'" class="svg-icon svg-icon-3"
+                        [ngClass]="'svg-icon-primary'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<map-goToCoordinate #goToCoordinateComp [map]="map"></map-goToCoordinate>
+<map-lengthMeasurement #lengthMeasurementComp></map-lengthMeasurement>
+<map-areaMeasurement #areaMeasurementComp></map-areaMeasurement>

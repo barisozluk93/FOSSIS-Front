@@ -1,0 +1,22 @@
+<div id="lengthMeasurement" *ngIf="lengthVisibility">
+    <div class="card">
+        <div class="card-header px-0" style="min-height: 50px;">
+            <h4 class="card-title align-items-start mt-4" style="margin-left: 2rem;">
+                <a class="card-label fw-bolder fs-3">
+                    <span [inlineSVG]="'./assets/media/icons/duotune/art/art009.svg'"
+                        class="svg-icon svg-icon-3" [ngClass]="'svg-icon-primary'"></span>
+                    Length Measurement
+                </a>
+            </h4>
+            <div class="card-toolbar">
+                <a (click)="closePanel()" class="btn btn-sm">
+                    <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr015.svg'"
+                        class="svg-icon svg-icon-3" [ngClass]="'svg-icon-primary'"></span>
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="text-center">{{lengthMeasure}} km</div>
+        </div>
+    </div>
+</div>

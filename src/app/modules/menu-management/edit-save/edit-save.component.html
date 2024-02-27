@@ -1,0 +1,89 @@
+<app-alert #alertComponent>
+</app-alert>
+
+<app-modal #modal [modalConfig]="modalConfig">
+    <form class="form w-100" [formGroup]="form" novalidate="novalidate">
+
+        <div class="fv-row mb-8">
+            <label class="form-label fs-6 fw-bolder text-gray-900">Name</label>
+            <input class="form-control bg-transparent" type="text" name="name" formControlName="name" autocomplete="off"
+                [ngClass]="{
+                'is-invalid': form.controls['name'].invalid,
+                'is-valid': form.controls['name'].valid
+              }" />
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'Name is required',
+                control: form.controls['name']
+              }"></ng-container>
+        </div>
+
+        <div class="fv-row mb-8">
+            <label class="form-label fs-6 fw-bolder text-gray-900">Name in English</label>
+            <input class="form-control bg-transparent" type="text" name="nameEn" formControlName="nameEn" autocomplete="off"
+                [ngClass]="{
+                'is-invalid': form.controls['nameEn'].invalid,
+                'is-valid': form.controls['nameEn'].valid
+              }" />
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'Name in English is required',
+                control: form.controls['nameEn']
+              }"></ng-container>
+        </div>
+
+        <div class="fv-row mb-8">
+            <label class="form-label fs-6 fw-bolder text-gray-900">Address</label>
+            <input class="form-control bg-transparent" type="text" name="url" formControlName="url" autocomplete="off" />
+        </div>
+
+        <div class="fv-row mb-8">
+            <label class="form-label fs-6 fw-bolder text-gray-900">Icon</label>
+            <input class="form-control bg-transparent" type="text" name="icon" formControlName="icon" autocomplete="off" />
+        </div>
+
+        <div class="fv-row mb-8">
+            <label class="form-label fs-6 fw-bolder text-gray-900">Parent Menu</label>
+            <select name="parentId" formControlName="parentId" autocomplete="off"
+              class="form-select form-select-solid form-select-lg fw-bold"
+            >
+                <option value="">Select a Menu...</option>
+                <ng-container *ngFor="let item of menus">
+                    <option value={{item.id}}>{{item.name}}</option>
+                </ng-container>
+            </select>
+          </div>
+
+          <div class="fv-row mb-8">
+            <label class="form-label fs-6 fw-bolder text-gray-900">Permission</label>
+            <select name="permissionId" formControlName="permissionId" autocomplete="off"
+              class="form-select form-select-solid form-select-lg fw-bold"
+              [ngClass]="{
+                'is-invalid': form.controls['permissionId'].invalid,
+                'is-valid': form.controls['permissionId'].valid
+              }"
+            >
+                <option value="">Select a Permission...</option>
+                <ng-container *ngFor="let item of permissions">
+                    <option value={{item.id}}>{{item.name}}</option>
+                </ng-container>
+            </select>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'Permission is required',
+                control: form.controls['permissionId']
+              }"></ng-container>
+          </div>
+    </form>
+
+    <ng-template #formError let-control="control" let-message="message" let-validation="validation">
+        <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+            <div class="fv-plugins-message-container">
+                <span role="alert">
+                    {{ message }}
+                </span>
+            </div>
+        </ng-container>
+    </ng-template>
+</app-modal>
