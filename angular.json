@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo7": {
+    "fossis": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demo7",
+            "outputPath": "dist/fossis",
             "allowedCommonJsDependencies": [
               "object-path",
               "apexcharts",
@@ -81,10 +81,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "demo7:build:production"
+              "buildTarget": "fossis:build:production"
             },
             "development": {
-              "buildTarget": "demo7:build:development"
+              "buildTarget": "fossis:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -92,7 +92,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "demo7:build"
+            "buildTarget": "fossis:build"
           }
         },
         "test": {

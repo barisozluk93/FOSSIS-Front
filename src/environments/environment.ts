@@ -58,8 +58,8 @@ export const environment = {
       'thumbnail': './assets/media/demos/demo6.png'
     },
 
-    'demo7': {
-      'title': 'Demo 7',
+    'fossis': {
+      'title': 'FOSSIS',
       'description': 'CRM Dashboard',
       'published': false,
       'thumbnail': './assets/media/demos/demo7.png'
