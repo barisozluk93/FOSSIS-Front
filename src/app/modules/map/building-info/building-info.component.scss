@@ -1,0 +1,28 @@
+#buildingInfo {
+    left: 10px;
+    margin-top: 10px;
+    z-index: 999;
+    position: absolute;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 1541px) {
+    #buildingInfo {
+        width: 500px;
+    }
+}
+
+@media screen and (min-width: 820px) and (max-width: 1540px) {
+    #buildingInfo {
+        width: 500px;
+    }
+}
+
+@media screen and (max-width: 819px) {
+    #buildingInfo {
+        right: 5px;
+        width: auto;
+    }
+}
+
+  

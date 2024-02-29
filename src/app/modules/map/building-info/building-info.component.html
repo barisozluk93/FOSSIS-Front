@@ -1,0 +1,47 @@
+<div id="buildingInfo" *ngIf="buildingInfoVisibility">
+    <div class="card">
+        <div class="card-header px-0" style="min-height: 50px;">
+            <h4 class="card-title align-items-start mt-4" style="margin-left: 2rem;">
+                <a class="card-label fw-bolder fs-3">
+                    <span [inlineSVG]="'./assets/media/icons/duotune/general/gen018.svg'" class="svg-icon svg-icon-3"
+                        [ngClass]="'svg-icon-primary'"></span>
+                    Info
+                </a>
+            </h4>
+            <div class="card-toolbar">
+                <a (click)="closePanel()" class="btn btn-sm">
+                    <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr015.svg'" class="svg-icon svg-icon-3"
+                        [ngClass]="'svg-icon-primary'"></span>
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <!-- begin::Table -->
+                
+            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                <tbody>
+                    <tr *ngFor="let item of propertiesList;">
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex justify-content-start flex-column">
+                                    <a class="text-gray-900 fw-bolder text-hover-primary fs-6">
+                                        {{item.key}}
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex justify-content-start flex-column">
+                                    <a class="text-gray-900 fw-bolder text-hover-primary fs-6">
+                                        {{item.value}}
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

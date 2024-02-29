@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ResultModel } from 'src/app/models/result.model';
 import { PagingResult } from 'src/app/models/paging-result.model';
 
-const API_MENU_URL = `${environment.apiUrl}/Map`;
+const API_MAP_URL = `${environment.apiUrl}/Map`;
 
 @Injectable({
     providedIn: 'root',
@@ -15,5 +15,7 @@ export class MapService {
     constructor(private http: HttpClient) { }
 
     // public methods
-    
+    getBuildings(){
+        return this.http.get(`${API_MAP_URL}/GetBuildings`);
+    }
 }
