@@ -14,6 +14,7 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 import { GoToCoordinateComponent } from './go-to-coordinate/gotocoordinate.component';
 import { LengthMeasurementComponent } from './length-measurement/length-measurement.component';
 import { AreaMeasurementComponent } from './area-measurement/area-measurement.component';
+import { BuildingInfoComponent } from './building-info/building-info.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AreaMeasurementComponent } from './area-measurement/area-measurement.co
     ToolbarComponent,
     GoToCoordinateComponent,
     LengthMeasurementComponent,
-    AreaMeasurementComponent
+    AreaMeasurementComponent,
+    BuildingInfoComponent
   ],
   imports: [
     DataTableModule,
