@@ -1,41 +1,90 @@
-<!-- <app-alert #alertComponent>
+<app-alert #alertComponent>
 </app-alert>
 
 <app-modal #modal [modalConfig]="modalConfig">
     <form class="form w-100" [formGroup]="form" novalidate="novalidate">
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Name</label>
-            <input class="form-control bg-transparent" type="text" name="name" formControlName="name" autocomplete="off"
+            <label class="form-label fs-6 fw-bolder text-gray-900">Manufacturer</label>
+            <input class="form-control bg-transparent" type="text" name="manufacturer" formControlName="manufacturer"
+                autocomplete="off" [ngClass]="{
+                      'is-invalid': form.controls['manufacturer'].invalid,
+                      'is-valid': form.controls['manufacturer'].valid
+                    }" />
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'Manufacturer is required',
+                      control: form.controls['manufacturer']
+                    }"></ng-container>
+        </div>
+
+        <div class="fv-row mb-8">
+            <label class="form-label fs-6 fw-bolder text-gray-900">Model</label>
+            <input class="form-control bg-transparent" type="text" name="model" formControlName="model"
+                autocomplete="off" [ngClass]="{
+                    'is-invalid': form.controls['model'].invalid,
+                    'is-valid': form.controls['model'].valid
+                  }" />
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'Model is required',
+                    control: form.controls['model']
+                  }"></ng-container>
+        </div>
+
+        <div class="fv-row mb-8">
+            <label class="form-label fs-6 fw-bolder text-gray-900">Type</label>
+            <input class="form-control bg-transparent" type="text" name="type" formControlName="type" autocomplete="off"
                 [ngClass]="{
-                'is-invalid': form.controls['name'].invalid,
-                'is-valid': form.controls['name'].valid
+                'is-invalid': form.controls['type'].invalid,
+                'is-valid': form.controls['type'].valid
               }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'Name is required',
-                control: form.controls['name']
+                message: 'Type is required',
+                control: form.controls['type']
               }"></ng-container>
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Permissions</label>
-            <select multiple name="permissions" formControlName="permissions" autocomplete="off"
-              class="form-select form-select-solid form-select-lg fw-bold"
-              [ngClass]="{
-                'is-invalid': form.controls['permissions'].invalid,
-                'is-valid': form.controls['permissions'].valid
-              }"
-            >
-                <ng-container *ngFor="let item of permissionList">
-                    <option [ngValue]="item.id">{{item.name}}</option>
-                </ng-container>
-            </select>
-
+            <label class="form-label fs-6 fw-bolder text-gray-900">Structure Type</label>
+            <input class="form-control bg-transparent" type="text" name="structureType" formControlName="structureType" autocomplete="off"
+                [ngClass]="{
+                'is-invalid': form.controls['structureType'].invalid,
+                'is-valid': form.controls['structureType'].valid
+              }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'Permissions is required',
-                control: form.controls['permissions']
+                message: 'Structure Type is required',
+                control: form.controls['structureType']
+              }"></ng-container>
+        </div>
+
+        <div class="fv-row mb-8">
+            <label class="form-label fs-6 fw-bolder text-gray-900">Nominal Capacity (kW)</label>
+            <input class="form-control bg-transparent" type="number" name="nominalCapacity"
+                formControlName="nominalCapacity" autocomplete="off" [ngClass]="{
+                'is-invalid': form.controls['nominalCapacity'].invalid,
+                'is-valid': form.controls['nominalCapacity'].valid
+              }" />
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'Nominal Capacity is required',
+                control: form.controls['nominalCapacity']
+              }"></ng-container>
+        </div>
+
+        <div class="fv-row mb-8">
+            <label class="form-label fs-6 fw-bolder text-gray-900">COP</label>
+            <input class="form-control bg-transparent" type="number" name="cop"
+                formControlName="cop" autocomplete="off" [ngClass]="{
+                'is-invalid': form.controls['cop'].invalid,
+                'is-valid': form.controls['cop'].valid
+              }" />
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'COP is required',
+                control: form.controls['cop']
               }"></ng-container>
         </div>
     </form>
@@ -49,4 +98,4 @@
             </div>
         </ng-container>
     </ng-template>
-</app-modal> -->
+</app-modal>

@@ -95,11 +95,11 @@ export class MaterialManagementService {
         return this.http.get<ResultModel<HeatPumpModel>>(`${API_MATERIAL_HEATPUMP_URL}/${id}`);
     }
 
-    heatPumpSave(data: InverterModel): Observable<ResultModel<HeatPumpModel>> {
+    heatPumpSave(data: HeatPumpModel): Observable<ResultModel<HeatPumpModel>> {
         return this.http.post<ResultModel<HeatPumpModel>>(`${API_MATERIAL_HEATPUMP_URL}/Save`, data);
     }
 
-    heatPumpEdit(data: InverterModel): Observable<ResultModel<HeatPumpModel>> {
+    heatPumpEdit(data: HeatPumpModel): Observable<ResultModel<HeatPumpModel>> {
         return this.http.post<ResultModel<HeatPumpModel>>(`${API_MATERIAL_HEATPUMP_URL}/Update`, data);
     }
 
@@ -121,11 +121,11 @@ export class MaterialManagementService {
         return this.http.get<ResultModel<BatteryModel>>(`${API_MATERIAL_BATTERY_URL}/${id}`);
     }
 
-    batterySave(data: InverterModel): Observable<ResultModel<BatteryModel>> {
+    batterySave(data: BatteryModel): Observable<ResultModel<BatteryModel>> {
         return this.http.post<ResultModel<BatteryModel>>(`${API_MATERIAL_BATTERY_URL}/Save`, data);
     }
 
-    batteryEdit(data: InverterModel): Observable<ResultModel<BatteryModel>> {
+    batteryEdit(data: BatteryModel): Observable<ResultModel<BatteryModel>> {
         return this.http.post<ResultModel<BatteryModel>>(`${API_MATERIAL_BATTERY_URL}/Update`, data);
     }
 
@@ -147,11 +147,11 @@ export class MaterialManagementService {
         return this.http.get<ResultModel<CableModel>>(`${API_MATERIAL_CABLE_URL}/${id}`);
     }
 
-    cableSave(data: InverterModel): Observable<ResultModel<CableModel>> {
+    cableSave(data: CableModel): Observable<ResultModel<CableModel>> {
         return this.http.post<ResultModel<CableModel>>(`${API_MATERIAL_CABLE_URL}/Save`, data);
     }
 
-    cableEdit(data: InverterModel): Observable<ResultModel<CableModel>> {
+    cableEdit(data: CableModel): Observable<ResultModel<CableModel>> {
         return this.http.post<ResultModel<CableModel>>(`${API_MATERIAL_CABLE_URL}/Update`, data);
     }
 
@@ -173,11 +173,11 @@ export class MaterialManagementService {
         return this.http.get<ResultModel<ConstructionModel>>(`${API_MATERIAL_CONSTRUCTION_URL}/${id}`);
     }
 
-    constructionSave(data: InverterModel): Observable<ResultModel<ConstructionModel>> {
+    constructionSave(data: ConstructionModel): Observable<ResultModel<ConstructionModel>> {
         return this.http.post<ResultModel<ConstructionModel>>(`${API_MATERIAL_CONSTRUCTION_URL}/Save`, data);
     }
 
-    constructionEdit(data: InverterModel): Observable<ResultModel<ConstructionModel>> {
+    constructionEdit(data: ConstructionModel): Observable<ResultModel<ConstructionModel>> {
         return this.http.post<ResultModel<ConstructionModel>>(`${API_MATERIAL_CONSTRUCTION_URL}/Update`, data);
     }
 
@@ -199,11 +199,11 @@ export class MaterialManagementService {
         return this.http.get<ResultModel<ChargingStationModel>>(`${API_MATERIAL_CHARGINGSTATION_URL}/${id}`);
     }
 
-    chargingStationSave(data: InverterModel): Observable<ResultModel<ChargingStationModel>> {
+    chargingStationSave(data: ChargingStationModel): Observable<ResultModel<ChargingStationModel>> {
         return this.http.post<ResultModel<ChargingStationModel>>(`${API_MATERIAL_CHARGINGSTATION_URL}/Save`, data);
     }
 
-    chargingStationEdit(data: InverterModel): Observable<ResultModel<ChargingStationModel>> {
+    chargingStationEdit(data: ChargingStationModel): Observable<ResultModel<ChargingStationModel>> {
         return this.http.post<ResultModel<ChargingStationModel>>(`${API_MATERIAL_CHARGINGSTATION_URL}/Update`, data);
     }
 

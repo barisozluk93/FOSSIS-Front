@@ -115,11 +115,11 @@ export class ChargingStationComponent implements OnInit, OnDestroy {
   }
 
   openEditModal(event: number) {
-    // this.editSaveComponent.openModal(event);
+    this.editSaveComponent.openModal(event);
   }
 
   openSaveModal(event: boolean) {
-    // this.editSaveComponent.openModal(undefined);
+    this.editSaveComponent.openModal(undefined);
   }
 
   paginationModelChange(event: PaginationModel) {
