@@ -8,6 +8,7 @@ import { AuthService } from '../../auth';
 import { MaterialManagementService } from '../material-management.service';
 import { ConstructionEditSaveComponent } from './edit-save/edit-save.component';
 import { ConstructionModel } from '../models/construction.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-construction',
@@ -24,19 +25,31 @@ export class ConstructionComponent implements OnInit, OnDestroy {
   hasDeletePermission: boolean;
   hasNewRecordPermission: boolean;
 
-  constructor(private materialManagementService: MaterialManagementService, private authService: AuthService) {}
+  constructor(private materialManagementService: MaterialManagementService, private authService: AuthService, private translate: TranslateService) {}
 
-  tableName: string = "Konstrüksiyonlar";
-  columnList: ColumnModel[] = [
+  tableName: string = "";
+  columnList: ColumnModel[] = [];
+  columnListEn: ColumnModel[] = [
     {name: "Id", index: "id", visibility: false}, 
     {name: "Manufacturer", index: "manufacturer", visibility: true},
     {name: "Model", index: "model", visibility: true},
     {name: "Series", index: "series", visibility: true}, 
     {name: "Panel Orientation", index: "panelOrientation", visibility: true}, 
     {name: "Type", index: "type", visibility: true},
+    {name: "Is Active?", index: "isDeleted", visibility: true},  
+    {name: "Actions", index: null, visibility: true}
+  ];
+  columnListTr: ColumnModel[] = [
+    {name: "Id", index: "id", visibility: false}, 
+    {name: "Üretici", index: "manufacturer", visibility: true},
+    {name: "Model", index: "model", visibility: true},
+    {name: "Seri", index: "series", visibility: true}, 
+    {name: "Panel Yönlendirmesi", index: "panelOrientation", visibility: true}, 
+    {name: "Tip", index: "type", visibility: true},
     {name: "Aktif Mi?", index: "isDeleted", visibility: true},  
     {name: "İşlemler", index: null, visibility: true}
-  ]
+  ];
+
   dataSource: ConstructionModel[];
   totalCount: number;
   paginationModel: PaginationModel;
@@ -102,16 +115,49 @@ export class ConstructionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.initializeLanguageSettings();
     this.controlPermissions();
     this.paginationModel = { pageNumber: 1, pageSize: 10 } as PaginationModel;
     this.loadData();
+  }
+
+  initializeLanguageSettings (){
+    this.translate.onLangChange.subscribe(() => {
+      this.translate.get('CONSTRUCTIONS').subscribe((translation: string) => {
+        this.tableName = translation;
+      });
+      this.translate.get('LANG').subscribe((translation: string) => {
+        if(translation==="tr"){
+          this.columnList=this.columnListTr
+        }else{
+          this.columnList=this.columnListEn
+        }
+      });
+
+    });
+
+    this.translate.get('CONSTRUCTIONS').subscribe((translation: string) => {
+      this.tableName = translation;
+    });
+
+    this.translate.get('LANG').subscribe((translation: string) => {
+      if(translation==="tr"){
+        this.columnList=this.columnListTr
+      }else{
+        this.columnList=this.columnListEn
+      }
+    });
   }
 
   ngOnDestroy() {
   }
 
   openDeleteModal(event: number) {
-    this.confirmationComponent.openModal('Delete', event);
+    var deleteText = "";
+    this.translate.get('DELETE').subscribe((translation)=>{
+      deleteText = translation;
+    })
+    this.confirmationComponent.openModal(deleteText, event);
   }
 
   openEditModal(event: number) {

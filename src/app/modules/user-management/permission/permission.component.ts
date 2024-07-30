@@ -8,6 +8,7 @@ import { ConfirmationComponent } from '../../confirmation/confirmation.component
 import { AlertComponent } from '../../alert/alert.component';
 import { PermissionEnum } from 'src/app/enums/permission.enum';
 import { AuthService } from '../../auth';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-permission',
@@ -24,15 +25,23 @@ export class PermissionComponent implements OnInit, OnDestroy {
   hasDeletePermission: boolean;
   hasNewRecordPermission: boolean;
 
-  constructor(private userManagementService: UserManagementService, private authService: AuthService) {}
+  constructor(private userManagementService: UserManagementService, private authService: AuthService, private translate: TranslateService) {}
 
-  tableName: string = "Yetkiler";
-  columnList: ColumnModel[] = [
+  tableName: string = "" ;
+  columnList: ColumnModel[] = [ ]
+  columnListTr: ColumnModel[] = [
     {name: "Id", index: "id", visibility: false}, 
     {name: "Adı", index: "name", visibility: true}, 
     {name: "Kodu", index: "code", visibility: true},  
     {name: "Aktif Mi?", index: "isDeleted", visibility: true},  
     {name: "İşlemler", index: null, visibility: true}
+  ]
+  columnListEn: ColumnModel[] = [
+    {name: "Id", index: "id", visibility: false}, 
+    {name: "Name", index: "name", visibility: true}, 
+    {name: "Code", index: "code", visibility: true},  
+    {name: "Is Active?", index: "isDeleted", visibility: true},  
+    {name: "Transactions", index: null, visibility: true}
   ]
   dataSource: PermissionModel[];
   totalCount: number;
@@ -102,13 +111,43 @@ export class PermissionComponent implements OnInit, OnDestroy {
     this.controlPermissions();
     this.paginationModel = { pageNumber: 1, pageSize: 10 } as PaginationModel;
     this.loadData();
+
+    this.translate.onLangChange.subscribe(() => {
+      this.translate.get('PERMISSIONS').subscribe((translation: string) => {
+        this.tableName = translation;
+      });
+      this.translate.get('LANG').subscribe((translation: string) => {
+        if(translation==="tr"){
+          this.columnList=this.columnListTr
+        }else{
+          this.columnList=this.columnListEn
+        }
+      });
+
+    });
+
+    this.translate.get('PERMISSIONS').subscribe((translation: string) => {
+      this.tableName = translation;
+    });
+
+    this.translate.get('LANG').subscribe((translation: string) => {
+      if(translation==="tr"){
+        this.columnList=this.columnListTr
+      }else{
+        this.columnList=this.columnListEn
+      }
+    });
   }
 
   ngOnDestroy() {
   }
 
   openDeleteModal(event: number) {
-    this.confirmationComponent.openModal('Delete', event);
+    var deleteText = "";
+    this.translate.get('DELETE').subscribe((translation)=>{
+      deleteText = translation;
+    })
+    this.confirmationComponent.openModal(deleteText, event);
   }
 
   openEditModal(event: number) {

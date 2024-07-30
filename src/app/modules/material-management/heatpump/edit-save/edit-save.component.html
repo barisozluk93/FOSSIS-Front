@@ -5,7 +5,7 @@
     <form class="form w-100" [formGroup]="form" novalidate="novalidate">
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Manufacturer</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'MANUFACTURER' | translate}}</label>
             <input class="form-control bg-transparent" type="text" name="manufacturer" formControlName="manufacturer"
                 autocomplete="off" [ngClass]="{
                       'is-invalid': form.controls['manufacturer'].invalid,
@@ -13,13 +13,13 @@
                     }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                       validation: 'required',
-                      message: 'Manufacturer is required',
+                      message: ('MANUFACTURER'| translate) + ' ' + ('IS_REQUIRED' | translate),
                       control: form.controls['manufacturer']
                     }"></ng-container>
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Model</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'MODEL' | translate}}</label>
             <input class="form-control bg-transparent" type="text" name="model" formControlName="model"
                 autocomplete="off" [ngClass]="{
                     'is-invalid': form.controls['model'].invalid,
@@ -27,13 +27,13 @@
                   }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                     validation: 'required',
-                    message: 'Model is required',
+                    message: ('MODEL'| translate) + ' ' + ('IS_REQUIRED' | translate),
                     control: form.controls['model']
                   }"></ng-container>
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Type</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'TYPE' | translate}}</label>
             <input class="form-control bg-transparent" type="text" name="type" formControlName="type" autocomplete="off"
                 [ngClass]="{
                 'is-invalid': form.controls['type'].invalid,
@@ -41,13 +41,13 @@
               }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'Type is required',
+                message: ('TYPE'| translate) + ' ' + ('IS_REQUIRED' | translate),
                 control: form.controls['type']
               }"></ng-container>
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Structure Type</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'STRUCTURE_TYPE' | translate}}</label>
             <input class="form-control bg-transparent" type="text" name="structureType" formControlName="structureType" autocomplete="off"
                 [ngClass]="{
                 'is-invalid': form.controls['structureType'].invalid,
@@ -55,13 +55,13 @@
               }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'Structure Type is required',
+                message: ('STRUCTURE_TYPE' | translate) + ' ' + ('IS_REQUIRED' | translate),
                 control: form.controls['structureType']
               }"></ng-container>
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Nominal Capacity (kW)</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'NOMINAL_CAPACITY_KW' | translate}}</label>
             <input class="form-control bg-transparent" type="number" name="nominalCapacity"
                 formControlName="nominalCapacity" autocomplete="off" [ngClass]="{
                 'is-invalid': form.controls['nominalCapacity'].invalid,
@@ -69,13 +69,13 @@
               }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'Nominal Capacity is required',
+                message: ('NOMINAL_CAPACITY_KW' | translate) + ' ' + ('IS_REQUIRED' | translate),
                 control: form.controls['nominalCapacity']
               }"></ng-container>
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">COP</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'COP' | translate}}</label>
             <input class="form-control bg-transparent" type="number" name="cop"
                 formControlName="cop" autocomplete="off" [ngClass]="{
                 'is-invalid': form.controls['cop'].invalid,
@@ -83,7 +83,7 @@
               }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'COP is required',
+                message: ('COP'| translate) + ' ' + ('IS_REQUIRED' | translate),
                 control: form.controls['cop']
               }"></ng-container>
         </div>

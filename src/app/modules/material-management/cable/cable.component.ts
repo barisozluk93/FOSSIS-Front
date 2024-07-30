@@ -8,6 +8,7 @@ import { AuthService } from '../../auth';
 import { MaterialManagementService } from '../material-management.service';
 import { CableEditSaveComponent } from './edit-save/edit-save.component';
 import { CableModel } from '../models/cable.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cable',
@@ -24,18 +25,29 @@ export class CableComponent implements OnInit, OnDestroy {
   hasDeletePermission: boolean;
   hasNewRecordPermission: boolean;
 
-  constructor(private materialManagementService: MaterialManagementService, private authService: AuthService) {}
+  constructor(private materialManagementService: MaterialManagementService, private authService: AuthService, private translate: TranslateService) {}
 
   tableName: string = "Kablolar";
-  columnList: ColumnModel[] = [
+  columnList: ColumnModel[] = [];
+  columnListTr: ColumnModel[] = [
+    {name: "Id", index: "id", visibility: false}, 
+    {name: "Üretici", index: "manufacturer", visibility: true},
+    {name: "Model", index: "model", visibility: true},
+    {name: "Seri", index: "series", visibility: true},  
+    {name: "Tip", index: "type", visibility: true},
+    {name: "Aktif Mi?", index: "isDeleted", visibility: true},  
+    {name: "İşlemler", index: null, visibility: true}
+  ];
+  columnListEn: ColumnModel[] = [
     {name: "Id", index: "id", visibility: false}, 
     {name: "Manufacturer", index: "manufacturer", visibility: true},
     {name: "Model", index: "model", visibility: true},
     {name: "Series", index: "series", visibility: true},  
     {name: "Type", index: "type", visibility: true},
-    {name: "Aktif Mi?", index: "isDeleted", visibility: true},  
-    {name: "İşlemler", index: null, visibility: true}
-  ]
+    {name: "Is Active?", index: "isDeleted", visibility: true},  
+    {name: "Actions", index: null, visibility: true}
+  ];
+
   dataSource: CableModel[];
   totalCount: number;
   paginationModel: PaginationModel;
@@ -101,16 +113,49 @@ export class CableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.initializeLanguageSettings();
     this.controlPermissions();
     this.paginationModel = { pageNumber: 1, pageSize: 10 } as PaginationModel;
     this.loadData();
+  }
+
+  initializeLanguageSettings (){
+    this.translate.onLangChange.subscribe(() => {
+      this.translate.get('CABLES').subscribe((translation: string) => {
+        this.tableName = translation;
+      });
+      this.translate.get('LANG').subscribe((translation: string) => {
+        if(translation==="tr"){
+          this.columnList=this.columnListTr
+        }else{
+          this.columnList=this.columnListEn
+        }
+      });
+
+    });
+
+    this.translate.get('CABLES').subscribe((translation: string) => {
+      this.tableName = translation;
+    });
+
+    this.translate.get('LANG').subscribe((translation: string) => {
+      if(translation==="tr"){
+        this.columnList=this.columnListTr
+      }else{
+        this.columnList=this.columnListEn
+      }
+    });
   }
 
   ngOnDestroy() {
   }
 
   openDeleteModal(event: number) {
-    this.confirmationComponent.openModal('Delete', event);
+    var deleteText = "";
+    this.translate.get('DELETE').subscribe((translation)=>{
+      deleteText = translation;
+    })
+    this.confirmationComponent.openModal(deleteText, event);
   }
 
   openEditModal(event: number) {

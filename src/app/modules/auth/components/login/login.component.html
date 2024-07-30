@@ -13,7 +13,7 @@
   </div>
   <div class="text-center mb-11">
     <h1 class="text-gray-900 fw-bolder mb-3">
-      Sign In
+      {{'LOG_IN' | translate}}
     </h1>
   </div>
   <!--end::Heading-->
@@ -30,7 +30,7 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <label class="form-label fs-6 fw-bolder text-gray-900">Email</label>
+    <label class="form-label fs-6 fw-bolder text-gray-900">{{'EMAIL' | translate}}</label>
     <input class="form-control bg-transparent" type="email" name="email" formControlName="email" autocomplete="off"
       [ngClass]="{
         'is-invalid': loginForm.controls['email'].invalid,
@@ -38,22 +38,22 @@
       }" />
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'required',
-        message: 'Email is required',
+        message: ('EMAIL' | translate) + ' ' + ('IS_REQUIRED' | translate),
         control: loginForm.controls['email']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'email',
-        message: 'Email is invalid',
+        message: ('EMAIL_IS_INVALID' | translate),
         control: loginForm.controls['email']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'minLength',
-        message: 'Email should have at least 3 symbols',
+        message: ('EMAIL_SHOULD_HAVE_AT_LEAST_3_SYMBOLS' | translate),
         control: loginForm.controls['email']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'maxLength',
-        message: 'Email should have maximum 360 symbols',
+        message: ('EMAIL_SHOULD_HAVE_MAXIMUM_360_SYMBOLS' | translate),
         control: loginForm.controls['email']
       }"></ng-container>
   </div>
@@ -62,7 +62,7 @@
   <!--begin::Form group-->
   <div class="fv-row mb-3">
 
-    <label class="form-label fw-bolder text-gray-900 fs-6 mb-0">Password</label>
+    <label class="form-label fw-bolder text-gray-900 fs-6 mb-0">{{'PASSWORD' | translate}}</label>
 
     <input class="form-control bg-transparent" type="password" name="password" autocomplete="off"
       formControlName="password" [ngClass]="{
@@ -71,17 +71,17 @@
       }" />
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'required',
-        message: 'Password is required',
+        message: ('PASSWORD' | translate) + ' ' + ('IS_REQUIRED' | translate),
         control: loginForm.controls['password']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'minlength',
-        message: 'Password should have at least 3 symbols',
+        message: ('PASSWORD_SHOULD_HAVE_AT_LEAST_3_SYMBOLS' | translate),
         control: loginForm.controls['password']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'maxLength',
-        message: 'Password should have maximum 100 symbols',
+        message: ('PASSWORD_SHOULD_HAVE_MAXIMUM_100_SYMBOLS' | translate),
         control: loginForm.controls['password']
       }"></ng-container>
 
@@ -94,7 +94,7 @@
 
     <!--begin::Link-->
     <a routerLink="/auth/forgot-password" class="link-primary">
-      Forgot Password ?
+      {{'FORGOT_PASSWORD' | translate}}
     </a>
     <!--end::Link-->
   </div>
@@ -105,21 +105,21 @@
     <button type="submit" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="loginForm.invalid">
       <ng-container *ngIf="isLoading$ | async">
         <span class="indicator-progress" [style.display]="'block'">
-          Please wait...
+          {{'PLEASE_WAIT' | translate}}
           <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
         </span>
       </ng-container>
       <ng-container *ngIf="(isLoading$ | async) === false">
-        <span class="indicator-label">Continue</span>
+        <span class="indicator-label">{{'CONTINUE' | translate}}</span>
       </ng-container>
     </button>
   </div>
 
   <div class="text-gray-500 text-center fw-semibold fs-6">
-    Not a Member yet?
+    {{'NOT_A_MEMBER_YET' | translate}}
 
     <a routerLink="/auth/registration" class="link-primary">
-      Sign up
+      {{"SIGN_UP" | translate}}
     </a>
   </div>
 

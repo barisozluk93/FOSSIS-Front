@@ -5,7 +5,7 @@
     <form class="form w-100" [formGroup]="form" novalidate="novalidate">
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Name</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'NAME' | translate}}</label>
             <input class="form-control bg-transparent" type="text" name="name" formControlName="name" autocomplete="off"
                 [ngClass]="{
                 'is-invalid': form.controls['name'].invalid,
@@ -13,13 +13,13 @@
               }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'Name is required',
+                message: ('NAME' | translate) + ' ' + ('IS_REQUIRED' | translate),
                 control: form.controls['name']
               }"></ng-container>
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Name in English</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'NAME_IN_ENGLISH' | translate}}</label>
             <input class="form-control bg-transparent" type="text" name="nameEn" formControlName="nameEn" autocomplete="off"
                 [ngClass]="{
                 'is-invalid': form.controls['nameEn'].invalid,
@@ -27,27 +27,27 @@
               }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'Name in English is required',
+                message: ('NAME_IN_ENGLISH' | translate) + ' ' + ('IS_REQUIRED' | translate),
                 control: form.controls['nameEn']
               }"></ng-container>
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Address</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'ADDRESS' | translate}}</label>
             <input class="form-control bg-transparent" type="text" name="url" formControlName="url" autocomplete="off" />
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Icon</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'ICON' | translate}}</label>
             <input class="form-control bg-transparent" type="text" name="icon" formControlName="icon" autocomplete="off" />
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Parent Menu</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'PARENT_MENU' | translate}}</label>
             <select name="parentId" formControlName="parentId" autocomplete="off"
               class="form-select form-select-solid form-select-lg fw-bold"
             >
-                <option value="">Select a Menu...</option>
+                <option value="">{{'SELECT_A_MENU' | translate}}</option>
                 <ng-container *ngFor="let item of menus">
                     <option value={{item.id}}>{{item.name}}</option>
                 </ng-container>
@@ -55,7 +55,7 @@
           </div>
 
           <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Permission</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'PERMISSION' | translate}}</label>
             <select name="permissionId" formControlName="permissionId" autocomplete="off"
               class="form-select form-select-solid form-select-lg fw-bold"
               [ngClass]="{
@@ -63,7 +63,7 @@
                 'is-valid': form.controls['permissionId'].valid
               }"
             >
-                <option value="">Select a Permission...</option>
+                <option value="">{{'SELECT_A_PERMISSION' | translate}}</option>
                 <ng-container *ngFor="let item of permissions">
                     <option value={{item.id}}>{{item.name}}</option>
                 </ng-container>
@@ -71,7 +71,7 @@
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'Permission is required',
+                message: ('PERMISSION' | translate) + ' ' + ('IS_REQUIRED' | translate),
                 control: form.controls['permissionId']
               }"></ng-container>
           </div>

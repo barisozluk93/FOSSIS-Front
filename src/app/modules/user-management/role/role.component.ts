@@ -8,6 +8,7 @@ import { ConfirmationComponent } from '../../confirmation/confirmation.component
 import { AlertComponent } from '../../alert/alert.component';
 import { PermissionEnum } from 'src/app/enums/permission.enum';
 import { AuthService } from '../../auth';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-role',
@@ -24,14 +25,21 @@ export class RoleComponent implements OnInit, OnDestroy {
   hasDeletePermission: boolean;
   hasNewRecordPermission: boolean;
 
-  constructor(private userManagementService: UserManagementService, private authService: AuthService) {}
+  constructor(private userManagementService: UserManagementService, private authService: AuthService, private translate: TranslateService) {}
 
-  tableName: string = "Roller";
-  columnList: ColumnModel[] = [
+  tableName: string = "";
+  columnList: ColumnModel[] = []
+  columnListTr: ColumnModel[] = [
     {name: "Id", index: "id", visibility: false}, 
     {name: "Adı", index: "name", visibility: true}, 
     {name: "Aktif Mi?", index: "isDeleted", visibility: true},  
     {name: "İşlemler", index: null, visibility: true}
+  ]
+  columnListEn: ColumnModel[] = [
+    {name: "Id", index: "id", visibility: false}, 
+    {name: "Name", index: "name", visibility: true}, 
+    {name: "Is Active?", index: "isDeleted", visibility: true},  
+    {name: "Transactions", index: null, visibility: true}
   ]
   dataSource: RoleModel[];
   totalCount: number;
@@ -98,16 +106,49 @@ export class RoleComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.initializeLanguageSettings()
     this.controlPermissions();
     this.paginationModel = { pageNumber: 1, pageSize: 10 } as PaginationModel;
     this.loadData();
+  }
+
+  initializeLanguageSettings (){
+    this.translate.onLangChange.subscribe(() => {
+      this.translate.get('ROLES').subscribe((translation: string) => {
+        this.tableName = translation;
+      });
+      this.translate.get('LANG').subscribe((translation: string) => {
+        if(translation==="tr"){
+          this.columnList=this.columnListTr
+        }else{
+          this.columnList=this.columnListEn
+        }
+      });
+
+    });
+
+    this.translate.get('ROLES').subscribe((translation: string) => {
+      this.tableName = translation;
+    });
+
+    this.translate.get('LANG').subscribe((translation: string) => {
+      if(translation==="tr"){
+        this.columnList=this.columnListTr
+      }else{
+        this.columnList=this.columnListEn
+      }
+    });
   }
 
   ngOnDestroy() {
   }
 
   openDeleteModal(event: number) {
-    this.confirmationComponent.openModal('Delete', event);
+    var deleteText = "";
+    this.translate.get('DELETE').subscribe((translation)=>{
+      deleteText = translation;
+    })
+    this.confirmationComponent.openModal(deleteText, event);
   }
 
   openEditModal(event: number) {

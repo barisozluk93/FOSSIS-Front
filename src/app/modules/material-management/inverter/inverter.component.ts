@@ -8,6 +8,7 @@ import { PermissionEnum } from 'src/app/enums/permission.enum';
 import { AuthService } from '../../auth';
 import { MaterialManagementService } from '../material-management.service';
 import { InverterModel } from '../models/inverter.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-inverter',
@@ -24,19 +25,30 @@ export class InverterComponent implements OnInit, OnDestroy {
   hasDeletePermission: boolean;
   hasNewRecordPermission: boolean;
 
-  constructor(private materialManagementService: MaterialManagementService, private authService: AuthService) {}
+  constructor(private materialManagementService: MaterialManagementService, private authService: AuthService, private translate: TranslateService) {}
 
-  tableName: string = "Inverterlar";
-  columnList: ColumnModel[] = [
+  tableName: string = "";
+  columnList: ColumnModel[] = [];
+  columnListEn: ColumnModel[] = [
     {name: "Id", index: "id", visibility: false}, 
     {name: "Manufacturer", index: "manufacturer", visibility: true},
     {name: "Model", index: "model", visibility: true},
     {name: "Series", index: "series", visibility: true},  
     {name: "Type", index: "type", visibility: true},
     {name: "Nominal AC Power", index: "nominalACPower", visibility: true},
+    {name: "Is Active?", index: "isDeleted", visibility: true},  
+    {name: "Actions", index: null, visibility: true}
+  ];
+  columnListTr: ColumnModel[] = [
+    {name: "Id", index: "id", visibility: false}, 
+    {name: "Üretici", index: "manufacturer", visibility: true},
+    {name: "Model", index: "model", visibility: true},
+    {name: "Seri", index: "series", visibility: true},  
+    {name: "Tip", index: "type", visibility: true},
+    {name: "Nominal AC Gücü", index: "nominalACPower", visibility: true},
     {name: "Aktif Mi?", index: "isDeleted", visibility: true},  
     {name: "İşlemler", index: null, visibility: true}
-  ]
+  ];
   dataSource: InverterModel[];
   totalCount: number;
   paginationModel: PaginationModel;
@@ -102,16 +114,49 @@ export class InverterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.initializeLanguageSettings();
     this.controlPermissions();
     this.paginationModel = { pageNumber: 1, pageSize: 10 } as PaginationModel;
     this.loadData();
+  }
+
+  initializeLanguageSettings (){
+    this.translate.onLangChange.subscribe(() => {
+      this.translate.get('INVERTERS').subscribe((translation: string) => {
+        this.tableName = translation;
+      });
+      this.translate.get('LANG').subscribe((translation: string) => {
+        if(translation==="tr"){
+          this.columnList=this.columnListTr
+        }else{
+          this.columnList=this.columnListEn
+        }
+      });
+
+    });
+
+    this.translate.get('INVERTERS').subscribe((translation: string) => {
+      this.tableName = translation;
+    });
+
+    this.translate.get('LANG').subscribe((translation: string) => {
+      if(translation==="tr"){
+        this.columnList=this.columnListTr
+      }else{
+        this.columnList=this.columnListEn
+      }
+    });
   }
 
   ngOnDestroy() {
   }
 
   openDeleteModal(event: number) {
-    this.confirmationComponent.openModal('Delete', event);
+    var deleteText = "";
+    this.translate.get('DELETE').subscribe((translation)=>{
+      deleteText = translation;
+    })
+    this.confirmationComponent.openModal(deleteText, event);
   }
 
   openEditModal(event: number) {
