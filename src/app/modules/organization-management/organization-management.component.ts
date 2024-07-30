@@ -25,6 +25,9 @@ export class OrganizationManagementComponent implements OnInit, OnDestroy {
   hasDeletePermission: boolean;
   hasNewRecordPermission: boolean;
 
+  searchTerm: string = '';
+  lastSearchTerm: string = '';
+
   constructor(private organizationManagementService: OrganizationManagementService, private authService: AuthService, private translate: TranslateService) {}
 
   tableName: string = "";
@@ -95,7 +98,7 @@ export class OrganizationManagementComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.organizationManagementService.paging(this.paginationModel.pageNumber, this.paginationModel.pageSize)
+    this.organizationManagementService.paging(this.paginationModel.pageNumber, this.paginationModel.pageSize, this.searchTerm)
           .subscribe(result => {
             if(result.isSuccess) {
               result.data.items.forEach(item => {
@@ -167,6 +170,15 @@ export class OrganizationManagementComponent implements OnInit, OnDestroy {
 
   paginationModelChange(event: PaginationModel) {
     this.paginationModel = event;
+    this.loadData();
+  }
+
+  onSearch() {
+    if (this.searchTerm === this.lastSearchTerm) {
+      return;
+    }
+    
+    this.lastSearchTerm = this.searchTerm;
     this.loadData();
   }
 }

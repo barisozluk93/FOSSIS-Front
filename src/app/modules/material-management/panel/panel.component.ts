@@ -25,6 +25,9 @@ export class PanelComponent implements OnInit, OnDestroy {
   hasDeletePermission: boolean;
   hasNewRecordPermission: boolean;
 
+  searchTerm: string = '';
+  lastSearchTerm: string = '';
+
   constructor(private materialManagementService: MaterialManagementService, private authService: AuthService, private translate: TranslateService) {}
 
   tableName: string = "";
@@ -101,7 +104,7 @@ export class PanelComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.materialManagementService.panelPaging(this.paginationModel.pageNumber, this.paginationModel.pageSize)
+    this.materialManagementService.panelPaging(this.paginationModel.pageNumber, this.paginationModel.pageSize, this.searchTerm)
           .subscribe(result => {
             if(result.isSuccess) {
               
@@ -171,6 +174,15 @@ export class PanelComponent implements OnInit, OnDestroy {
 
   paginationModelChange(event: PaginationModel) {
     this.paginationModel = event;
+    this.loadData();
+  }
+
+  onSearch() {
+    if (this.searchTerm === this.lastSearchTerm) {
+      return;
+    }
+    
+    this.lastSearchTerm = this.searchTerm;
     this.loadData();
   }
 }

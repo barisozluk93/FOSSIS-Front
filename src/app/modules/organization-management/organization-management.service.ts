@@ -17,9 +17,9 @@ export class OrganizationManagementService {
 
     // public methods
 
-    paging(pageNumber: number, pageSize: number): Observable<ResultModel<PagingResult<OrganizationModel[]>>> {
+    paging(pageNumber: number, pageSize: number, filterText?: string): Observable<ResultModel<PagingResult<OrganizationModel[]>>> {
         return this.http.get<ResultModel<PagingResult<OrganizationModel[]>>>(`${API_ORGANIZATION_URL}/Paginate`, 
-            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize) });
+            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize).set("FilterText", filterText!==undefined ? filterText : '')});
     }
 
     all(): Observable<ResultModel<OrganizationModel[]>> {

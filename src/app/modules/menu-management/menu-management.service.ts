@@ -24,9 +24,9 @@ export class MenuManagementService {
         return this.http.get<ResultModel<MenuModel[]>>(`${API_MENU_URL}/GetMenuList`);
     }
 
-    paging(pageNumber: number, pageSize: number): Observable<ResultModel<PagingResult<MenuModel[]>>> {
+    paging(pageNumber: number, pageSize: number, filterText?: string): Observable<ResultModel<PagingResult<MenuModel[]>>> {
         return this.http.get<ResultModel<PagingResult<MenuModel[]>>>(`${API_MENU_URL}/Paginate`, 
-            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize) });
+            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize).set("FilterText", filterText!==undefined ? filterText : '')});
     }
 
     getById(id: number): Observable<ResultModel<MenuModel>> {

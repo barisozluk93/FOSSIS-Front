@@ -47,6 +47,9 @@ export class PermissionComponent implements OnInit, OnDestroy {
   totalCount: number;
   paginationModel: PaginationModel;
 
+  searchTerm: string = '';
+  lastSearchTerm: string = '';
+
   controlPermissions() {
     this.authService.currentUserSubject.asObservable().subscribe(result => {
       if(result?.permissions)
@@ -94,7 +97,7 @@ export class PermissionComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.userManagementService.permissionPaging(this.paginationModel.pageNumber, this.paginationModel.pageSize)
+    this.userManagementService.permissionPaging(this.paginationModel.pageNumber, this.paginationModel.pageSize, this.searchTerm)
           .subscribe(result => {
             if(result.isSuccess) {
               this.dataSource = result.data.items;
@@ -162,4 +165,14 @@ export class PermissionComponent implements OnInit, OnDestroy {
     this.paginationModel = event;
     this.loadData();
   }
+
+  onSearch() {
+    if (this.searchTerm === this.lastSearchTerm) {
+      return;
+    }
+    
+    this.lastSearchTerm = this.searchTerm;
+    this.loadData();
+  }
+
 }
