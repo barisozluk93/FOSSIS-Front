@@ -8,6 +8,8 @@ import { UserManagementService } from "../../user-management.service";
 import { OrganizationManagementService } from "src/app/modules/organization-management/organization-management.service";
 import { UserModel } from "../../models/user.model";
 import { ConfirmPasswordValidator } from "./confirm-password.validator";
+import { forkJoin } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: 'app-user-editsave',
@@ -25,7 +27,11 @@ export class UserEditSaveComponent {
     roleList: RoleModel[];
     organizationList: OrganizationModel[];
 
-    constructor(private fb: FormBuilder, private userManagementService: UserManagementService, private organizationManagementService: OrganizationManagementService) { }
+    constructor(private fb: FormBuilder, 
+        private userManagementService: UserManagementService, 
+        private organizationManagementService: OrganizationManagementService,
+        private translate: TranslateService
+    ) { }
 
     disableSubmitButton(): boolean {
         return this.form.valid;
@@ -109,6 +115,14 @@ export class UserEditSaveComponent {
     }
 
     openModal(userId?: number) {
+        const keys = ['NEW_RECORD', 'EDIT', 'SUBMIT', 'CANCEL'];
+        const translations: any = {};
+        const observables = keys.map(key => this.translate.get(key));
+        forkJoin(observables).subscribe((results) => {
+            keys.forEach((key, index) => {
+                translations[key] = results[index]
+            })
+        })
 
         this.userManagementService.allRoles().subscribe(result => {
             if (result.isSuccess) {
@@ -123,11 +137,11 @@ export class UserEditSaveComponent {
         })
 
         this.modalConfig = {
-            modalTitle: userId == null ? 'New Record' : 'Edit',
-            dismissButtonLabel: 'Submit',
+            modalTitle: userId == null ? translations['NEW_RECORD'] : translations['EDIT'],
+            dismissButtonLabel: translations['SUBMIT'],
             onDismiss: this.submit.bind(this),
             shouldDismiss: this.disableSubmitButton.bind(this),
-            closeButtonLabel: 'Cancel',
+            closeButtonLabel: translations['CANCEL'],
         };
 
         if (userId) {

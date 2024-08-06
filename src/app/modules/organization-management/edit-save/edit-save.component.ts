@@ -4,6 +4,8 @@ import { ModalComponent, ModalConfig } from "src/app/_metronic/partials";
 import { OrganizationManagementService } from "../organization-management.service";
 import { OrganizationModel } from "../models/organization.model";
 import { AlertComponent } from "../../alert/alert.component";
+import { forkJoin } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: 'app-organization-editsave',
@@ -20,7 +22,7 @@ export class OrganizationEditSaveComponent implements OnInit{
     form: FormGroup;
     organizations: OrganizationModel[] = [];
 
-    constructor(private fb: FormBuilder, private organizationManagementService: OrganizationManagementService,) {}
+    constructor(private fb: FormBuilder, private organizationManagementService: OrganizationManagementService, private translate: TranslateService) {}
 
     disableSubmitButton() : boolean {
         return this.form.valid;
@@ -51,6 +53,14 @@ export class OrganizationEditSaveComponent implements OnInit{
     }
     
     openModal(organizationId?: number) {
+        const keys = ['NEW_RECORD', 'EDIT', 'SUBMIT', 'CANCEL'];
+        const translations: any = {};
+        const observables = keys.map(key => this.translate.get(key));
+        forkJoin(observables).subscribe((results) => {
+            keys.forEach((key, index) => {
+                translations[key] = results[index]
+            })
+        })
 
         this.organizationManagementService.all().subscribe(result => {
             if(result.isSuccess) {
@@ -60,13 +70,11 @@ export class OrganizationEditSaveComponent implements OnInit{
         })
 
         this.modalConfig = {
-            modalTitle: organizationId == null ? 'New Record' : 'Edit',
-            dismissButtonLabel: 'Submit',
+            modalTitle: organizationId == null ? translations['NEW_RECORD'] : translations['EDIT'],
+            dismissButtonLabel: translations['SUBMIT'],
             onDismiss: this.submit.bind(this),
             shouldDismiss: this.disableSubmitButton.bind(this),
-            closeButtonLabel: 'Cancel',
-
-            
+            closeButtonLabel: translations['CANCEL']
         };
 
         if (organizationId) {

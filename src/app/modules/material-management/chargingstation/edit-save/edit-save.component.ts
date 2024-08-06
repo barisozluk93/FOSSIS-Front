@@ -4,6 +4,8 @@ import { ModalComponent, ModalConfig } from "src/app/_metronic/partials";
 import { AlertComponent } from "src/app/modules/alert/alert.component";
 import { MaterialManagementService } from "../../material-management.service";
 import { ChargingStationModel } from "../../models/chargingstation.model";
+import { forkJoin } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: 'app-chargingstation-editsave',
@@ -19,7 +21,7 @@ export class ChargingStationEditSaveComponent {
     modalConfig: ModalConfig;
     form: FormGroup;
 
-    constructor(private fb: FormBuilder, private materialManagementService: MaterialManagementService,) {}
+    constructor(private fb: FormBuilder, private materialManagementService: MaterialManagementService, private translate: TranslateService) {}
 
     disableSubmitButton() : boolean {
         return this.form.valid;
@@ -71,13 +73,21 @@ export class ChargingStationEditSaveComponent {
     }
 
     openModal(chargingstationId?: number) {
+        const keys = ['NEW_RECORD', 'EDIT', 'SUBMIT', 'CANCEL'];
+        const translations: any = {};
+        const observables = keys.map(key => this.translate.get(key));
+        forkJoin(observables).subscribe((results) => {
+            keys.forEach((key, index) => {
+                translations[key] = results[index]
+            })
+        })
 
         this.modalConfig = {
-            modalTitle: chargingstationId == null ? 'New Record' : 'Edit',
-            dismissButtonLabel: 'Submit',
+            modalTitle: chargingstationId == null ? translations['NEW_RECORD'] : translations['EDIT'],
+            dismissButtonLabel: translations['SUBMIT'],
             onDismiss: this.submit.bind(this),
             shouldDismiss: this.disableSubmitButton.bind(this),
-            closeButtonLabel: 'Cancel',
+            closeButtonLabel: translations['CANCEL']
         };
 
         if (chargingstationId) {

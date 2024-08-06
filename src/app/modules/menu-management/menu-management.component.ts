@@ -8,6 +8,7 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { AlertComponent } from '../alert/alert.component';
 import { PermissionEnum } from 'src/app/enums/permission.enum';
 import { AuthService } from '../auth';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-menu-management',
@@ -24,10 +25,14 @@ export class MenuManagementComponent implements OnInit, OnDestroy {
   hasDeletePermission: boolean;
   hasNewRecordPermission: boolean;
 
-  constructor(private menuManagementService: MenuManagementService, private authService: AuthService) {}
+  searchTerm: string = '';
+  lastSearchTerm: string = '';
 
-  tableName: string = "Menüler";
-  columnList: ColumnModel[] = [
+  constructor(private menuManagementService: MenuManagementService, private authService: AuthService, private translate: TranslateService) {}
+
+  tableName: string = "";
+  columnList: ColumnModel[] = [];
+  columnListTr: ColumnModel[] = [
     {name: "Id", index: "id", visibility: false}, 
     {name: "Adı", index: "name", visibility: true},
     {name: "İngilizce Adı", index: "nameEn", visibility: true},  
@@ -36,6 +41,16 @@ export class MenuManagementComponent implements OnInit, OnDestroy {
     {name: "Aktif Mi?", index: "isDeleted", visibility: true},  
     {name: "İşlemler", index: null, visibility: true}
   ]
+  columnListEn: ColumnModel[] = [
+    {name: "Id", index: "id", visibility: false}, 
+    {name: "Name", index: "name", visibility: true},
+    {name: "English Name", index: "nameEn", visibility: true},  
+    {name: "Address", index: "url", visibility: true},
+    {name: "Parent Menu Name", index: "parentName", visibility: true},
+    {name: "Is Active?", index: "isDeleted", visibility: true},  
+    {name: "Actions", index: null, visibility: true}
+  ];
+
   dataSource: MenuModel[];
   totalCount: number;
   paginationModel: PaginationModel;
@@ -103,8 +118,9 @@ export class MenuManagementComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.menuManagementService.paging(this.paginationModel.pageNumber, this.paginationModel.pageSize)
+    this.menuManagementService.paging(this.paginationModel.pageNumber, this.paginationModel.pageSize, this.searchTerm)
           .subscribe(result => {
+            console.log(result)
             if(result.isSuccess) {
               result.data.items.forEach(item => {
                 item.parentName = item.parent ? item.parent.name : '';
@@ -120,16 +136,49 @@ export class MenuManagementComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.initializeLanguageSettings();
     this.controlPermissions();
     this.paginationModel = { pageNumber: 1, pageSize: 10 } as PaginationModel;
     this.loadData();
+  }
+
+  initializeLanguageSettings (){
+    this.translate.onLangChange.subscribe(() => {
+      this.translate.get('MENUS').subscribe((translation: string) => {
+        this.tableName = translation;
+      });
+      this.translate.get('LANG').subscribe((translation: string) => {
+        if(translation==="tr"){
+          this.columnList=this.columnListTr
+        }else{
+          this.columnList=this.columnListEn
+        }
+      });
+
+    });
+
+    this.translate.get('MENUS').subscribe((translation: string) => {
+      this.tableName = translation;
+    });
+
+    this.translate.get('LANG').subscribe((translation: string) => {
+      if(translation==="tr"){
+        this.columnList=this.columnListTr
+      }else{
+        this.columnList=this.columnListEn
+      }
+    });
   }
 
   ngOnDestroy() {
   }
 
   openDeleteModal(event: number) {
-    this.confirmationComponent.openModal('Delete', event);
+    var deleteText = "";
+    this.translate.get('DELETE').subscribe((translation)=>{
+      deleteText = translation;
+    })
+    this.confirmationComponent.openModal(deleteText, event);
   }
 
   openEditModal(event: number) {
@@ -142,6 +191,15 @@ export class MenuManagementComponent implements OnInit, OnDestroy {
 
   paginationModelChange(event: PaginationModel) {
     this.paginationModel = event;
+    this.loadData();
+  }
+
+  onSearch() {
+    if (this.searchTerm === this.lastSearchTerm) {
+      return;
+    }
+    
+    this.lastSearchTerm = this.searchTerm;
     this.loadData();
   }
 }

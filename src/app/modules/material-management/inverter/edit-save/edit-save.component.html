@@ -5,7 +5,7 @@
     <form class="form w-100" [formGroup]="form" novalidate="novalidate">
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Manufacturer</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'MANUFACTURER' | translate}}</label>
             <input class="form-control bg-transparent" type="text" name="manufacturer" formControlName="manufacturer"
                 autocomplete="off" [ngClass]="{
                       'is-invalid': form.controls['manufacturer'].invalid,
@@ -13,13 +13,13 @@
                     }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                       validation: 'required',
-                      message: 'Manufacturer is required',
+                      message: ('MANUFACTURER' | translate) + ' ' + ('IS_REQUIRED' | translate),
                       control: form.controls['manufacturer']
                     }"></ng-container>
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Model</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'MODEL' | translate}}</label>
             <input class="form-control bg-transparent" type="text" name="model" formControlName="model"
                 autocomplete="off" [ngClass]="{
                     'is-invalid': form.controls['model'].invalid,
@@ -27,13 +27,13 @@
                   }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                     validation: 'required',
-                    message: 'Model is required',
+                    message: ('MODEL' | translate) + ' ' + ('IS_REQUIRED' | translate),
                     control: form.controls['model']
                   }"></ng-container>
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Series</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'SERIES' | translate}}</label>
             <input class="form-control bg-transparent" type="text" name="series" formControlName="series"
                 autocomplete="off" [ngClass]="{
                 'is-invalid': form.controls['series'].invalid,
@@ -41,13 +41,13 @@
               }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'Series is required',
+                message: ('SERIES' | translate) + ' ' + ('IS_REQUIRED' | translate),
                 control: form.controls['series']
               }"></ng-container>
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Nominal AC Power</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'NOMINAL_AC_POWER' | translate}}</label>
             <input class="form-control bg-transparent" type="number" name="nominalACPower"
                 formControlName="nominalACPower" autocomplete="off" [ngClass]="{
                 'is-invalid': form.controls['nominalACPower'].invalid,
@@ -55,13 +55,13 @@
               }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'Nominal AC Power is required',
+                message: ('NOMINAL_AC_POWER' | translate) + ' ' + ('IS_REQUIRED' | translate),
                 control: form.controls['nominalACPower']
               }"></ng-container>
         </div>
 
         <div class="fv-row mb-8">
-            <label class="form-label fs-6 fw-bolder text-gray-900">Type</label>
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'TYPE' | translate}}</label>
             <input class="form-control bg-transparent" type="text" name="type" formControlName="type" autocomplete="off"
                 [ngClass]="{
                 'is-invalid': form.controls['type'].invalid,
@@ -69,7 +69,7 @@
               }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'Type is required',
+                message: ('TYPE' | translate) + ' ' + ('IS_REQUIRED' | translate),
                 control: form.controls['type']
               }"></ng-container>
         </div>

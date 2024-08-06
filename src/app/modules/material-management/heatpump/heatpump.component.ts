@@ -8,6 +8,7 @@ import { AuthService } from '../../auth';
 import { MaterialManagementService } from '../material-management.service';
 import { HeatPumpEditSaveComponent } from './edit-save/edit-save.component';
 import { HeatPumpModel } from '../models/heatpump.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-heatpump',
@@ -24,10 +25,14 @@ export class HeatPumpComponent implements OnInit, OnDestroy {
   hasDeletePermission: boolean;
   hasNewRecordPermission: boolean;
 
-  constructor(private materialManagementService: MaterialManagementService, private authService: AuthService) {}
+  searchTerm: string = '';
+  lastSearchTerm: string = '';
 
-  tableName: string = "Isı Pompaları";
-  columnList: ColumnModel[] = [
+  constructor(private materialManagementService: MaterialManagementService, private authService: AuthService, private translate: TranslateService) {}
+
+  tableName: string = "";
+  columnList: ColumnModel[] = [];
+  columnListEn: ColumnModel[] = [
     {name: "Id", index: "id", visibility: false}, 
     {name: "Manufacturer", index: "manufacturer", visibility: true},
     {name: "Model", index: "model", visibility: true},
@@ -35,9 +40,21 @@ export class HeatPumpComponent implements OnInit, OnDestroy {
     {name: "Structure Type", index: "structureType", visibility: true},  
     {name: "Nominal Capacity (kW)", index: "nominalCapacity", visibility: true},
     {name: "COP", index: "cop", visibility: true},
+    {name: "Is Active?", index: "isDeleted", visibility: true},  
+    {name: "Actions", index: null, visibility: true}
+  ];
+  columnListTr: ColumnModel[] = [
+    {name: "Id", index: "id", visibility: false}, 
+    {name: "Üretici", index: "manufacturer", visibility: true},
+    {name: "Model", index: "model", visibility: true},
+    {name: "Tip", index: "type", visibility: true},
+    {name: "Yapı Tipi", index: "structureType", visibility: true},  
+    {name: "Nominal Kapasite (kW)", index: "nominalCapacity", visibility: true},
+    {name: "COP", index: "cop", visibility: true},
     {name: "Aktif Mi?", index: "isDeleted", visibility: true},  
     {name: "İşlemler", index: null, visibility: true}
-  ]
+  ];
+
   dataSource: HeatPumpModel[];
   totalCount: number;
   paginationModel: PaginationModel;
@@ -89,7 +106,8 @@ export class HeatPumpComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.materialManagementService.heatPumpPaging(this.paginationModel.pageNumber, this.paginationModel.pageSize)
+    this.initializeLanguageSettings();
+    this.materialManagementService.heatPumpPaging(this.paginationModel.pageNumber, this.paginationModel.pageSize, this.searchTerm)
           .subscribe(result => {
             if(result.isSuccess) {
               this.dataSource = result.data.items;
@@ -108,11 +126,43 @@ export class HeatPumpComponent implements OnInit, OnDestroy {
     this.loadData();
   }
 
+  initializeLanguageSettings (){
+    this.translate.onLangChange.subscribe(() => {
+      this.translate.get('HEAT_PUMPS').subscribe((translation: string) => {
+        this.tableName = translation;
+      });
+      this.translate.get('LANG').subscribe((translation: string) => {
+        if(translation==="tr"){
+          this.columnList=this.columnListTr
+        }else{
+          this.columnList=this.columnListEn
+        }
+      });
+
+    });
+
+    this.translate.get('HEAT_PUMPS').subscribe((translation: string) => {
+      this.tableName = translation;
+    });
+
+    this.translate.get('LANG').subscribe((translation: string) => {
+      if(translation==="tr"){
+        this.columnList=this.columnListTr
+      }else{
+        this.columnList=this.columnListEn
+      }
+    });
+  }
+
   ngOnDestroy() {
   }
 
   openDeleteModal(event: number) {
-    this.confirmationComponent.openModal('Delete', event);
+    var deleteText = "";
+    this.translate.get('DELETE').subscribe((translation)=>{
+      deleteText = translation;
+    })
+    this.confirmationComponent.openModal(deleteText, event);
   }
 
   openEditModal(event: number) {
@@ -125,6 +175,15 @@ export class HeatPumpComponent implements OnInit, OnDestroy {
 
   paginationModelChange(event: PaginationModel) {
     this.paginationModel = event;
+    this.loadData();
+  }
+
+  onSearch() {
+    if (this.searchTerm === this.lastSearchTerm) {
+      return;
+    }
+    
+    this.lastSearchTerm = this.searchTerm;
     this.loadData();
   }
 }

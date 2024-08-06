@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { forkJoin } from 'rxjs';
 import { ModalComponent, ModalConfig } from 'src/app/_metronic/partials';
 import { ColumnModel } from 'src/app/models/column-model';
 import { PaginationModel } from 'src/app/models/pagination.model';
@@ -19,7 +21,7 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
   id: number | undefined;
   @Output() dismissButtonClick: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor() { }
+  constructor(private translate: TranslateService) { }
 
   ngOnInit(): void {
 
@@ -30,13 +32,21 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
   }
 
   openModal(title: string, id?: number) {
+    const keys = ['YES', 'NO'];
+        const translations: any = {};
+        const observables = keys.map(key => this.translate.get(key));
+        forkJoin(observables).subscribe((results) => {
+            keys.forEach((key, index) => {
+                translations[key] = results[index]
+            })
+        })
 
     this.id = id;
 
     this.modalConfig = {
       modalTitle: title,
-      dismissButtonLabel: 'Yes',
-      closeButtonLabel: 'No',
+      dismissButtonLabel: translations['YES'],
+      closeButtonLabel: translations['NO'],
       onDismiss: this.dismissClicked.bind(this)
     }
 

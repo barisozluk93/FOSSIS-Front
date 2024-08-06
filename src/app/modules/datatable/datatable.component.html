@@ -30,7 +30,7 @@
         [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
         class="svg-icon svg-icon-3"
       ></span>
-      New
+      {{'NEW' | translate}}
     </a>
   </div>
 </div>
@@ -65,8 +65,8 @@
               </div>
             </td>
             <td *ngIf="column.visibility && column.index != null && column.index == 'isDeleted'">
-              <span *ngIf="!data[column?.index!]" class="badge badge-light-success fs-8 fw-bolder">Aktif</span>
-              <span *ngIf="data[column?.index!]" class="badge badge-light-danger fs-8 fw-bolder">Pasif</span>
+              <span *ngIf="!data[column?.index!]" class="badge badge-light-success fs-8 fw-bolder">{{'ACTIVE' | translate}}</span>
+              <span *ngIf="data[column?.index!]" class="badge badge-light-danger fs-8 fw-bolder">{{'PASSIVE' | translate}}</span>
             </td>
             <td *ngIf="column.visibility && column.index == null && 
                   !data['isSystemData'] && !data['isDeleted'] &&

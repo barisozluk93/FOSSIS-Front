@@ -6,6 +6,8 @@ import { MenuModel } from "../models/menu.model";
 import { MenuManagementService } from "../menu-management.service";
 import { PermissionModel } from "../../user-management/models/permission.model";
 import { UserManagementService } from "../../user-management/user-management.service";
+import { forkJoin } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: 'app-menu-editsave',
@@ -23,7 +25,11 @@ export class MenuEditSaveComponent {
     menus: MenuModel[] = [];
     permissions: PermissionModel[] = [];
 
-    constructor(private fb: FormBuilder, private menuManagementService: MenuManagementService, private userManagementService: UserManagementService) {}
+    constructor(private fb: FormBuilder, 
+        private menuManagementService: MenuManagementService, 
+        private userManagementService: UserManagementService,
+        private translate: TranslateService
+    ) {}
 
     disableSubmitButton() : boolean {
         return this.form.valid;
@@ -73,6 +79,14 @@ export class MenuEditSaveComponent {
     }
     
     openModal(organizationId?: number) {
+        const keys = ['NEW_RECORD', 'EDIT', 'SUBMIT', 'CANCEL'];
+        const translations: any = {};
+        const observables = keys.map(key => this.translate.get(key));
+        forkJoin(observables).subscribe((results) => {
+            keys.forEach((key, index) => {
+                translations[key] = results[index]
+            })
+        })
 
         this.menuManagementService.all().subscribe(result => {
             if(result.isSuccess) {
@@ -87,11 +101,11 @@ export class MenuEditSaveComponent {
         })
 
         this.modalConfig = {
-            modalTitle: organizationId == null ? 'New Record' : 'Edit',
-            dismissButtonLabel: 'Submit',
+            modalTitle: organizationId == null ? translations['NEW_RECORD'] : translations['EDIT'],
+            dismissButtonLabel: translations['SUBMIT'],
             onDismiss: this.submit.bind(this),
             shouldDismiss: this.disableSubmitButton.bind(this),
-            closeButtonLabel: 'Cancel',
+            closeButtonLabel: translations['CANCEL']
 
             
         };

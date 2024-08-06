@@ -6,6 +6,8 @@ import { UserManagementService } from "../../user-management.service";
 import { RoleModel } from "../../models/role.model";
 import { PermissionModel } from "../../models/permission.model";
 import { data } from "jquery";
+import { forkJoin } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: 'app-role-editsave',
@@ -22,7 +24,7 @@ export class RoleEditSaveComponent {
     form: FormGroup;
     permissionList: PermissionModel[];
 
-    constructor(private fb: FormBuilder, private userManagementService: UserManagementService,) {}
+    constructor(private fb: FormBuilder, private userManagementService: UserManagementService, private translate: TranslateService) {}
 
     disableSubmitButton() : boolean {
         return this.form.valid;
@@ -57,6 +59,14 @@ export class RoleEditSaveComponent {
     }
 
     openModal(roleId?: number) {
+        const keys = ['NEW_RECORD', 'EDIT', 'SUBMIT', 'CANCEL'];
+        const translations: any = {};
+        const observables = keys.map(key => this.translate.get(key));
+        forkJoin(observables).subscribe((results) => {
+            keys.forEach((key, index) => {
+                translations[key] = results[index]
+            })
+        })
 
         this.userManagementService.allPermissions().subscribe(result => {
             if(result.isSuccess) {
@@ -65,11 +75,11 @@ export class RoleEditSaveComponent {
         })
 
         this.modalConfig = {
-            modalTitle: roleId == null ? 'New Record' : 'Edit',
-            dismissButtonLabel: 'Submit',
+            modalTitle: roleId == null ? translations['NEW_RECORD'] : translations['EDIT'],
+            dismissButtonLabel: translations['SUBMIT'],
             onDismiss: this.submit.bind(this),
             shouldDismiss: this.disableSubmitButton.bind(this),
-            closeButtonLabel: 'Cancel',
+            closeButtonLabel: translations['CANCEL']
         };
 
         if (roleId) {

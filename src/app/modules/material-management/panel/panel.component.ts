@@ -8,6 +8,7 @@ import { AuthService } from '../../auth';
 import { MaterialManagementService } from '../material-management.service';
 import { PanelEditSaveComponent } from './edit-save/edit-save.component';
 import { PanelModel } from '../models/panel.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-panel',
@@ -24,19 +25,34 @@ export class PanelComponent implements OnInit, OnDestroy {
   hasDeletePermission: boolean;
   hasNewRecordPermission: boolean;
 
-  constructor(private materialManagementService: MaterialManagementService, private authService: AuthService) {}
+  searchTerm: string = '';
+  lastSearchTerm: string = '';
 
-  tableName: string = "Paneller";
-  columnList: ColumnModel[] = [
+  constructor(private materialManagementService: MaterialManagementService, private authService: AuthService, private translate: TranslateService) {}
+
+  tableName: string = "";
+  columnList: ColumnModel[] = [];
+  columnListEn: ColumnModel[] = [
     {name: "Id", index: "id", visibility: false}, 
     {name: "Manufacturer", index: "manufacturer", visibility: true},
     {name: "Model", index: "model", visibility: true},
     {name: "Series", index: "series", visibility: true},  
     {name: "Type", index: "type", visibility: true},
     {name: "Maximum DC Power", index: "maximumDCPower", visibility: true},
+    {name: "Is Active?", index: "isDeleted", visibility: true},  
+    {name: "Actions", index: null, visibility: true}
+  ];
+  columnListTr: ColumnModel[] = [
+    {name: "Id", index: "id", visibility: false}, 
+    {name: "Üretici", index: "manufacturer", visibility: true},
+    {name: "Model", index: "model", visibility: true},
+    {name: "Seri", index: "series", visibility: true},  
+    {name: "Tip", index: "type", visibility: true},
+    {name: "Maksimum DC Gücü", index: "maximumDCPower", visibility: true},
     {name: "Aktif Mi?", index: "isDeleted", visibility: true},  
     {name: "İşlemler", index: null, visibility: true}
-  ]
+  ];
+
   dataSource: PanelModel[];
   totalCount: number;
   paginationModel: PaginationModel;
@@ -88,7 +104,7 @@ export class PanelComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.materialManagementService.panelPaging(this.paginationModel.pageNumber, this.paginationModel.pageSize)
+    this.materialManagementService.panelPaging(this.paginationModel.pageNumber, this.paginationModel.pageSize, this.searchTerm)
           .subscribe(result => {
             if(result.isSuccess) {
               
@@ -103,16 +119,49 @@ export class PanelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.initializeLanguageSettings();
     this.controlPermissions();
     this.paginationModel = { pageNumber: 1, pageSize: 10 } as PaginationModel;
     this.loadData();
+  }
+
+  initializeLanguageSettings (){
+    this.translate.onLangChange.subscribe(() => {
+      this.translate.get('PANELS').subscribe((translation: string) => {
+        this.tableName = translation;
+      });
+      this.translate.get('LANG').subscribe((translation: string) => {
+        if(translation==="tr"){
+          this.columnList=this.columnListTr
+        }else{
+          this.columnList=this.columnListEn
+        }
+      });
+
+    });
+
+    this.translate.get('PANELS').subscribe((translation: string) => {
+      this.tableName = translation;
+    });
+
+    this.translate.get('LANG').subscribe((translation: string) => {
+      if(translation==="tr"){
+        this.columnList=this.columnListTr
+      }else{
+        this.columnList=this.columnListEn
+      }
+    });
   }
 
   ngOnDestroy() {
   }
 
   openDeleteModal(event: number) {
-    this.confirmationComponent.openModal('Delete', event);
+    var deleteText = "";
+    this.translate.get('DELETE').subscribe((translation)=>{
+      deleteText = translation;
+    })
+    this.confirmationComponent.openModal(deleteText, event);
   }
 
   openEditModal(event: number) {
@@ -125,6 +174,15 @@ export class PanelComponent implements OnInit, OnDestroy {
 
   paginationModelChange(event: PaginationModel) {
     this.paginationModel = event;
+    this.loadData();
+  }
+
+  onSearch() {
+    if (this.searchTerm === this.lastSearchTerm) {
+      return;
+    }
+    
+    this.lastSearchTerm = this.searchTerm;
     this.loadData();
   }
 }

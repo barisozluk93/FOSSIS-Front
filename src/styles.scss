@@ -31,3 +31,7 @@
     padding-left: 100px !important;
     left: 100px !important
 }
+
+input[type="search"]::-webkit-search-cancel-button {
+    cursor: pointer;
+}

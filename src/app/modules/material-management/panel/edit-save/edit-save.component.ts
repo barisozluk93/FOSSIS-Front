@@ -5,6 +5,8 @@ import { AlertComponent } from "src/app/modules/alert/alert.component";
 import { OrganizationManagementService } from "src/app/modules/organization-management/organization-management.service";
 import { MaterialManagementService } from "../../material-management.service";
 import { PanelModel } from "../../models/panel.model";
+import { forkJoin } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: 'app-panel-editsave',
@@ -20,7 +22,12 @@ export class PanelEditSaveComponent {
     modalConfig: ModalConfig;
     form: FormGroup;
 
-    constructor(private fb: FormBuilder, private materialManagementService: MaterialManagementService, private organizationManagementService: OrganizationManagementService) { }
+    constructor(
+        private fb: FormBuilder, 
+        private materialManagementService: MaterialManagementService, 
+        private organizationManagementService: OrganizationManagementService,
+        private translate: TranslateService
+    ) { }
 
     disableSubmitButton(): boolean {
         return this.form.valid;
@@ -72,13 +79,21 @@ export class PanelEditSaveComponent {
     }
 
     openModal(panelId?: number) {
+        const keys = ['NEW_RECORD', 'EDIT', 'SUBMIT', 'CANCEL'];
+        const translations: any = {};
+        const observables = keys.map(key => this.translate.get(key));
+        forkJoin(observables).subscribe((results) => {
+            keys.forEach((key, index) => {
+                translations[key] = results[index]
+            })
+        })
 
         this.modalConfig = {
-            modalTitle: panelId == null ? 'New Record' : 'Edit',
-            dismissButtonLabel: 'Submit',
+            modalTitle: panelId == null ? translations['NEW_RECORD'] : translations['EDIT'],
+            dismissButtonLabel: translations['SUBMIT'],
             onDismiss: this.submit.bind(this),
             shouldDismiss: this.disableSubmitButton.bind(this),
-            closeButtonLabel: 'Cancel',
+            closeButtonLabel: translations['CANCEL']
         };
 
         if (panelId) {

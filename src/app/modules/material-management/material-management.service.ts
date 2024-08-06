@@ -30,9 +30,9 @@ export class MaterialManagementService {
     // public methods
 
     //Panel
-    panelPaging(pageNumber: number, pageSize: number): Observable<ResultModel<PagingResult<PanelModel[]>>> {
+    panelPaging(pageNumber: number, pageSize: number,  filterText?: string): Observable<ResultModel<PagingResult<PanelModel[]>>> {
         return this.http.get<ResultModel<PagingResult<PanelModel[]>>>(`${API_MATERIAL_PANEL_URL}/Paginate`, 
-            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize) });
+            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize).set("PageSize", pageSize).set("FilterText", filterText!==undefined ? filterText : '') });
     }
 
     allPanels(): Observable<ResultModel<PanelModel[]>> {
@@ -56,9 +56,9 @@ export class MaterialManagementService {
     }
 
     //Inverter
-    inverterPaging(pageNumber: number, pageSize: number): Observable<ResultModel<PagingResult<InverterModel[]>>> {
+    inverterPaging(pageNumber: number, pageSize: number, filterText?: string): Observable<ResultModel<PagingResult<InverterModel[]>>> {
         return this.http.get<ResultModel<PagingResult<InverterModel[]>>>(`${API_MATERIAL_INVERTER_URL}/Paginate`, 
-            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize) });
+            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize).set("PageSize", pageSize).set("FilterText", filterText!==undefined ? filterText : '') });
     }
 
     allInverters(): Observable<ResultModel<InverterModel[]>> {
@@ -82,9 +82,9 @@ export class MaterialManagementService {
     }
 
     //HeatPump
-    heatPumpPaging(pageNumber: number, pageSize: number): Observable<ResultModel<PagingResult<HeatPumpModel[]>>> {
+    heatPumpPaging(pageNumber: number, pageSize: number, filterText?: string): Observable<ResultModel<PagingResult<HeatPumpModel[]>>> {
         return this.http.get<ResultModel<PagingResult<HeatPumpModel[]>>>(`${API_MATERIAL_HEATPUMP_URL}/Paginate`, 
-            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize) });
+            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize).set("PageSize", pageSize).set("FilterText", filterText!==undefined ? filterText : '') });
     }
 
     allheatPumps(): Observable<ResultModel<HeatPumpModel[]>> {
@@ -108,9 +108,9 @@ export class MaterialManagementService {
     }
 
     //Battery
-    batteryPaging(pageNumber: number, pageSize: number): Observable<ResultModel<PagingResult<BatteryModel[]>>> {
+    batteryPaging(pageNumber: number, pageSize: number, filterText?: string): Observable<ResultModel<PagingResult<BatteryModel[]>>> {
         return this.http.get<ResultModel<PagingResult<BatteryModel[]>>>(`${API_MATERIAL_BATTERY_URL}/Paginate`, 
-            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize) });
+            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize).set("FilterText", filterText!==undefined ? filterText : '')});
     }
 
     allBatteries(): Observable<ResultModel<BatteryModel[]>> {
@@ -134,9 +134,9 @@ export class MaterialManagementService {
     }
 
     //Cable
-    cablePaging(pageNumber: number, pageSize: number): Observable<ResultModel<PagingResult<CableModel[]>>> {
+    cablePaging(pageNumber: number, pageSize: number, filterText?: string): Observable<ResultModel<PagingResult<CableModel[]>>> {
         return this.http.get<ResultModel<PagingResult<CableModel[]>>>(`${API_MATERIAL_CABLE_URL}/Paginate`, 
-            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize) });
+            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize).set("FilterText", filterText!==undefined ? filterText : '')});
     }
 
     allCables(): Observable<ResultModel<CableModel[]>> {
@@ -160,9 +160,9 @@ export class MaterialManagementService {
     }
 
     //Construction
-    constructionPaging(pageNumber: number, pageSize: number): Observable<ResultModel<PagingResult<ConstructionModel[]>>> {
+    constructionPaging(pageNumber: number, pageSize: number, filterText?: string): Observable<ResultModel<PagingResult<ConstructionModel[]>>> {
         return this.http.get<ResultModel<PagingResult<ConstructionModel[]>>>(`${API_MATERIAL_CONSTRUCTION_URL}/Paginate`, 
-            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize) });
+            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize).set("PageSize", pageSize).set("FilterText", filterText!==undefined ? filterText : '') });
     }
 
     allConstructions(): Observable<ResultModel<ConstructionModel[]>> {
@@ -186,9 +186,9 @@ export class MaterialManagementService {
     }
 
     //ChargingStation
-    chargingStationPaging(pageNumber: number, pageSize: number): Observable<ResultModel<PagingResult<ChargingStationModel[]>>> {
+    chargingStationPaging(pageNumber: number, pageSize: number, filterText?: string): Observable<ResultModel<PagingResult<ChargingStationModel[]>>> {
         return this.http.get<ResultModel<PagingResult<ChargingStationModel[]>>>(`${API_MATERIAL_CHARGINGSTATION_URL}/Paginate`, 
-            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize) });
+            { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize).set("PageSize", pageSize).set("FilterText", filterText!==undefined ? filterText : '') });
     }
 
     allChargingStations(): Observable<ResultModel<ChargingStationModel[]>> {
