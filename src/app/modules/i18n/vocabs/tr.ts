@@ -4,7 +4,7 @@ export const locale = {
     data: {
         LANG: 'tr',
         LANGUAGE: "Dil",
-        //Olması Gereken Kısım
+
         LOG_IN: "Giriş Yap",
         SIGN_OUT: 'Çıkış Yap',
         SIGN_UP: "Üye Ol",
@@ -47,6 +47,7 @@ export const locale = {
         CONTINUE: 'Devam Et',
         NOT_A_MEMBER_YET: 'Henüz üye değil misiniz?',
         NEW: "Yeni",
+        INFO: 'Bilgi',
 
         PERMISSION: 'Yetkİ',
         PERMISSIONS: 'Yetkiler',
@@ -143,6 +144,15 @@ export const locale = {
         NOMATCH_PASSWORD: "'Şifre' ve 'Şifre Onayla' eşleşmiyor!'",
         RESET_PASSWORD_MAIL: 'Şifrenizi yenilemek için mail adresinizi giriniz.',
         ERRORS_DETECTED_TRY_AGAIN: 'Üzgünüz, bazı hatalar tespit edildi, lütfen tekrar deneyin.',
-        SENT_PASSWORD_RESET_CHECK_EMAIL: 'Şifre sıfırlama gönderildi. Lütfen e-postanızı kontrol edin.'
+        SENT_PASSWORD_RESET_CHECK_EMAIL: 'Şifre sıfırlama gönderildi. Lütfen e-postanızı kontrol edin.',
+
+        //MAP
+        AREA_MEASUREMENT: 'Alan Ölçümü',
+        GO_TO_COORDINATE: 'Koordinata Git',
+        LONGITUDE: 'Boylam',
+        LATITUDE: 'Enlem',
+        LENGTH_MEASUREMENT: 'Uzunluk Ölçümü',
+        MAP_GO_TO_HOME: 'Ana Bölgeye Git',
+        EXPORT_MAP: 'Haritayı Dışa Aktar'
     }
 };

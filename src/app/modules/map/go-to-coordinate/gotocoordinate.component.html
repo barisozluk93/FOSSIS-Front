@@ -4,7 +4,7 @@
             <h4 class="card-title align-items-start mt-4" style="margin-left: 2rem;">
                 <a class="card-label fw-bolder fs-3">
                     <span [inlineSVG]="'./assets/media/icons/duotune/general/gen018.svg'" class="svg-icon svg-icon-3" [ngClass]="'svg-icon-primary'"></span>
-                    Go To Coordinate
+                    {{'GO_TO_COORDINATE' | translate}}
                 </a>
             </h4>
             <div class="card-toolbar">
@@ -15,14 +15,14 @@
         </div>
         <div class="card-body">
             <div class="row fv-row mb-7">
-                <label class="form-label fs-6 fw-bolder text-gray-900">Longitude</label>
+                <label class="form-label fs-6 fw-bolder text-gray-900">{{'LONGITUDE' | translate}}</label>
                 <input class="form-control bg-transparent" type="text" name="longitude"
-                    [(ngModel)]="longitude" placeholder="Longitude" />
+                    [(ngModel)]="longitude" placeholder="{{'LONGITUDE' | translate}}" />
             </div>
             <div class="row fv-row mb-7">
-                <label class="form-label fs-6 fw-bolder text-gray-900">Latitude</label>
+                <label class="form-label fs-6 fw-bolder text-gray-900">{{'LATITUDE' | translate}}</label>
                 <input class="form-control bg-transparent" type="text" name="latitude"
-                    [(ngModel)]="latitude" placeholder="Latitude" />
+                    [(ngModel)]="latitude" placeholder="{{'LATITUDE' | translate}}" />
             </div>
             <div class="row fv-row" style="float: right;">
                 <button type="submit" (click)="goToCoordinate()" class="btn btn-md btn-light-primary">
