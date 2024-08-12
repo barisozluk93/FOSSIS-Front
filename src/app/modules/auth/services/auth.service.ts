@@ -7,7 +7,6 @@ import { AuthModel } from '../models/auth.model';
 import { AuthHTTPService } from './auth-http';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
-import { MenuManagementService } from '../../menu-management/menu-management.service';
 import { ResultModel } from 'src/app/models/result.model';
 
 export type UserType = UserModelAuth | undefined;
@@ -36,7 +35,6 @@ export class AuthService implements OnDestroy {
 
   constructor(
     private authHttpService: AuthHTTPService,
-    private menuManagementService: MenuManagementService,
     private router: Router
   ) {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
@@ -54,9 +52,7 @@ export class AuthService implements OnDestroy {
       map((result: ResultModel<AuthModel>) => {
         if(result.isSuccess) {
           const auth = this.setAuthFromLocalStorage(result.data);
-          this.menuManagementService.getMenuList().subscribe(result => {
-            localStorage.setItem("menu", JSON.stringify(result.data));
-          });
+          
           return auth;
         }
         else{
@@ -73,7 +69,6 @@ export class AuthService implements OnDestroy {
   }
 
   logout() {
-    localStorage.removeItem("menu");
     localStorage.removeItem(this.authLocalStorageToken);
     this.router.navigate(['/auth/login'], {
       queryParams: {},

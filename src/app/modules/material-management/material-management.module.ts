@@ -6,7 +6,6 @@ import { TranslationModule } from '../i18n/translation.module';
 import { DataTableModule } from '../datatable/datatable.module';
 import { ModalsModule } from 'src/app/_metronic/partials';
 import { ConfirmationModule } from '../confirmation/confirmation.module';
-import { AlertModule } from '../alert/alert.module';
 import { MaterialManagementComponent } from './material-management.component';
 import { MaterialManagementRoutingModule } from './material-management-routing.module';
 import { PanelComponent } from './panel/panel.component';
@@ -45,7 +44,6 @@ import { ChargingStationEditSaveComponent } from './chargingstation/edit-save/ed
   imports: [
     DataTableModule,
     ConfirmationModule,
-    AlertModule,
     CommonModule,
     TranslationModule,
     MaterialManagementRoutingModule,

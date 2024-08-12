@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Output, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModalComponent, ModalConfig } from "src/app/_metronic/partials";
-import { AlertComponent } from "src/app/modules/alert/alert.component";
 import { UserManagementService } from "../../user-management.service";
 import { RoleModel } from "../../models/role.model";
 import { PermissionModel } from "../../models/permission.model";
 import { data } from "jquery";
 import { forkJoin } from "rxjs";
 import { TranslateService } from "@ngx-translate/core";
+import { AlertService } from "src/app/_metronic/partials/layout/alert/alert.service";
 
 @Component({
     selector: 'app-role-editsave',
@@ -17,14 +17,18 @@ import { TranslateService } from "@ngx-translate/core";
 export class RoleEditSaveComponent {
 
     @ViewChild('modal') private modalComponent: ModalComponent;
-    @ViewChild('alertComponent') private alertComponent: AlertComponent;
     @Output() isSuccess: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     modalConfig: ModalConfig;
     form: FormGroup;
     permissionList: PermissionModel[];
 
-    constructor(private fb: FormBuilder, private userManagementService: UserManagementService, private translate: TranslateService) {}
+    constructor(
+        private fb: FormBuilder, 
+        private userManagementService: UserManagementService, 
+        private translate: TranslateService,
+        private alertService: AlertService
+    ) {}
 
     disableSubmitButton() : boolean {
         return this.form.valid;
@@ -103,22 +107,22 @@ export class RoleEditSaveComponent {
             if(data.id == 0) {
                 this.userManagementService.roleSave(data).subscribe(result => {
                     if(result.isSuccess) {
-                        this.alertComponent.alert("success", result.message);
+                        this.alertService.createAlert("success", result.message);
                         this.isSuccess.emit(true);
                     }
                     else{
-                        this.alertComponent.alert("danger", result.message);
+                        this.alertService.createAlert("danger", result.message);
                     }
                 })
             }
             else{
                 this.userManagementService.roleEdit(data).subscribe(result => {
                     if(result.isSuccess) {
-                        this.alertComponent.alert("success", result.message);
+                        this.alertService.createAlert("success", result.message);
                         this.isSuccess.emit(true);
                     }
                     else{
-                        this.alertComponent.alert("danger", result.message);
+                        this.alertService.createAlert("danger", result.message);
                     }
                 })
             }

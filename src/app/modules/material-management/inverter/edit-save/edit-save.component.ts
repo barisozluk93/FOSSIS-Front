@@ -1,11 +1,11 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModalComponent, ModalConfig } from "src/app/_metronic/partials";
-import { AlertComponent } from "src/app/modules/alert/alert.component";
 import { MaterialManagementService } from "../../material-management.service";
 import { InverterModel } from "../../models/inverter.model";
 import { forkJoin } from "rxjs";
 import { TranslateService } from "@ngx-translate/core";
+import { AlertService } from "src/app/_metronic/partials/layout/alert/alert.service";
 
 @Component({
     selector: 'app-inverter-editsave',
@@ -14,13 +14,17 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class InverterEditSaveComponent implements OnInit {
     @ViewChild('modal') private modalComponent: ModalComponent;
-    @ViewChild('alertComponent') private alertComponent: AlertComponent;
     @Output() isSuccess: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     modalConfig: ModalConfig;
     form: FormGroup;
 
-    constructor(private fb: FormBuilder, private materialManagementService: MaterialManagementService, private translate: TranslateService) {}
+    constructor(
+        private fb: FormBuilder, 
+        private materialManagementService: MaterialManagementService, 
+        private translate: TranslateService,
+        private alertService: AlertService,
+    ) {}
 
     disableSubmitButton() : boolean {
         return this.form.valid;
@@ -112,22 +116,22 @@ export class InverterEditSaveComponent implements OnInit {
             if(data.id == 0) {
                 this.materialManagementService.inverterSave(data).subscribe(result => {
                     if(result.isSuccess) {
-                        this.alertComponent.alert("success", result.message);
+                        this.alertService.createAlert("success", result.message);
                         this.isSuccess.emit(true);
                     }
                     else{
-                        this.alertComponent.alert("danger", result.message);
+                        this.alertService.createAlert("danger", result.message);
                     }
                 })
             }
             else{
                 this.materialManagementService.inverterEdit(data).subscribe(result => {
                     if(result.isSuccess) {
-                        this.alertComponent.alert("success", result.message);
+                        this.alertService.createAlert("success", result.message);
                         this.isSuccess.emit(true);
                     }
                     else{
-                        this.alertComponent.alert("danger", result.message);
+                        this.alertService.createAlert("danger", result.message);
                     }
                 })
             }

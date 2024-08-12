@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AlertService } from './alert.service';
 
 @Component({
   selector: 'app-alert',
@@ -11,10 +12,14 @@ export class AlertComponent implements OnInit, OnDestroy {
   type: string = "";
   message: string = "";
 
-  constructor() { }
+  constructor(private alertService: AlertService) { }
 
   ngOnInit(): void {
-
+    this.alertService.alert$?.subscribe(data => {
+      if(data) {
+        this.alert(data.type, data.message);
+      }
+    })
   }
 
   ngOnDestroy() {
@@ -30,6 +35,7 @@ export class AlertComponent implements OnInit, OnDestroy {
       this.show = false;
       this.type = "";
       this.message = "";
+      this.alertService.clearAlert();
     }, 3000);
   }
 
@@ -37,5 +43,6 @@ export class AlertComponent implements OnInit, OnDestroy {
     this.show = false;
     this.type = "";
     this.message = "";
+    this.alertService.clearAlert();
   }
 }

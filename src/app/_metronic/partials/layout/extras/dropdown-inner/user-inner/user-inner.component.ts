@@ -2,6 +2,8 @@ import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { TranslationService } from '../../../../../../modules/i18n';
 import { AuthService, UserType } from '../../../../../../modules/auth';
+import { UserManagementService } from 'src/app/modules/user-management/user-management.service';
+import { UserModel } from 'src/app/modules/user-management/models/user.model';
 
 @Component({
   selector: 'app-user-inner',
@@ -13,17 +15,25 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-kt-menu') dataKtMenu = 'true';
 
   language: LanguageFlag;
-  user$: Observable<UserType>;
+  user: UserModel;
   langs = languages;
   private unsubscribe: Subscription[] = [];
 
   constructor(
     private auth: AuthService,
+    private userManagementService: UserManagementService,
     private translationService: TranslationService
   ) {}
 
   ngOnInit(): void {
-    this.user$ = this.auth.currentUserSubject.asObservable();
+    this.auth.currentUserSubject.subscribe(auth => {
+      this.userManagementService.updateUser(auth?.id!);
+    });
+
+    this.userManagementService.user$.subscribe(result => {
+      this.user = result!;
+    });
+
     this.setLanguage(this.translationService.getSelectedLanguage());
   }
 

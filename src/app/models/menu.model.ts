@@ -10,8 +10,6 @@ export class MenuModel {
     parentName?: string;
     childMenus?: MenuModel[];
     isDeleted: boolean;
-    isForbid: boolean;
+    isForbid?: boolean;
     isSystemData: boolean;
-
   }
-  

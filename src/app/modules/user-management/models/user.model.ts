@@ -11,5 +11,10 @@ export class UserModel {
     isSystemData: boolean;
     organizations: number[];
     roles: number[];
-
+    address: string;
+    country: string;
+    city: string;
+    district: string;
+    fileId?: number;
+    fileResult?: any;
 }

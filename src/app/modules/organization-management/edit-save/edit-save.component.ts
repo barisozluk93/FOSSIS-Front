@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModalComponent, ModalConfig } from "src/app/_metronic/partials";
 import { OrganizationManagementService } from "../organization-management.service";
 import { OrganizationModel } from "../models/organization.model";
-import { AlertComponent } from "../../alert/alert.component";
 import { forkJoin } from "rxjs";
 import { TranslateService } from "@ngx-translate/core";
+import { AlertService } from "src/app/_metronic/partials/layout/alert/alert.service";
 
 @Component({
     selector: 'app-organization-editsave',
@@ -15,14 +15,18 @@ import { TranslateService } from "@ngx-translate/core";
 export class OrganizationEditSaveComponent implements OnInit{
 
     @ViewChild('modal') private modalComponent: ModalComponent;
-    @ViewChild('alertComponent') private alertComponent: AlertComponent;
     @Output() isSuccess: EventEmitter<boolean> = new EventEmitter<boolean>();
     
     modalConfig: ModalConfig;
     form: FormGroup;
     organizations: OrganizationModel[] = [];
 
-    constructor(private fb: FormBuilder, private organizationManagementService: OrganizationManagementService, private translate: TranslateService) {}
+    constructor(
+        private fb: FormBuilder, 
+        private organizationManagementService: OrganizationManagementService, 
+        private translate: TranslateService,
+        private alertService: AlertService
+) {}
 
     disableSubmitButton() : boolean {
         return this.form.valid;
@@ -102,22 +106,22 @@ export class OrganizationEditSaveComponent implements OnInit{
             if(data.id == 0) {
                 this.organizationManagementService.save(data).subscribe(result => {
                     if(result.isSuccess) {
-                        this.alertComponent.alert("success", result.message);
+                        this.alertService.createAlert("success", result.message);
                         this.isSuccess.emit(true);
                     }
                     else{
-                        this.alertComponent.alert("danger", result.message);
+                        this.alertService.createAlert("danger", result.message);
                     }
                 })
             }
             else{
                 this.organizationManagementService.edit(data).subscribe(result => {
                     if(result.isSuccess) {
-                        this.alertComponent.alert("success", result.message);
+                        this.alertService.createAlert("success", result.message);
                         this.isSuccess.emit(true);
                     }
                     else{
-                        this.alertComponent.alert("danger", result.message);
+                        this.alertService.createAlert("danger", result.message);
                     }
                 })
             }

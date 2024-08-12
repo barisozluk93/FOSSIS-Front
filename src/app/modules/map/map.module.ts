@@ -6,7 +6,6 @@ import { TranslationModule } from '../i18n/translation.module';
 import { DataTableModule } from '../datatable/datatable.module';
 import { ModalsModule } from 'src/app/_metronic/partials';
 import { ConfirmationModule } from '../confirmation/confirmation.module';
-import { AlertModule } from '../alert/alert.module';
 import { MapComponent } from './map.component';
 import { MapRoutingModule } from './map-routing.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -28,7 +27,6 @@ import { BuildingInfoComponent } from './building-info/building-info.component';
   imports: [
     DataTableModule,
     ConfirmationModule,
-    AlertModule,
     CommonModule,
     TranslationModule,
     MapRoutingModule,

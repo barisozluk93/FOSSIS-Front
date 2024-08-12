@@ -17,8 +17,34 @@ const API_USER_URL = `${environment.apiUrl}/User`;
 })
 export class UserManagementService {
 
+    private _user$ = new BehaviorSubject<UserModel | undefined>(undefined);
+    public user$ = this._user$.asObservable();
+
     constructor(private http: HttpClient) { }
 
+    updateUser(userId: number) {
+        if(userId) {
+            this.getUserById(userId).subscribe(result => {
+                this._user$.next(undefined);
+
+                if(result.isSuccess) {
+                    if(result.data.fileId) {
+                        result.data.fileResult.fileContents = "data:" + result.data.fileResult.contentType + ";base64," + result.data.fileResult.fileContents;
+                    }
+                    
+                    this._user$.next(result.data);
+                }
+            })
+        }
+        else{
+            this._user$.next(undefined);
+        }
+    }
+
+    getUser() {
+        return this._user$.value;
+    }
+    
     // public methods
     permissionPaging(pageNumber: number, pageSize: number, filterText?: string): Observable<ResultModel<PagingResult<PermissionModel[]>>> {
         return this.http.get<ResultModel<PagingResult<PermissionModel[]>>>(`${API_USER_PERMISSION_URL}/Paginate`, 

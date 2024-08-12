@@ -44,11 +44,6 @@ const Routing: Routes = [
       import('../modules/map/map.module').then((m) => m.MapModule),
   },
   {
-    path: 'menumanagement',
-    loadChildren: () =>
-      import('../modules/menu-management/menu-management.module').then((m) => m.MenuManagementModule),
-  },
-  {
     path: 'organizationmanagement',
     loadChildren: () =>
       import('../modules/organization-management/organization-management.module').then((m) => m.OrganizationManagementModule),

@@ -3,12 +3,12 @@ import { ColumnModel } from 'src/app/models/column-model';
 import { PaginationModel } from 'src/app/models/pagination.model';
 import { InverterEditSaveComponent } from './edit-save/edit-save.component';
 import { ConfirmationComponent } from '../../confirmation/confirmation.component';
-import { AlertComponent } from '../../alert/alert.component';
 import { PermissionEnum } from 'src/app/enums/permission.enum';
 import { AuthService } from '../../auth';
 import { MaterialManagementService } from '../material-management.service';
 import { InverterModel } from '../models/inverter.model';
 import { TranslateService } from '@ngx-translate/core';
+import { AlertService } from 'src/app/_metronic/partials/layout/alert/alert.service';
 
 @Component({
   selector: 'app-inverter',
@@ -19,7 +19,6 @@ export class InverterComponent implements OnInit, OnDestroy {
 
   @ViewChild('editSaveComponent') private editSaveComponent: InverterEditSaveComponent;
   @ViewChild('confirmationComponent') private confirmationComponent: ConfirmationComponent;
-  @ViewChild('alertComponent') private alertComponent: AlertComponent;
 
   hasEditPermission: boolean;
   hasDeletePermission: boolean;
@@ -28,7 +27,12 @@ export class InverterComponent implements OnInit, OnDestroy {
   searchTerm: string = '';
   lastSearchTerm: string = '';
 
-  constructor(private materialManagementService: MaterialManagementService, private authService: AuthService, private translate: TranslateService) {}
+  constructor(
+    private materialManagementService: MaterialManagementService, 
+    private authService: AuthService, 
+    private translate: TranslateService,
+    private alertService: AlertService,
+  ) {}
 
   tableName: string = "";
   columnList: ColumnModel[] = [];
@@ -89,11 +93,11 @@ export class InverterComponent implements OnInit, OnDestroy {
   delete(event: number) {
     this.materialManagementService.inverterDelete(event).subscribe(result => {
       if(result.isSuccess) {
-        this.alertComponent.alert('success', result.message);
+        this.alertService.createAlert('success', result.message);
         this.loadData();
       }
       else{
-        this.alertComponent.alert('danger', result.message);
+        this.alertService.createAlert('danger', result.message);
       }
     })
   }

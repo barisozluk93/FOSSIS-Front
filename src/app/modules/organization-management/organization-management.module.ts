@@ -9,7 +9,6 @@ import { OrganizationManagementRoutingModule } from './organization-management-r
 import { OrganizationEditSaveComponent } from './edit-save/edit-save.component';
 import { ModalsModule } from 'src/app/_metronic/partials';
 import { ConfirmationModule } from '../confirmation/confirmation.module';
-import { AlertModule } from '../alert/alert.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { AlertModule } from '../alert/alert.module';
   imports: [
     DataTableModule,
     ConfirmationModule,
-    AlertModule,
     CommonModule,
     TranslationModule,
     OrganizationManagementRoutingModule,

@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Output, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModalComponent, ModalConfig } from "src/app/_metronic/partials";
-import { AlertComponent } from "src/app/modules/alert/alert.component";
 import { OrganizationManagementService } from "src/app/modules/organization-management/organization-management.service";
 import { MaterialManagementService } from "../../material-management.service";
 import { PanelModel } from "../../models/panel.model";
 import { forkJoin } from "rxjs";
 import { TranslateService } from "@ngx-translate/core";
+import { AlertService } from "src/app/_metronic/partials/layout/alert/alert.service";
 
 @Component({
     selector: 'app-panel-editsave',
@@ -16,7 +16,6 @@ import { TranslateService } from "@ngx-translate/core";
 export class PanelEditSaveComponent {
 
     @ViewChild('modal') private modalComponent: ModalComponent;
-    @ViewChild('alertComponent') private alertComponent: AlertComponent;
     @Output() isSuccess: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     modalConfig: ModalConfig;
@@ -25,7 +24,7 @@ export class PanelEditSaveComponent {
     constructor(
         private fb: FormBuilder, 
         private materialManagementService: MaterialManagementService, 
-        private organizationManagementService: OrganizationManagementService,
+        private alertService: AlertService,
         private translate: TranslateService
     ) { }
 
@@ -117,22 +116,22 @@ export class PanelEditSaveComponent {
             if (data.id == 0) {
                 this.materialManagementService.panelSave(data).subscribe(result => {
                     if (result.isSuccess) {
-                        this.alertComponent.alert("success", result.message);
+                        this.alertService.createAlert("success", result.message);
                         this.isSuccess.emit(true);
                     }
                     else {
-                        this.alertComponent.alert("danger", result.message);
+                        this.alertService.createAlert("danger", result.message);
                     }
                 })
             }
             else {
                 this.materialManagementService.panelEdit(data).subscribe(result => {
                     if (result.isSuccess) {
-                        this.alertComponent.alert("success", result.message);
+                        this.alertService.createAlert("success", result.message);
                         this.isSuccess.emit(true);
                     }
                     else {
-                        this.alertComponent.alert("danger", result.message);
+                        this.alertService.createAlert("danger", result.message);
                     }
                 })
             }

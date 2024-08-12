@@ -15,7 +15,6 @@ import { ModalsModule } from 'src/app/_metronic/partials';
 import { RoleEditSaveComponent } from './role/edit-save/edit-save.component';
 import { UserEditSaveComponent } from './user/edit-save/edit-save.component';
 import { ConfirmationModule } from '../confirmation/confirmation.module';
-import { AlertModule } from '../alert/alert.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,6 @@ import { AlertModule } from '../alert/alert.module';
   imports: [
     DataTableModule,
     ConfirmationModule,
-    AlertModule,
     CommonModule,
     TranslationModule,
     UserManagementRoutingModule,

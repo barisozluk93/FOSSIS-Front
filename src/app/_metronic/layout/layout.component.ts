@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 import { LayoutService } from './core/layout.service';
 import { LayoutInitService } from './core/layout-init.service';
-import { MenuManagementService } from 'src/app/modules/menu-management/menu-management.service';
-import { NavigationCancel, NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/modules/auth';
 
 @Component({
   selector: 'app-layout',
@@ -54,7 +54,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private initService: LayoutInitService,
     private layout: LayoutService,
-    private router: Router
+    private router: Router,
   ) {
     this.initService.init();
 

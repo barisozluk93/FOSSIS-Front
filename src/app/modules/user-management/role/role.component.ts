@@ -5,10 +5,10 @@ import { UserManagementService } from '../user-management.service';
 import { RoleModel } from '../models/role.model';
 import { RoleEditSaveComponent } from './edit-save/edit-save.component';
 import { ConfirmationComponent } from '../../confirmation/confirmation.component';
-import { AlertComponent } from '../../alert/alert.component';
 import { PermissionEnum } from 'src/app/enums/permission.enum';
 import { AuthService } from '../../auth';
 import { TranslateService } from '@ngx-translate/core';
+import { AlertService } from 'src/app/_metronic/partials/layout/alert/alert.service';
 
 @Component({
   selector: 'app-role',
@@ -19,13 +19,17 @@ export class RoleComponent implements OnInit, OnDestroy {
 
   @ViewChild('editSaveComponent') private editSaveComponent: RoleEditSaveComponent;
   @ViewChild('confirmationComponent') private confirmationComponent: ConfirmationComponent;
-  @ViewChild('alertComponent') private alertComponent: AlertComponent;
 
   hasEditPermission: boolean;
   hasDeletePermission: boolean;
   hasNewRecordPermission: boolean;
 
-  constructor(private userManagementService: UserManagementService, private authService: AuthService, private translate: TranslateService) {}
+  constructor(
+    private userManagementService: UserManagementService, 
+    private authService: AuthService, 
+    private translate: TranslateService,
+    private alertService: AlertService
+  ) {}
 
   tableName: string = "";
   columnList: ColumnModel[] = []
@@ -81,11 +85,11 @@ export class RoleComponent implements OnInit, OnDestroy {
   delete(event: number) {
     this.userManagementService.roleDelete(event).subscribe(result => {
       if(result.isSuccess) {
-        this.alertComponent.alert('success', result.message);
+        this.alertService.createAlert('success', result.message);
         this.loadData();
       }
       else{
-        this.alertComponent.alert('danger', result.message);
+        this.alertService.createAlert('danger', result.message);
       }
     })
   }
