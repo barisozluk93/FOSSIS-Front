@@ -5,7 +5,6 @@ export const locale = {
     LANG: 'en',
     LANGUAGE: "Language",
 
-    //Olması gereken kısım
     LOG_IN: "Log In",
     SIGN_OUT: 'Sign Out',
     SIGN_UP: "Sign Up",
@@ -49,6 +48,7 @@ export const locale = {
     CONTINUE: 'Continue',
     NOT_A_MEMBER_YET: 'Not a Member yet?',
     NEW: "New",
+    INFO: 'Info',
 
     PERMISSION: 'Permission',
     PERMISSIONS: 'Permissions',
@@ -146,6 +146,15 @@ export const locale = {
     NOMATCH_PASSWORD: "'Passsword' and 'Confirm Password' didn't match!",
     RESET_PASSWORD_MAIL: 'Enter your email to reset your password.',
     ERRORS_DETECTED_TRY_AGAIN: 'Sorry, looks like there are some errors detected, please try again.',
-    SENT_PASSWORD_RESET_CHECK_EMAIL: 'Sent password reset. Please check your email.'
+    SENT_PASSWORD_RESET_CHECK_EMAIL: 'Sent password reset. Please check your email.',
+
+    //MAP
+    AREA_MEASUREMENT: 'Area Measurement',
+    GO_TO_COORDINATE: 'Go To Coordinate',
+    LONGITUDE: 'Longitude',
+    LATITUDE: 'Latitude',
+    LENGTH_MEASUREMENT: 'Length Measurement',
+    MAP_GO_TO_HOME: 'Go To Home',
+    EXPORT_MAP: 'Export Map'
   }
 };
