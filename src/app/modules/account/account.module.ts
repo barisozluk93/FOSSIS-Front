@@ -13,6 +13,10 @@ import { NotificationsComponent } from './settings/forms/notifications/notificat
 import { SignInMethodComponent } from './settings/forms/sign-in-method/sign-in-method.component';
 import { DropdownMenusModule, WidgetsModule } from '../../_metronic/partials';
 import {SharedModule} from "../../_metronic/shared/shared.module";
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { InlineSVGModule } from 'ng-inline-svg-2';
+import { AlertModule } from 'src/app/_metronic/partials/layout/alert/alert.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,10 @@ import {SharedModule} from "../../_metronic/shared/shared.module";
     DropdownMenusModule,
     WidgetsModule,
     SharedModule,
+    ReactiveFormsModule,
+    AlertModule,
+    TranslateModule,
+    InlineSVGModule,
   ],
 })
 export class AccountModule {}

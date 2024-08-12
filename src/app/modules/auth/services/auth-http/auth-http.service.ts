@@ -49,6 +49,14 @@ export class AuthHTTPService {
     });
   }
 
+  changePassword(id: number, currentPassword: string, password: string): Observable<ResultModel<boolean>> {
+    return this.http.post<any>(`${API_USERS_URL}/ChangePassword`, {
+      id,
+      currentPassword,
+      password,
+    });
+  }
+
   getUserByToken(token: string): Observable<UserModelAuth> {
     const httpHeaders = new HttpHeaders({
       Authorization: `Bearer ${token}`,

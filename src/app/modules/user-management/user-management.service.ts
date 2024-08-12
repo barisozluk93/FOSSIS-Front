@@ -7,10 +7,12 @@ import { PagingResult } from 'src/app/models/paging-result.model';
 import { PermissionModel } from './models/permission.model';
 import { RoleModel } from './models/role.model';
 import { UserModel } from './models/user.model';
+import { FileModel } from 'src/app/models/file.model';
 
 const API_USER_PERMISSION_URL = `${environment.apiUrl}/Permission`;
 const API_USER_ROLE_URL = `${environment.apiUrl}/Role`;
 const API_USER_URL = `${environment.apiUrl}/User`;
+const API_FILE_URL = `${environment.apiUrl}/File`;
 
 @Injectable({
     providedIn: 'root',
@@ -117,7 +119,19 @@ export class UserManagementService {
         return this.http.post<ResultModel<UserModel>>(`${API_USER_URL}/Update`, data);
     }
 
+    userProfileEdit(data: UserModel): Observable<ResultModel<UserModel>> {
+        return this.http.post<ResultModel<UserModel>>(`${API_USER_URL}/UserProfileEdit`, data);
+    }
+
     userDelete(id: number): Observable<ResultModel<UserModel[]>> {
         return this.http.delete<ResultModel<UserModel[]>>(`${API_USER_URL}/Delete/${id}`);
+    }
+
+    upload(data: FormData): Observable<ResultModel<FileModel>> {
+        return this.http.post<ResultModel<FileModel>>(`${API_FILE_URL}/Save`, data);
+    }
+
+    userAvatarEdit(id: number, fileId: number): Observable<ResultModel<UserModel>> {
+        return this.http.get<ResultModel<UserModel>>(`${API_USER_URL}/UserAvatarUpdate/${id}/${fileId}`);
     }
 }
