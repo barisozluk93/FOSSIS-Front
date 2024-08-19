@@ -31,7 +31,7 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
 
     projectEditSaveVisibility: boolean = false;
     projectId: number = 0;
-    project: ProjectModel;
+    project?: ProjectModel;
 
     activeTab: Tabs = 'mainInfos';
     isSelectionMode: boolean = false;
@@ -55,13 +55,13 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
                     });
 
                     this.map.setFilter('buildings-layer', ['==', '$id', e.features[0].id]);
-                    this.project.buildingId = e.features[0].id;
+                    this.project!.buildingId = e.features[0].id;
 
                     var allFeatures = this.map.queryRenderedFeatures();
                     var polygon: any = allFeatures.filter(f => f.id == this.project?.buildingId)[0];
                     var centroid = turf.centroid(polygon);
 
-                    this.project.location = centroid.geometry.coordinates[0].toFixed(4) + ", " + centroid.geometry.coordinates[1].toFixed(4);
+                    this.project!.location = centroid.geometry.coordinates[0].toFixed(4) + ", " + centroid.geometry.coordinates[1].toFixed(4);
                     this.isSelectionMode = false;
                     this.projectEditSaveVisibility = true;
 
@@ -108,7 +108,7 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
                 this.isDrawingMode = false;
                 this.projectEditSaveVisibility = true;
 
-                if(this.project.roofGeom) {
+                if(this.project?.roofGeom) {
                     this.project.roofWkt = this.convertToWkt();
                 }
 
@@ -124,14 +124,14 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
         this.activeTab = tab;
 
         if (this.activeTab == "roofStyle") {
-            if(!this.project.roofWkt) {
+            if(!this.project?.roofWkt) {
                 this.projectEditSaveVisibility = false;
                 this.isDrawingMode = true;
                 this.isSelectionMode = false;
 
                 this.map.setLayoutProperty("buildings-layer", 'visibility', 'none');
 
-                this.getBuildings(this.project.buildingId);
+                this.getBuildings(this.project?.buildingId);
             }
         }
     }
@@ -163,9 +163,9 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
             this.isDrawingMode = false;
             this.projectEditSaveVisibility = true;
 
-            this.project.roofArea = rounded_area;
-            this.project.roofGeom = e.features[0];
-            this.project.roofWkt = this.convertToWkt();
+            this.project!.roofArea = rounded_area;
+            this.project!.roofGeom = e.features[0];
+            this.project!.roofWkt = this.convertToWkt();
         }
 
 
@@ -248,6 +248,7 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
         }
         else {
             this.projectId = 0;
+            this.project = undefined;
         }
 
         this.projectEditSaveVisibility = true;
@@ -355,9 +356,9 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
         this.map.addControl(this.draw);
         this.map.on('draw.create', this.getRoof.bind(this));
 
-        let indexComa = this.project.location?.indexOf(",");
-        let lng = parseFloat(this.project.location?.substring(0, indexComa)!);
-        let lat = parseFloat(this.project.location?.substring(indexComa! + 2)!);
+        let indexComa = this.project?.location?.indexOf(",");
+        let lng = parseFloat(this.project?.location?.substring(0, indexComa)!);
+        let lat = parseFloat(this.project?.location?.substring(indexComa! + 2)!);
 
         this.map.on('mousedown', (e) => {
             if (e.originalEvent.button === 2) { // Check if it's the right mouse button (button === 2)
@@ -389,7 +390,7 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
     }
 
     isRoofStylingStarted(event: any) {
-        this.project.roofWkt = undefined;
+        this.project!.roofWkt = undefined;
         this.setTab("roofStyle");
     }
 }
