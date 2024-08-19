@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="collapse show">
+    <form [formGroup]="form" novalidate="" class="form">
+      <div class="card-body border-top p-9">
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6">{{'NAME' | translate}}</label>
+          <div class="col-lg-8">
+            <input type="text" class="
+                    form-control form-control-lg form-control-solid
+                    mb-3 mb-lg-0
+                  " placeholder="{{ 'NAME' | translate }}" name="name" formControlName="name" [ngClass]="{
+                    'is-invalid': form.controls['name'].invalid,
+                    'is-valid': form.controls['name'].valid
+                  }" />
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'Name is required',
+                    control: form.controls['name']
+                  }"></ng-container>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6">{{'MAP_PROJECT_BUILDING' | translate}}</label>
+          <div class="col-lg-8">
+            <div class="input-group">
+              <input type="text" class="
+                    form-control form-control-lg form-control-solid
+                  " placeholder="{{ 'MAP_PROJECT_BUILDING' | translate }}" name="location" formControlName="location" />
+              <div class="input-group-append">
+                <a (click)="selectBuilding()" class="btn btn-icon btn-light-primary" style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/general/gen018.svg'"
+                    class="svg-icon svg-icon-3"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer d-flex justify-content-end py-6 px-9">
+        <button type="button" class="btn btn-primary" (click)="saveSettings()">
+          <ng-container>{{'SAVE_CHANGES' | translate}}</ng-container>
+        </button>
+      </div>
+    </form>
+
+    <ng-template #formError let-control="control" let-message="message" let-validation="validation">
+      <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+        <div class="fv-plugins-message-container">
+          <span role="alert">
+            {{ message }}
+          </span>
+        </div>
+      </ng-container>
+    </ng-template>
+  </div>
+</div>

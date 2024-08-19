@@ -1,0 +1,28 @@
+#alert {
+    left: 10px;
+    margin-top: 10px;
+    z-index: 999;
+    position: absolute;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 1541px) {
+    #alert {
+        width: 600px;
+    }
+}
+
+@media screen and (min-width: 820px) and (max-width: 1540px) {
+    #alert {
+        width: 600px;
+    }
+}
+
+@media screen and (max-width: 819px) {
+    #alert {
+        right: 5px;
+        width: auto;
+    }
+}
+
+  

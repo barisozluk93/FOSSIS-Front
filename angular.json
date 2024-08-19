@@ -41,7 +41,9 @@
               "node_modules/mapbox-gl/dist/mapbox-gl.css"
             ],
             "scripts": [
-              "node_modules/mapbox-gl/dist/mapbox-gl.js"
+              "node_modules/mapbox-gl/dist/mapbox-gl.js",
+              "node_modules/terraformer/terraformer.js",
+              "node_modules/terraformer-wkt-parser/terraformer-wkt-parser.js"
             ]
           },
           "configurations": {

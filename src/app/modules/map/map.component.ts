@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import mapboxgl from 'mapbox-gl';
 import { MapService } from './map.service';
 import { BuildingInfoComponent } from './building-info/building-info.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 @Component({
   selector: 'app-map',
@@ -10,6 +11,7 @@ import { BuildingInfoComponent } from './building-info/building-info.component';
 })
 export class MapComponent implements OnInit, OnDestroy {
 
+  @ViewChild("projectsComp") projectsComp: ProjectsComponent;
   @ViewChild("buildingInfoComp") buildingInfoComp: BuildingInfoComponent;
   selectedBuildingId: number = 0;
   buildingProperties: any = null;
@@ -24,9 +26,9 @@ export class MapComponent implements OnInit, OnDestroy {
 
   end: any = {
     center: [this.lng, this.lat],
-        zoom: this.zoom,
-        pitch: this.pitch,
-        bearing: this.bearing,
+    zoom: this.zoom,
+    pitch: this.pitch,
+    bearing: this.bearing,
   };
 
   constructor(private readonly mapService: MapService) {
@@ -44,21 +46,14 @@ export class MapComponent implements OnInit, OnDestroy {
       id: 'buildings-layer',
       type: "fill-extrusion",
       source: "buildings",
-      // minzoom: 15,
       paint: {
         'fill-extrusion-color': [
           'case',
           ['boolean', ['feature-state', 'clicked'], false],
-          '#17C653',
+          '#DFFFEA',
           '#DFFFEA'
-          // '#172331',
-          // '#006AE6'
         ],
-        // 'fill-extrusion-height-transition': {
-        //   duration: 5000,
-        //   delay: 0
-        // },
-        'fill-extrusion-opacity': 0.75,
+        'fill-extrusion-opacity': 1,
         'fill-extrusion-height': ["interpolate", ["linear"], ["zoom"],
           15, 0,
           15.05, ['get', 'height']]
@@ -66,35 +61,34 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     this.map.flyTo({
-       ...this.end,
-        duration: 12000, // Animate over 12 seconds
-            essential: true 
+      ...this.end,
+      duration: 12000,
+      essential: true
     });
 
-    this.map.on('click', 'buildings-layer', (e: any) => {
+    // this.map.on('click', 'buildings-layer', (e: any) => {
 
-      if (e.features.length > 0) {
+    //   if (e.features.length > 0) {
+    //       if (this.selectedBuildingId > 0) {
+    //         this.map.removeFeatureState({
+    //           source: 'buildings',
+    //           id: this.selectedBuildingId
+    //         });
+    //       }
 
-        if (this.selectedBuildingId > 0) {
-          this.map.removeFeatureState({
-            source: 'buildings',
-            id: this.selectedBuildingId
-          });
-        }
+    //       this.selectedBuildingId = e.features[0].id;
 
-        this.selectedBuildingId = e.features[0].id;
+    //       this.map.setFeatureState({
+    //         source: 'buildings',
+    //         id: this.selectedBuildingId
+    //       }, {
+    //         clicked: true
+    //       });
+    //     }
 
-        this.map.setFeatureState({
-          source: 'buildings',
-          id: this.selectedBuildingId
-        }, {
-          clicked: true
-        });
-      }
+    //     this.buildingInfoComp.showPanel(e.features[0].properties);
 
-      this.buildingInfoComp.showPanel(e.features[0].properties);
-
-    })
+    // })
   }
 
   addCss() {
@@ -127,11 +121,33 @@ export class MapComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.map = new mapboxgl.Map({
         container: 'map',
-        // center: [this.lng, this.lat],
-        // zoom: this.zoom,
-        // pitch: this.pitch,
-        // bearing: this.bearing,
+        style: {
+          "version": 8,
+          "sources": {
+            "osm-tiles": {
+              "type": "raster",
+              "tiles": [
+                "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                "https://b.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              ],
+              "tileSize": 256
+            }
+          },
+          "layers": [
+            {
+              "id": "osm-tiles-layer",
+              "type": "raster",
+              "source": "osm-tiles",
+              "paint": {
+                "raster-opacity": 1.0
+              }
+            }
+          ],
+          "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
+        },
         preserveDrawingBuffer: true,
+        logoPosition: 'top-right'
       });
 
       this.map.on('load', () => {
@@ -159,5 +175,4 @@ export class MapComponent implements OnInit, OnDestroy {
       el2?.classList.remove("map-content");
     }
   }
-
 }

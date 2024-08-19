@@ -22,6 +22,7 @@ export const locale = {
     NO_DATA_AVAILABLE: "No data available to display.",
     UPLOAD: "Upload",
     CHANGE: "Change",
+    SHOW: "Show",
     DESCRIPTION: "Description",
     NEW_RECORD: "New Record",
     SUBMIT: "Submit",
@@ -155,6 +156,13 @@ export const locale = {
     LATITUDE: 'Latitude',
     LENGTH_MEASUREMENT: 'Length Measurement',
     MAP_GO_TO_HOME: 'Go To Home',
-    EXPORT_MAP: 'Export Map'
+    EXPORT_MAP: 'Export Map',
+    MAP_PROJECTS: 'Projects',
+    MAP_NEW_PROJECT: 'New Project',
+    MAP_EDIT_PROJECT: 'Edit Project',
+    MAP_PROJECT_MAIN_INFO: 'Main Informations',
+    MAP_PROJECT_ROOF_STYLE: 'Roof Style',
+    MAP_PROJECT_PLANNING: 'Planning',
+    MAP_PROJECT_BUILDING: 'Location'
   }
 };

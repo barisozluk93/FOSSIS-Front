@@ -1,4 +1,4 @@
-<div class="map-toolbar">
+<div class="map-toolbar" [class]="(projectsComp?.editSaveComponent?.isSelectionMode || projectsComp?.editSaveComponent?.isDrawingMode) ? 'toolbar-backdrop' : ''">
     <div class="aside-primary d-flex flex-column align-items-lg-center flex-row-auto">
         <!--begin::Logo-->
         <div class="aside-logo d-none d-lg-flex flex-column align-items-center flex-column-auto py-10 px-8"
@@ -11,6 +11,15 @@
                 <button class="btn btn-icon bg-light-primary btn-lg
                     me-1" title="{{'MAP_GO_TO_HOME' | translate}}" (click)="goToHome()">
                     <span [inlineSVG]="'./assets/media/icons/duotune/general/gen001.svg'" class="svg-icon svg-icon-3"
+                        [ngClass]="'svg-icon-primary'"></span>
+                </button>
+            </div>
+            <hr class="hr">
+
+            <div class="menu-item py-3" routerLinkActive="here show">
+                <button class="btn btn-icon bg-light-primary btn-lg
+                    me-1" title="{{'MAP_PROJECTS' | translate}}" (click)="openProjects()">
+                    <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-3"
                         [ngClass]="'svg-icon-primary'"></span>
                 </button>
             </div>
@@ -57,3 +66,4 @@
 <map-goToCoordinate #goToCoordinateComp [map]="map"></map-goToCoordinate>
 <map-lengthMeasurement #lengthMeasurementComp></map-lengthMeasurement>
 <map-areaMeasurement #areaMeasurementComp></map-areaMeasurement>
+<map-projects #projectsComp [map]="map"></map-projects>

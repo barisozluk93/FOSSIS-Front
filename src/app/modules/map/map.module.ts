@@ -14,6 +14,11 @@ import { GoToCoordinateComponent } from './go-to-coordinate/gotocoordinate.compo
 import { LengthMeasurementComponent } from './length-measurement/length-measurement.component';
 import { AreaMeasurementComponent } from './area-measurement/area-measurement.component';
 import { BuildingInfoComponent } from './building-info/building-info.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { ProjectEditSaveComponent } from './projects/edit-save/edit-save.component';
+import { MainInfosComponent } from './projects/edit-save/forms/main-infos/main-infos.component';
+import { AlertPanelComponent } from './alert-panel/alert-panel.component';
+import { RoofStyleComponent } from './projects/edit-save/forms/roof-style/roof-style.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +27,12 @@ import { BuildingInfoComponent } from './building-info/building-info.component';
     GoToCoordinateComponent,
     LengthMeasurementComponent,
     AreaMeasurementComponent,
-    BuildingInfoComponent
+    BuildingInfoComponent,
+    ProjectsComponent,
+    ProjectEditSaveComponent,
+    MainInfosComponent,
+    AlertPanelComponent,
+    RoofStyleComponent
   ],
   imports: [
     DataTableModule,

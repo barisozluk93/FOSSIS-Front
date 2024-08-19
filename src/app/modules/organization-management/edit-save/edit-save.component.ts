@@ -69,7 +69,6 @@ export class OrganizationEditSaveComponent implements OnInit{
         this.organizationManagementService.all().subscribe(result => {
             if(result.isSuccess) {
                 this.organizations = result.data;
-                console.log(this.organizations);
             }
         })
 

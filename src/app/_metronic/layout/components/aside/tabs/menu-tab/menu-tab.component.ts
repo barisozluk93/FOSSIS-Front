@@ -288,8 +288,6 @@ export class MenuTabComponent implements OnInit, AfterViewInit, OnDestroy {
             })
           }
         })
-
-        console.log(this.menuList)
       }
     })
   }

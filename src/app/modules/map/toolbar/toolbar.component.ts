@@ -7,6 +7,8 @@ import { GoToCoordinateComponent } from '../go-to-coordinate/gotocoordinate.comp
 import mapboxDraw from '@mapbox/mapbox-gl-draw';
 import { LengthMeasurementComponent } from '../length-measurement/length-measurement.component';
 import { AreaMeasurementComponent } from '../area-measurement/area-measurement.component';
+import { ProjectsComponent } from '../projects/projects.component';
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
 
 @Component({
   selector: 'map-toolbar',
@@ -18,25 +20,28 @@ export class ToolbarComponent implements OnInit {
   @ViewChild("goToCoordinateComp") goToCoordinateComp: GoToCoordinateComponent;
   @ViewChild("lengthMeasurementComp") lengthMeasurementComp: LengthMeasurementComponent;
   @ViewChild("areaMeasurementComp") areaMeasurementComp: AreaMeasurementComponent;
+  @ViewChild("projectsComp") projectsComp: ProjectsComponent;
 
-  @Input() map : mapboxgl.Map;
-  draw : mapboxDraw;
+  @Input() map: mapboxgl.Map;
+  draw: mapboxDraw;
 
   asideCSSClasses: string;
 
   constructor(private layout: LayoutService,
   ) { }
 
-  areaMeasurement(){
+
+  areaMeasurement() {
     if (this.draw) {
-        var map = this.map as any;
-        delete map._listeners['draw.create'];
-        this.map.removeControl(this.draw);
+      var map = this.map as any;
+      delete map._listeners['draw.create'];
+      this.map.removeControl(this.draw);
     }
     this.draw = new mapboxDraw({
-        displayControlsDefault: false,
-        defaultMode: 'draw_polygon'
+      displayControlsDefault: false,
+      defaultMode: 'draw_polygon',
     });
+
     this.map.addControl(this.draw);
     this.map.on('draw.create', this.updateArea.bind(this));
   }
@@ -44,25 +49,27 @@ export class ToolbarComponent implements OnInit {
   exportMap() {
     this.map.getCanvas().toBlob(function (blob) {
 
-      if(blob){
+      if (blob) {
         saveAs(blob, 'map.png');
       }
     });
   }
 
   goToCoordinate() {
-    if(this.goToCoordinateComp.goToCoordinateVisibility) {
+    if (this.goToCoordinateComp.goToCoordinateVisibility) {
       this.goToCoordinateComp.closePanel();
     }
-    else{
+    else {
       this.goToCoordinateComp.showPanel();
     }
   }
 
   goToHome() {
     this.map.flyTo({
-      center: [34.9125, 39.2261],
-      zoom: 5.7
+      center: [28.9741, 41.0256],
+      zoom: 17,
+      pitch: 75,
+      bearing: 135
     })
   }
 
@@ -72,12 +79,12 @@ export class ToolbarComponent implements OnInit {
       delete map._listeners['draw.create'];
       this.map.removeControl(this.draw);
     }
-    
+
     this.draw = new mapboxDraw({
-        displayControlsDefault: false,
-        defaultMode: 'draw_line_string'
+      displayControlsDefault: false,
+      defaultMode: 'draw_line_string'
     });
-    
+
     this.map.addControl(this.draw);
     this.map.on('draw.create', this.updateLength.bind(this));
   }
@@ -86,24 +93,28 @@ export class ToolbarComponent implements OnInit {
     this.asideCSSClasses = this.layout.getStringCSSClasses('aside');
   }
 
-  updateArea(e : any) {
+  updateArea(e: any) {
     if (e.features.length > 0) {
-        let area = turf.area(e.features[0]);
-        let rounded_area = Math.round(area * 100) / 100;
-        this.areaMeasurementComp.showPanel(rounded_area);
-        
+      let area = turf.area(e.features[0]);
+      let rounded_area = Math.round(area * 100) / 100;
+      this.areaMeasurementComp.showPanel(rounded_area);
     }
   }
 
   updateLength(e: any) {
-    console.log(e);
-    
     if (e.features.length > 0) {
-        let length = turf.length(e.features[0]);
-        let rounded_length = Math.round(length * 100) / 100;
-        this.lengthMeasurementComp.showPanel(rounded_length);
+      let length = turf.length(e.features[0]);
+      let rounded_length = Math.round(length * 100) / 100;
+      this.lengthMeasurementComp.showPanel(rounded_length);
     }
   }
 
-
+  openProjects() {
+    if (this.projectsComp.projectVisibility) {
+      this.projectsComp.closePanel();
+    }
+    else {
+      this.projectsComp.showPanel();
+    }
+  }
 }

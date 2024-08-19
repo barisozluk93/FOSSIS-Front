@@ -19,8 +19,10 @@ export const locale = {
         CANCEL: "İptal Et",
         CLOSE: 'Kapat',
         DOWNLOAD: 'İndir',
+        NO_DATA_AVAILABLE: "Gösterilecek veri bulunmamaktadır.",
         UPLOAD: "Yükle",
         CHANGE: "Değiştir",
+        SHOW: "Göster",
         DESCRIPTION: "Açıklama",
         NEW_RECORD: "Yeni Kayıt",
         SUBMIT: "Gönder",
@@ -153,6 +155,13 @@ export const locale = {
         LATITUDE: 'Enlem',
         LENGTH_MEASUREMENT: 'Uzunluk Ölçümü',
         MAP_GO_TO_HOME: 'Ana Bölgeye Git',
-        EXPORT_MAP: 'Haritayı Dışa Aktar'
+        EXPORT_MAP: 'Haritayı Dışa Aktar',
+        MAP_PROJECTS: 'Projeler',
+        MAP_NEW_PROJECT: 'Yeni Proje',
+        MAP_EDIT_PROJECT: 'Proje Düzenle',
+        MAP_PROJECT_MAIN_INFO: 'Temel Bilgiler',
+        MAP_PROJECT_ROOF_STYLE: 'Çatı Stili',
+        MAP_PROJECT_PLANNING: 'Planlama',
+        MAP_PROJECT_BUILDING: 'Konum'
     }
 };
