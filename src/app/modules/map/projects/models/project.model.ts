@@ -8,4 +8,7 @@ export class ProjectModel {
   roofWkt?: string;
   roofGeom?: any;
   roofArea?: number;
+  panelId?: number;
+  gridSpace?: number;
+  margin?: number;
 }

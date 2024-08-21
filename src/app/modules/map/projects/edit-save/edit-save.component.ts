@@ -54,6 +54,15 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
                         clicked: true
                     });
 
+                    if(this.project?.buildingId != e.features[0].id) {
+                        this.project!.roofArea = undefined;
+                        this.project!.roofGeom = undefined;
+                        this.project!.roofWkt = undefined;
+                        this.project!.panelId = undefined;
+                        this.project!.gridSpace = 0;
+                        this.project!.margin = 0;
+                    }
+
                     this.map.setFilter('buildings-layer', ['==', '$id', e.features[0].id]);
                     this.project!.buildingId = e.features[0].id;
 
@@ -91,6 +100,7 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
                     delete (this.map as any)._listeners['draw.create'];
 
                     this.map.removeControl(this.draw);
+                    this.map.removeLayer("buildings-layer-2d-shadow");
                     this.map.removeLayer("buildings-layer-2d");
                     this.map.removeSource("buildings-2d");
 
@@ -106,6 +116,7 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
 
                 this.isSelectionMode = false;
                 this.isDrawingMode = false;
+                this.activeTab = "mainInfos";
                 this.projectEditSaveVisibility = true;
 
                 if(this.project?.roofGeom) {
@@ -120,7 +131,6 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
     }
 
     setTab(tab: Tabs) {
-        this.loadProject();
         this.activeTab = tab;
 
         if (this.activeTab == "roofStyle") {
@@ -146,6 +156,7 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
                 delete (this.map as any)._listeners['draw.create'];
 
                 this.map.removeControl(this.draw);
+                this.map.removeLayer("buildings-layer-2d-shadow");
                 this.map.removeLayer("buildings-layer-2d");
                 this.map.removeSource("buildings-2d");
 
@@ -166,6 +177,7 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
             this.project!.roofArea = rounded_area;
             this.project!.roofGeom = e.features[0];
             this.project!.roofWkt = this.convertToWkt();
+            this.alertComponent.closePanel();
         }
 
 
@@ -213,7 +225,7 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
         }
         else {
             this.addClickEventToMap();
-            this.alertComponent.showPanel();
+            this.alertComponent.showPanel("Lütfen, bir lokasyon seçiniz veya iptal etmek için 'Escape' tuşuna basınız.");
             this.project = this.mainInfosComponent.form.getRawValue();
 
             this.isSelectionMode = true;
@@ -348,6 +360,17 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
             filter: ['==', '$id', layerId]
         });
 
+        this.map.addLayer({
+            id: 'buildings-layer-2d-shadow',
+            type: 'fill',
+            source: "buildings-2d",
+            paint: {
+                'fill-color': 'rgba(0, 0, 0, 0.25)',  // Darker color for shadow
+                'fill-translate': [3, 3]  // Offset the shadow slightly
+            },
+            filter: ['==', '$id', layerId]
+        });
+
         this.draw = new mapboxDraw({
             displayControlsDefault: false,
             defaultMode: 'draw_polygon',
@@ -373,6 +396,8 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
         this.map.flyTo({
             center: [lng, lat],
         });
+
+        this.alertComponent.showPanel("Lütfen, binaya ait çatı modellemesini yapınız veya iptal etmek için 'Escape' tuşuna basınız.");
     }
 
     convertToWkt() {

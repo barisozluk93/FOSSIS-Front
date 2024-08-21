@@ -5,5 +5,7 @@ export class PanelModel {
   type: string;
   manufacturer: string;
   maximumDCPower: number;
+  length: number;
+  width: number;
   isDeleted: boolean;
 }

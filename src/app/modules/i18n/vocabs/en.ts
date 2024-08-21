@@ -70,6 +70,7 @@ export const locale = {
     NAME_IN_ENGLISH: 'Name in English',
     ICON: 'Icon',
 
+    SELECT_A_PANEL: 'Select a Panel...',
     PANELS: 'Panels',
     MAXIMUM_DC_POWER: 'Maximum DC Power',
     TYPE: 'Type',
@@ -163,6 +164,11 @@ export const locale = {
     MAP_PROJECT_MAIN_INFO: 'Main Informations',
     MAP_PROJECT_ROOF_STYLE: 'Roof Style',
     MAP_PROJECT_PLANNING: 'Planning',
-    MAP_PROJECT_BUILDING: 'Location'
+    MAP_PROJECT_BUILDING: 'Location',
+    GRID_SPACE: 'Grid Space',
+    MARGIN: 'Margin',
+    NUMBER_OF_SUFFICIENT_PANEL: 'Number of Panels',
+    SYSTEM_POWER: 'Total System Power',
+    REPORT: 'Report'
   }
 };

@@ -19,6 +19,7 @@ import { ProjectEditSaveComponent } from './projects/edit-save/edit-save.compone
 import { MainInfosComponent } from './projects/edit-save/forms/main-infos/main-infos.component';
 import { AlertPanelComponent } from './alert-panel/alert-panel.component';
 import { RoofStyleComponent } from './projects/edit-save/forms/roof-style/roof-style.component';
+import { PlanningComponent } from './projects/edit-save/forms/planning/planning.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { RoofStyleComponent } from './projects/edit-save/forms/roof-style/roof-s
     ProjectEditSaveComponent,
     MainInfosComponent,
     AlertPanelComponent,
-    RoofStyleComponent
+    RoofStyleComponent,
+    PlanningComponent
   ],
   imports: [
     DataTableModule,

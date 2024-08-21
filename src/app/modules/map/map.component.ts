@@ -144,10 +144,8 @@ export class MapComponent implements OnInit, OnDestroy {
               }
             }
           ],
-          "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
         },
         preserveDrawingBuffer: true,
-        logoPosition: 'top-right'
       });
 
       this.map.on('load', () => {

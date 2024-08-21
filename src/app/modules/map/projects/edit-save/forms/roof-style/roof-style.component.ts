@@ -28,16 +28,13 @@ export class RoofStyleComponent implements OnInit, OnDestroy {
         if (changes.project) {
             if (changes.project.currentValue) {
                 this.project = changes.project.currentValue;
+
+                if(this.map) {
+                    this.map?.remove();
+                }
+
                 if (this.project?.roofGeom) {
-                    let indexComa = this.project.location?.indexOf(",");
-                    let lng = parseFloat(this.project.location?.substring(0, indexComa)!);
-                    let lat = parseFloat(this.project.location?.substring(indexComa! + 2)!);
-
                     setTimeout(() => {
-                        if(this.map) {
-                            this.map?.remove();
-                        }
-
                         var centroid = turf.centroid(this.project?.roofGeom.geometry);
 
                         this.map = new mapboxgl.Map({
@@ -45,7 +42,6 @@ export class RoofStyleComponent implements OnInit, OnDestroy {
                             zoom: 20,
                             pitch: 0,
                             bearing: 135,
-                            logoPosition: 'top-right',
                             container: 'map-inner',
                             style: {
                                 "version": 8,

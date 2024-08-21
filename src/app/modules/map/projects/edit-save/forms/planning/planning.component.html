@@ -1,0 +1,90 @@
+<div class="card">
+  <div class="collapse show">
+    <form [formGroup]="form" novalidate="" class="form">
+      <div class="card-body border-top p-9">
+        <div class="row mb-6">
+          <label class="form-label fs-6 fw-bolder text-gray-900">{{'PANELS' | translate}}</label>
+          <select name="panelId" formControlName="panelId" autocomplete="off"
+            class="form-select form-select-solid form-select-lg fw-bold" [ngClass]="{
+              'is-invalid': form.controls['panelId'].invalid,
+              'is-valid': form.controls['panelId'].valid
+            }">
+            <option value="">{{'SELECT_A_PANEL' | translate}}</option>
+            <ng-container *ngFor="let item of panels">
+              <option value={{item.id}}>{{item.model}}</option>
+            </ng-container>
+          </select>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: ('PANELS' | translate) + ' ' + ('IS_REQUIRED' | translate) ,
+            control: form.controls['panelId']
+          }"></ng-container>
+        </div>
+        <div class="row mb-6">
+          <div class="col-lg-6">
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'GRID_SPACE' | translate}} (cm)</label>
+            <input type="number" step="1" class="
+            form-control form-control-lg form-control-solid
+            mb-3 mb-lg-0
+          " placeholder="{{ 'GRID_SPACE' | translate }} (cm)" name="gridSpace" formControlName="gridSpace"
+              (keypress)="onKeyPress($event)" />
+          </div>
+          <div class="col-lg-6">
+            <label class="form-label fs-6 fw-bolder text-gray-900">{{'MARGIN' | translate}} (cm)</label>
+            <input type="number" step="1" class="
+            form-control form-control-lg form-control-solid
+            mb-3 mb-lg-0
+          " placeholder="{{ 'MARGIN' | translate }} (cm)" name="margin" formControlName="margin"
+              (keypress)="onKeyPress($event)" />
+          </div>
+        </div>
+        <div class="row mb-6" *ngIf="form.get('panelId')?.value! > 0">
+          <button type="button" class="btn btn-light-primary" (click)="planning()">
+            <ng-container>{{'MAP_PROJECT_PLANNING' | translate}}</ng-container>
+          </button>
+        </div>
+        <div class="row" *ngIf="numberOfSufficientPanel > 0 && isPlanShowing">
+          <div class="card">
+            <div class="card-body">
+              <div class="row mb-6">
+                <div class="col-lg-6">
+                  <label class="form-label fs-6 fw-bolder text-gray-900">{{'NUMBER_OF_SUFFICIENT_PANEL' |
+                    translate}}</label>
+                  <input class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" disabled
+                    value={{numberOfSufficientPanel}} />
+                </div>
+                <div class="col-lg-6">
+                  <label class="form-label fs-6 fw-bolder text-gray-900">{{'SYSTEM_POWER' | translate}} (kWh)</label>
+                  <input class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" disabled
+                    value={{systemPower}} />
+                </div>
+              </div>
+              <div class="row">
+                <button type="button" class="btn btn-light-primary" (click)="planning()">
+                  <ng-container>{{'REPORT' | translate}}</ng-container>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer d-flex justify-content-end py-6 px-9">
+        <button type="button" class="btn btn-primary" (click)="saveSettings()">
+          <ng-container>{{'SUBMIT' | translate}}</ng-container>
+        </button>
+      </div>
+    </form>
+
+    <ng-template #formError let-control="control" let-message="message" let-validation="validation">
+      <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+        <div class="fv-plugins-message-container">
+          <span role="alert">
+            {{ message }}
+          </span>
+        </div>
+      </ng-container>
+    </ng-template>
+  </div>
+</div>

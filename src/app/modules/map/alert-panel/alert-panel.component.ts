@@ -17,12 +17,14 @@ import { ConfirmationComponent } from '../../confirmation/confirmation.component
 export class AlertPanelComponent implements OnInit {
 
   show: boolean = false;
+  message: string = "";
 
   ngOnInit(): void {
   }
   
 
-  showPanel() {
+  showPanel(message: string) {
+    this.message = message;
     this.show = true;
   }
 

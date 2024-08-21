@@ -59,6 +59,7 @@ export const locale = {
         ROLE: 'Rol',
         SELECT_A_ROLE: 'Bir Rol Seçin...',
         SELECT_AN_ORGANIZATION: 'Bir Organizasyon Seçin...',
+        SELECT_A_PANEL: 'Bir Panel Seçin...',
         ORGANIZATION: 'Organizasyon',
         ORGANIZATIONS: 'Organizasyonlar',
         PARENT_ORGANIZATION: 'Üst Organizasyon',
@@ -162,6 +163,11 @@ export const locale = {
         MAP_PROJECT_MAIN_INFO: 'Temel Bilgiler',
         MAP_PROJECT_ROOF_STYLE: 'Çatı Stili',
         MAP_PROJECT_PLANNING: 'Planlama',
-        MAP_PROJECT_BUILDING: 'Konum'
+        MAP_PROJECT_BUILDING: 'Konum',
+        GRID_SPACE: 'Panel Boşluğu',
+        MARGIN: 'Kenar Boşluğu',
+        NUMBER_OF_SUFFICIENT_PANEL: 'Panel Sayısı',
+        SYSTEM_POWER: 'Toplam Sistem Gücü',
+        REPORT: 'Raporla'
     }
 };

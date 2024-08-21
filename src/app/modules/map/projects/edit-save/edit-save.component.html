@@ -73,7 +73,7 @@
                             <app-roof-style #roofStyleComponent [project]="project" (isRoofStylingStarted)="isRoofStylingStarted($event)" (isCompleted)="isCompleted($event)"></app-roof-style>
                         </div>
                         <div class="tab-pane fade" [ngClass]="activeDisabledClass('planning')" id="planning">
-
+                            <app-planning #planningComponent [project]="project" (isCompleted)="isCompleted($event)"></app-planning>
                         </div>
                     </div>
                 </div>
