@@ -322,7 +322,6 @@ export class ReportComponent implements OnInit {
     this.isTab1DataFetched = false;
     this.isTab2DataFetched = false;
     this.selectedTab = 1;
-    console.log("--------")
     this.selectedMonthId=0;
     this.monthSelect.nativeElement.value = '0';
 
