@@ -20,6 +20,8 @@ import { MainInfosComponent } from './projects/edit-save/forms/main-infos/main-i
 import { AlertPanelComponent } from './alert-panel/alert-panel.component';
 import { RoofStyleComponent } from './projects/edit-save/forms/roof-style/roof-style.component';
 import { PlanningComponent } from './projects/edit-save/forms/planning/planning.component';
+import { ReportComponent } from './projects/edit-save/forms/planning/report/report.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { PlanningComponent } from './projects/edit-save/forms/planning/planning.
     MainInfosComponent,
     AlertPanelComponent,
     RoofStyleComponent,
-    PlanningComponent
+    PlanningComponent,
+    ReportComponent
   ],
   imports: [
     DataTableModule,
@@ -46,7 +49,8 @@ import { PlanningComponent } from './projects/edit-save/forms/planning/planning.
     ReactiveFormsModule,
     HttpClientModule,
     ModalsModule,
-    InlineSVGModule
+    InlineSVGModule,
+    NgApexchartsModule
   ],
 })
 export class MapModule {}
