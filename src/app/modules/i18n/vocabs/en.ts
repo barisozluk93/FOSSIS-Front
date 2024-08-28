@@ -169,6 +169,9 @@ export const locale = {
     MARGIN: 'Margin',
     NUMBER_OF_SUFFICIENT_PANEL: 'Number of Panels',
     SYSTEM_POWER: 'Total System Power',
-    REPORT: 'Report'
+    REPORT: 'Report',
+
+    MONTHLY_ENERGY_ESTIMATION: 'Monthly Energy Estimation',
+    DAILY_ENERGY_ESTIMATION: 'Daily Energy Estimation'
   }
 };

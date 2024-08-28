@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 import { ResultModel } from 'src/app/models/result.model';
 import { PagingResult } from 'src/app/models/paging-result.model';
 import { ProjectModel } from './models/project.model';
+import { PvCalcMonthlyModel } from './models/PvCalcMonthly.model';
+import { SeriesCalcDailyModel } from './models/SeriesCalcDaily.model';
 
 const API_PROJECT_URL = `${environment.apiUrl}/Project`;
 
@@ -41,4 +43,26 @@ export class ProjectManagementService {
     delete(id: number): Observable<ResultModel<ProjectModel[]>> {
         return this.http.delete<ResultModel<ProjectModel[]>>(`${API_PROJECT_URL}/Delete/${id}`);
     }
+
+    getPvCalc(params: any): Observable<ResultModel<PvCalcMonthlyModel[]>> {
+        let httpParams = new HttpParams();
+        for (const key in params) {
+          if (params.hasOwnProperty(key) && params[key] !== undefined) {
+            httpParams = httpParams.append(key, params[key].toString());
+          }
+        }
+        return this.http.get<ResultModel<PvCalcMonthlyModel[]>>(`${API_PROJECT_URL}/Pvcalc`, { params: httpParams });
+      }
+
+      getSeriescalc(params: any): Observable<ResultModel<SeriesCalcDailyModel[]>> {
+        let httpParams = new HttpParams();
+        for (const key in params) {
+          if (params.hasOwnProperty(key) && params[key] !== undefined) {
+            httpParams = httpParams.append(key, params[key].toString());
+          }
+        }
+    
+        return this.http.get<ResultModel<SeriesCalcDailyModel[]>>(`${API_PROJECT_URL}/Seriescalc`, { params: httpParams });
+      }
+      
 }

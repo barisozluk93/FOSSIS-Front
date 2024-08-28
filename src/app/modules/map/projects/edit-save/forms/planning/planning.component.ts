@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/_metronic/partials/layout/alert/alert.service';
 import { AuthService, UserType } from 'src/app/modules/auth';
@@ -7,6 +7,8 @@ import { ProjectManagementService } from '../../../projects.service';
 import { MaterialManagementService } from 'src/app/modules/material-management/material-management.service';
 import { PanelModel } from 'src/app/modules/material-management/models/panel.model';
 import * as turf from '@turf/turf';
+import { DOCUMENT } from '@angular/common';
+import { ReportComponent } from './report/report.component';
 
 @Component({
   selector: 'app-planning',
@@ -15,6 +17,7 @@ import * as turf from '@turf/turf';
 export class PlanningComponent implements OnInit, AfterViewInit, OnChanges {
   form: FormGroup;
 
+  @ViewChild('reportComponent') private reportComponent: ReportComponent;
   @Output() isCompleted: EventEmitter<number> = new EventEmitter<number>();
   @Input() project?: ProjectModel;
   panels: PanelModel[] = [];
@@ -28,7 +31,8 @@ export class PlanningComponent implements OnInit, AfterViewInit, OnChanges {
     private projectManagementService: ProjectManagementService,
     private authService: AuthService,
     private alertService: AlertService,
-    private materialManagementService: MaterialManagementService
+    private materialManagementService: MaterialManagementService,
+    @Inject(DOCUMENT) private document: Document
   ) {
 
   }
@@ -173,5 +177,9 @@ export class PlanningComponent implements OnInit, AfterViewInit, OnChanges {
 
       this.isPlanShowing = true;
     }, 250);
+  }
+  report() {
+    let data = this.form.getRawValue();
+    this.reportComponent.openModal(data,this.systemPower);
   }
 }

@@ -1,0 +1,105 @@
+<app-modal #modal [modalConfig]="modalConfig">
+  <form class="form w-100" [formGroup]="form" novalidate="novalidate">
+    <!-- Tab Navigation -->
+    <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" 
+           [ngClass]="{'active': selectedTab === 1}" 
+           id="tab1-tab" 
+           (click)="selectTab(1)" 
+           role="tab" 
+           aria-controls="tab1" 
+           [attr.aria-selected]="selectedTab === 1 ? 'true' : 'false'">
+          {{ 'MONTHLY_ENERGY_ESTIMATION' | translate }}
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" 
+           [ngClass]="{'active': selectedTab === 2}" 
+           id="tab2-tab" 
+           (click)="selectTab(2)" 
+           role="tab" 
+           aria-controls="tab2" 
+           [attr.aria-selected]="selectedTab === 2 ? 'true' : 'false'">
+          {{ 'DAILY_ENERGY_ESTIMATION' | translate }}
+        </a>
+      </li>
+    </ul>
+    
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="myTabContent">
+      <!-- Tab 1 Content -->
+      <div class="tab-pane fade show active" [ngClass]="{'show active': selectedTab === 1}" id="tab1" role="tabpanel"
+        aria-labelledby="tab1-tab">
+        <div class="chart-container" style="margin: 5px;">
+
+          <div style="margin: 5px;" *ngIf="isTab1DataFetched">
+            <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+              [plotOptions]="chartOptions.plotOptions" [dataLabels]="chartOptions.dataLabels"
+              [stroke]="chartOptions.stroke" [xaxis]="chartOptions.xaxis" [yaxis]="chartOptions.yaxis"
+              [fill]="chartOptions.fill" [tooltip]="chartOptions.tooltip">
+            </apx-chart>
+          </div>
+          <div style="display: flex; justify-content: center;" *ngIf="!isTab1DataFetched">
+            <ng-container >
+              <span style="margin: 30%;" data-kt-search-element="spinner">
+                <span class="spinner-border h-40px w-40px align-middle text-gray-500 mt-5"></span>
+              </span>
+            </ng-container>
+          </div>
+          
+
+        </div>
+
+        
+
+      </div>
+
+
+      
+
+      <!-- Tab 2 Content -->
+      <div class="tab-pane fade" [ngClass]="{'show active': selectedTab === 2}" id="tab2" role="tabpanel"
+        aria-labelledby="tab2-tab">
+
+        <div>
+          <!-- Ayların listeleneceği select dropdown -->
+          <select class="form-select form-select-solid" (change)="onMonthChange($event)">
+            <option value="" disabled selected>Ay seçiniz</option>
+            <option *ngFor="let month of months" [value]="month.id">
+              {{lang=="tr"? month.name_tr: month.name_en}} 
+            </option>
+          </select>
+        </div>
+
+        <div *ngIf="isTab2DataFetched">
+          <div id="chart">
+            <apx-chart [series]="chartOptionsLine.series" [chart]="chartOptionsLine.chart"
+              [xaxis]="chartOptionsLine.xaxis" [dataLabels]="chartOptionsLine.dataLabels"
+              [stroke]="chartOptionsLine.stroke"></apx-chart>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center;" *ngIf="!isTab2DataFetched && selectedMonthId!=null">
+          <ng-container >
+            <span style="margin: 30%;" data-kt-search-element="spinner">
+              <span class="spinner-border h-40px w-40px align-middle text-gray-500 mt-5"></span>
+            </span>
+          </ng-container>
+        </div>
+
+      </div>
+    </div>
+  </form>
+
+  <ng-template #formError let-control="control" let-message="message" let-validation="validation">
+    <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+      <div class="fv-plugins-message-container">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </ng-container>
+  </ng-template>
+</app-modal>

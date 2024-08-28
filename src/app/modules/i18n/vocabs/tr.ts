@@ -168,6 +168,10 @@ export const locale = {
         MARGIN: 'Kenar Boşluğu',
         NUMBER_OF_SUFFICIENT_PANEL: 'Panel Sayısı',
         SYSTEM_POWER: 'Toplam Sistem Gücü',
-        REPORT: 'Raporla'
+        REPORT: 'Raporla',
+
+        MONTHLY_ENERGY_ESTIMATION: 'Aylık Enerji Tahmini',
+        DAILY_ENERGY_ESTIMATION: 'Günlük Enerji Tahmini'
+
     }
 };
