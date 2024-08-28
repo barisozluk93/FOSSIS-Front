@@ -1,40 +1,38 @@
 <app-modal #modal [modalConfig]="modalConfig">
   <form class="form w-100" [formGroup]="form" novalidate="novalidate">
+
     <!-- Tab Navigation -->
-    <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" 
-           [ngClass]="{'active': selectedTab === 1}" 
-           id="tab1-tab" 
-           (click)="selectTab(1)" 
-           role="tab" 
-           aria-controls="tab1" 
-           [attr.aria-selected]="selectedTab === 1 ? 'true' : 'false'">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="
+              nav-link
+              btn btn-sm btn-color-muted btn-active btn-active-light-primary
+              fw-bolder
+              px-4
+              me-1
+          " data-bs-toggle="tab" [ngClass]="{'show active': selectedTab === 1}" (click)="selectTab(1)">
           {{ 'MONTHLY_ENERGY_ESTIMATION' | translate }}
         </a>
       </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" 
-           [ngClass]="{'active': selectedTab === 2}" 
-           id="tab2-tab" 
-           (click)="selectTab(2)" 
-           role="tab" 
-           aria-controls="tab2" 
-           [attr.aria-selected]="selectedTab === 2 ? 'true' : 'false'">
+      <li class="nav-item">
+        <a class="
+      nav-link
+      btn btn-sm btn-color-muted btn-active btn-active-light-primary
+      fw-bolder
+      px-4
+      me-1
+  " data-bs-toggle="tab" [ngClass]="{'show active': selectedTab === 2}" (click)="selectTab(2)">
           {{ 'DAILY_ENERGY_ESTIMATION' | translate }}
         </a>
       </li>
     </ul>
-    
 
     <!-- Tab Content -->
     <div class="tab-content" id="myTabContent">
       <!-- Tab 1 Content -->
-      <div class="tab-pane fade show active" [ngClass]="{'show active': selectedTab === 1}" id="tab1" role="tabpanel"
-        aria-labelledby="tab1-tab">
-        <div class="chart-container" style="margin: 5px;">
-
-          <div style="margin: 5px;" *ngIf="isTab1DataFetched">
+      <div class="tab-pane fade show active" [ngClass]="{'show active': selectedTab === 1}" role="tabpanel">
+        <div class="chart-container mt-5">
+          <div *ngIf="isTab1DataFetched">
             <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
               [plotOptions]="chartOptions.plotOptions" [dataLabels]="chartOptions.dataLabels"
               [stroke]="chartOptions.stroke" [xaxis]="chartOptions.xaxis" [yaxis]="chartOptions.yaxis"
@@ -42,31 +40,20 @@
             </apx-chart>
           </div>
           <div style="display: flex; justify-content: center;" *ngIf="!isTab1DataFetched">
-            <ng-container >
+            <ng-container>
               <span style="margin: 30%;" data-kt-search-element="spinner">
                 <span class="spinner-border h-40px w-40px align-middle text-gray-500 mt-5"></span>
               </span>
             </ng-container>
           </div>
-          
-
         </div>
-
-        
-
       </div>
-
-
-      
-
       <!-- Tab 2 Content -->
-      <div class="tab-pane fade" [ngClass]="{'show active': selectedTab === 2}" id="tab2" role="tabpanel"
-        aria-labelledby="tab2-tab">
-
-        <div>
+      <div class="tab-pane fade" [ngClass]="{'show active': selectedTab === 2}" role="tabpanel">
+        <div class="mt-5">
           <select #monthSelect class="form-select form-select-solid" (change)="onMonthChange($event)">
             <option *ngFor="let month of months" [value]="month.id">
-              {{lang=="tr"? month.name_tr: month.name_en }} 
+              {{lang=="tr"? month.name_tr: month.name_en }}
             </option>
           </select>
         </div>
@@ -79,8 +66,9 @@
           </div>
         </div>
 
-        <div style="display: flex; justify-content: center;" *ngIf="!isTab2DataFetched && selectedMonthId!=null && selectedMonthId!=0">
-          <ng-container >
+        <div style="display: flex; justify-content: center;"
+          *ngIf="!isTab2DataFetched && selectedMonthId!=null && selectedMonthId!=0">
+          <ng-container>
             <span style="margin: 30%;" data-kt-search-element="spinner">
               <span class="spinner-border h-40px w-40px align-middle text-gray-500 mt-5"></span>
             </span>
