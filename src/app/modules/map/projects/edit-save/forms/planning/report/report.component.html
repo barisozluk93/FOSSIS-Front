@@ -64,11 +64,9 @@
         aria-labelledby="tab2-tab">
 
         <div>
-          <!-- Ayların listeleneceği select dropdown -->
-          <select class="form-select form-select-solid" (change)="onMonthChange($event)">
-            <option value="" disabled selected>Ay seçiniz</option>
+          <select #monthSelect class="form-select form-select-solid" (change)="onMonthChange($event)">
             <option *ngFor="let month of months" [value]="month.id">
-              {{lang=="tr"? month.name_tr: month.name_en}} 
+              {{lang=="tr"? month.name_tr: month.name_en }} 
             </option>
           </select>
         </div>
@@ -81,7 +79,7 @@
           </div>
         </div>
 
-        <div style="display: flex; justify-content: center;" *ngIf="!isTab2DataFetched && selectedMonthId!=null">
+        <div style="display: flex; justify-content: center;" *ngIf="!isTab2DataFetched && selectedMonthId!=null && selectedMonthId!=0">
           <ng-container >
             <span style="margin: 30%;" data-kt-search-element="spinner">
               <span class="spinner-border h-40px w-40px align-middle text-gray-500 mt-5"></span>
