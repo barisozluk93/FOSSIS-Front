@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ProjectManagementService } from '../../../../projects.service';
@@ -63,7 +63,8 @@ export class ReportComponent implements OnInit {
   @ViewChild("chartLine") chartLine: ChartComponent;
   public chartOptions: ChartOptions 
   @Output() isSuccess: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  @ViewChild('monthSelect') monthSelect!: ElementRef;
+  
   public chartOptionsLine: ChartOptionsLine;
 
   modalConfig: ModalConfig;
@@ -81,6 +82,7 @@ export class ReportComponent implements OnInit {
   
 
   months = [
+    { id: 0, name_tr: 'Ay Seçiniz', name_en: 'Select Month' },
     { id: 1, name_tr: 'Ocak', name_en: 'January' },
     { id: 2, name_tr: 'Şubat', name_en: 'February' },
     { id: 3, name_tr: 'Mart', name_en: 'March' },
@@ -319,6 +321,9 @@ export class ReportComponent implements OnInit {
 
     this.isTab1DataFetched = false;
     this.isTab2DataFetched = false;
+    this.selectedTab = 1;
+    this.selectedMonthId=0;
+    this.monthSelect.nativeElement.value = '0';
 
     const [lon, lat] = data.location.split(',').map((coord:any) => coord.trim());
         
