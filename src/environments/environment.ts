@@ -7,7 +7,7 @@ export const environment = {
   appVersion: 'v8.2.3',
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: true,
-  apiUrl: 'http://localhost:5055/api',
+  apiUrl: 'http://192.168.1.116:5055/api',
   wsUrl: 'http://localhost:5161/ws',
   appThemeName: 'Metronic',
   appPurchaseUrl: 'https://1.envato.market/EA4JP',

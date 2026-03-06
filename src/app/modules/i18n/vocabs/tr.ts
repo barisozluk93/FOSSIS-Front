@@ -4,7 +4,6 @@ export const locale = {
     data: {
         LANG: 'tr',
         LANGUAGE: "Dil",
-
         LOG_IN: "Giriş Yap",
         SIGN_OUT: 'Çıkış Yap',
         SIGN_UP: "Üye Ol",
