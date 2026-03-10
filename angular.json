@@ -48,7 +48,6 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/fossis/",
               "budgets": [
                 {
                   "type": "initial",

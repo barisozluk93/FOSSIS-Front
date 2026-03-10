@@ -105,7 +105,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   loadData() {
-    this.projectManagementService.paging(this.paginationModel.pageNumber, this.paginationModel.pageSize, this.userId)
+    this.projectManagementService.paging(this.paginationModel.pageNumber, this.paginationModel.pageSize, this.userId, this.authService.currentUserValue?.roles.includes('1')!)
           .subscribe(result => {
             if(result.isSuccess) {
               this.dataSource = result.data.items;

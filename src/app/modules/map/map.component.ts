@@ -39,7 +39,6 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map.addSource("buildings", {
       type: "geojson",
       data: content,
-      generateId: true
     });
 
     this.map.addLayer({
@@ -50,8 +49,8 @@ export class MapComponent implements OnInit, OnDestroy {
         'fill-extrusion-color': [
           'case',
           ['boolean', ['feature-state', 'clicked'], false],
-          '#DFFFEA',
-          '#DFFFEA'
+          '#FDC60A',
+          '#FFECB3'
         ],
         'fill-extrusion-opacity': 1,
         'fill-extrusion-height': ["interpolate", ["linear"], ["zoom"],
@@ -105,10 +104,14 @@ export class MapComponent implements OnInit, OnDestroy {
     this.mapService.getBuildings().subscribe((result: any) => {
       var geojson = JSON.parse(result);
 
+      let index = 1;
       geojson.features.forEach((feature: any) => {
         if (feature.properties.height) {
           feature.properties.height = parseInt(feature.properties.height);
         }
+
+        feature.id = index;
+        index++;
       });
 
       this.addBuildingsLayer(geojson);

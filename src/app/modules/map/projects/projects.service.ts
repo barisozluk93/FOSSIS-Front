@@ -19,8 +19,8 @@ export class ProjectManagementService {
 
     // public methods
 
-    paging(pageNumber: number, pageSize: number, userId: number): Observable<ResultModel<PagingResult<ProjectModel[]>>> {
-        return this.http.get<ResultModel<PagingResult<ProjectModel[]>>>(`${API_PROJECT_URL}/Paginate/${userId}`, 
+    paging(pageNumber: number, pageSize: number, userId: number, isAdmin: boolean): Observable<ResultModel<PagingResult<ProjectModel[]>>> {
+        return this.http.get<ResultModel<PagingResult<ProjectModel[]>>>(`${API_PROJECT_URL}/Paginate/${userId}/${isAdmin}`, 
             { params: new HttpParams().set("PageNumber", pageNumber).set("PageSize", pageSize)});
     }
 

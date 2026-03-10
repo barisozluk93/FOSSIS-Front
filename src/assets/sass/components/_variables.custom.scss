@@ -13,7 +13,7 @@ $success-light: 				#E9F3FF;
 $success-clarity: 				rgba(#1B84FF, 0.2);
 
 // Success colors
-$primary: 						#17C653; 
-$primary-active: 				#04B440;
-$primary-light: 				#DFFFEA;
-$primary-clarity: 				rgba(#17C653, 0.2);
+$primary:						#FDC60A !default;
+$primary-active:				#FDC60A !default;
+$primary-light: 				#FFECB3 !default;
+$primary-clarity: 				rgba(#FDC60A, 0.2) !default;

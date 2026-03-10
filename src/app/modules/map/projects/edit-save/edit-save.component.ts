@@ -331,11 +331,14 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
     getBuildings(layerId: any) {
         this.mapService.getBuildings().subscribe((result: any) => {
             var geojson = JSON.parse(result);
-
+            let index = 1;
             geojson.features.forEach((feature: any) => {
                 if (feature.properties.height) {
                     feature.properties.height = parseInt(feature.properties.height);
                 }
+
+                feature.id = index;
+                index++;
             });
 
             this.addBuildingsLayer(geojson, layerId);
@@ -346,7 +349,6 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
         this.map.addSource("buildings-2d", {
             type: "geojson",
             data: content,
-            generateId: true
         });
 
         this.map.addLayer({

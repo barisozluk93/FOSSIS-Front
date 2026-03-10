@@ -373,10 +373,10 @@ export class ReportComponent implements OnInit {
     const params: SeriesCalcDailyParamModel = {
       lat: parseFloat(this.lat),
       lon: parseFloat(this.lon),
-      startyear: 2020,
+      startyear: 2010,
       endyear: 2020,
       pvcalculation: 1,
-      peakpower: 115,
+      peakpower: parseFloat(this.systemPower),
       loss: 14,
       outputformat: 'json',
       usehorizon: 1,
