@@ -7,6 +7,7 @@ import { MainModalComponent } from './main-modal/main-modal.component';
 import { UpgradePlanModalComponent } from './upgrade-plan-modal/upgrade-plan-modal.component';
 import { ModalComponent } from './modal/modal.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslationModule } from 'src/app/modules/i18n/translation.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     UpgradePlanModalComponent,
     ModalComponent,
   ],
-  imports: [CommonModule, InlineSVGModule, RouterModule, NgbModalModule],
+  imports: [CommonModule, InlineSVGModule, RouterModule, NgbModalModule, TranslationModule],
   exports: [
     InviteUsersModalComponent,
     MainModalComponent,

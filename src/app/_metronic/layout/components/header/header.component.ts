@@ -1,10 +1,9 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
-  Input,
   OnDestroy,
   OnInit,
-  ViewChild,
 } from '@angular/core';
 import { NavigationCancel, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -14,15 +13,17 @@ import { MenuComponent } from '../../../kt/components';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   headerContainerCssClasses: string = '';
-  @ViewChild('ktPageTitle', { static: true }) ktPageTitle: ElementRef;
-  @Input() headerDisplay: boolean = false;
+  mobileMenuOpen = false;
   
   private unsubscribe: Subscription[] = [];
+  private menuObserver?: MutationObserver;
+  private menuInitFrame = 0;
 
-  constructor(private layout: LayoutService, private router: Router) {
+  constructor(private layout: LayoutService, private router: Router, private elementRef: ElementRef<HTMLElement>) {
     this.routingChanges();
   }
 
@@ -32,15 +33,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
+  ngAfterViewInit(): void {
+    // Auth/profile menu nodes can be inserted asynchronously after the first login.
+    // Observe the header so Metronic attaches to those newly rendered dropdowns immediately.
+    this.menuObserver = new MutationObserver(() => {
+      cancelAnimationFrame(this.menuInitFrame);
+      this.menuInitFrame = requestAnimationFrame(() => MenuComponent.reinitialization());
+    });
+    this.menuObserver.observe(this.elementRef.nativeElement, { childList: true, subtree: true });
+    requestAnimationFrame(() => MenuComponent.reinitialization());
+  }
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
   routingChanges() {
     const routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd || event instanceof NavigationCancel) {
-        MenuComponent.reinitialization();
+        this.mobileMenuOpen = false;
+        requestAnimationFrame(() => MenuComponent.reinitialization());
       }
     });
     this.unsubscribe.push(routerSubscription);
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy(): void {
+    this.menuObserver?.disconnect();
+    cancelAnimationFrame(this.menuInitFrame);
+    this.unsubscribe.forEach((subscription) => subscription.unsubscribe());
+  }
 
 }

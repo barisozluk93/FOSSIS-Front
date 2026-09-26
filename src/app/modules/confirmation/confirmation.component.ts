@@ -45,6 +45,8 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
 
     this.modalConfig = {
       modalTitle: title,
+      modalWindowClass: 'app-modal-window app-confirmation-modal-window',
+      modalDialogClass: 'app-confirmation-modal-dialog',
       dismissButtonLabel: translations['YES'],
       closeButtonLabel: translations['NO'],
       onDismiss: this.dismissClicked.bind(this)

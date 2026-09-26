@@ -1,65 +1,26 @@
-<div class="map-toolbar" [class]="(projectsComp?.editSaveComponent?.isSelectionMode || projectsComp?.editSaveComponent?.isDrawingMode) ? 'toolbar-backdrop' : ''">
-    <div class="aside-primary d-flex flex-column align-items-lg-center flex-row-auto">
-        <!--begin::Logo-->
-        <div class="aside-logo d-none d-lg-flex flex-column align-items-center flex-column-auto py-10 px-1"
-            id="kt_aside_logo">
-            <a routerLink="/dashboard">
-                <img alt="Logo" src="./assets/media/logos/favicon.png" class="h-30px w-90px" />
-            </a>
-
-            <div class="menu-item pt-10 pb-3" routerLinkActive="here show">
-                <button class="btn btn-icon bg-light-primary btn-lg
-                    me-1" title="{{'MAP_GO_TO_HOME' | translate}}" (click)="goToHome()">
-                    <span [inlineSVG]="'./assets/media/icons/duotune/general/gen001.svg'" class="svg-icon svg-icon-3"
-                        [ngClass]="'svg-icon-primary'"></span>
-                </button>
-            </div>
-            <hr class="hr">
-
-            <div class="menu-item py-3" routerLinkActive="here show">
-                <button class="btn btn-icon bg-light-primary btn-lg
-                    me-1" title="{{'MAP_PROJECTS' | translate}}" (click)="openProjects()">
-                    <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-3"
-                        [ngClass]="'svg-icon-primary'"></span>
-                </button>
-            </div>
-            <hr class="hr">
-            
-            <div class="menu-item py-3" routerLinkActive="here show">
-                <button class="btn btn-icon bg-light-primary btn-lg
-                    me-1" title="{{'GO_TO_COORDINATE' | translate}}" (click)="goToCoordinate()">
-                    <span [inlineSVG]="'./assets/media/icons/duotune/general/gen018.svg'" class="svg-icon svg-icon-3"
-                        [ngClass]="'svg-icon-primary'"></span>
-                </button>
-            </div>
-            <hr class="hr">
-
-            <div class="menu-item py-3" routerLinkActive="here show">
-                <button class="btn btn-icon bg-light-primary btn-lg
-                    me-1" title="{{'AREA_MEASUREMENT' | translate}}" (click)="areaMeasurement()">
-                    <span [inlineSVG]="'./assets/media/icons/duotune/general/gen022.svg'" class="svg-icon svg-icon-3"
-                        [ngClass]="'svg-icon-primary'"></span>
-                </button>
-            </div>
-            <hr class="hr">
-
-            <div class="menu-item py-3" routerLinkActive="here show">
-                <button class="btn btn-icon bg-light-primary btn-lg
-                    me-1" title="{{'LENGTH_MEASUREMENT' | translate}}" (click)="lengthMeasurement()">
-                    <span [inlineSVG]="'./assets/media/icons/duotune/art/art009.svg'" class="svg-icon svg-icon-3"
-                        [ngClass]="'svg-icon-primary'"></span>
-                </button>
-            </div>
-            <hr class="hr">
-
-            <div class="menu-item py-3" routerLinkActive="here show">
-                <button class="btn btn-icon bg-light-primary btn-lg
-                    me-1" title="{{'EXPORT_MAP' | translate}}" (click)="exportMap()">
-                    <span [inlineSVG]="'./assets/media/icons/duotune/files/fil017.svg'" class="svg-icon svg-icon-3"
-                        [ngClass]="'svg-icon-primary'"></span>
-                </button>
-            </div>
-        </div>
+<div class="map-toolbar"
+    [class.toolbar-backdrop]="projectsComp?.editSaveComponent?.isSelectionMode || projectsComp?.editSaveComponent?.isDrawingMode">
+    <div class="map-tool-actions" role="toolbar" [attr.aria-label]="'MAP_TOOLBAR_LABEL' | translate">
+        <button type="button" class="map-tool-button" title="{{'MAP_GO_TO_HOME' | translate}}" (click)="goToHome()">
+            <span [inlineSVG]="'./assets/media/icons/duotune/general/gen001.svg'" class="svg-icon svg-icon-3 svg-icon-primary"></span>
+        </button>
+        <button type="button" class="map-tool-button" title="{{'MAP_PROJECTS' | translate}}" (click)="openProjects()">
+            <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-3 svg-icon-primary"></span>
+        </button>
+        <button type="button" class="map-tool-button" title="{{'GO_TO_COORDINATE' | translate}}" (click)="goToCoordinate()">
+            <span [inlineSVG]="'./assets/media/icons/duotune/general/gen018.svg'" class="svg-icon svg-icon-3 svg-icon-primary"></span>
+        </button>
+        <span class="map-tool-separator" aria-hidden="true"></span>
+        <button type="button" class="map-tool-button" title="{{'AREA_MEASUREMENT' | translate}}" (click)="areaMeasurement()">
+            <span [inlineSVG]="'./assets/media/icons/duotune/general/gen022.svg'" class="svg-icon svg-icon-3 svg-icon-primary"></span>
+        </button>
+        <button type="button" class="map-tool-button" title="{{'LENGTH_MEASUREMENT' | translate}}" (click)="lengthMeasurement()">
+            <span [inlineSVG]="'./assets/media/icons/duotune/art/art009.svg'" class="svg-icon svg-icon-3 svg-icon-primary"></span>
+        </button>
+        <span class="map-tool-separator" aria-hidden="true"></span>
+        <button type="button" class="map-tool-button" title="{{'EXPORT_MAP' | translate}}" (click)="exportMap()">
+            <span [inlineSVG]="'./assets/media/icons/duotune/files/fil017.svg'" class="svg-icon svg-icon-3 svg-icon-primary"></span>
+        </button>
     </div>
 </div>
 

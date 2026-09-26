@@ -68,7 +68,7 @@
                       }" />
                     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                         validation: 'required',
-                        message: ('MENU.NEW' | translate) + ' ' + ('EMAIL' | translate) + ' '+ ('IS_REQUIRED' | translate),
+                        message: ('EMAIL' | translate) + ' '+ ('IS_REQUIRED' | translate),
                         control: changeEmailForm.controls['email']
                       }"></ng-container>
                   </div>

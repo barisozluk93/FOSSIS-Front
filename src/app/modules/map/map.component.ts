@@ -93,11 +93,13 @@ export class MapComponent implements OnInit, OnDestroy {
   addCss() {
     var el = document.getElementById("kt_content_container");
     var el2 = document.getElementById("kt_content");
+    var wrapper = document.getElementById("kt_wrapper");
 
     if (el) {
-      el?.classList.add("map-container-xxl");
-      el2?.classList.add("map-content");
+      el.classList.add("map-container-xxl");
     }
+    el2?.classList.add("map-content");
+    wrapper?.classList.add("map-page-wrapper");
   }
 
   getBuildings() {
@@ -124,34 +126,15 @@ export class MapComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.map = new mapboxgl.Map({
         container: 'map',
-        style: {
-          "version": 8,
-          "sources": {
-            "osm-tiles": {
-              "type": "raster",
-              "tiles": [
-                "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                "https://b.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              ],
-              "tileSize": 256
-            }
-          },
-          "layers": [
-            {
-              "id": "osm-tiles-layer",
-              "type": "raster",
-              "source": "osm-tiles",
-              "paint": {
-                "raster-opacity": 1.0
-              }
-            }
-          ],
-        },
+        center: [0, 0],
+        style: 'mapbox://styles/mapbox/satellite-streets-v12',
+        attributionControl: false,
+        logoPosition: 'bottom-left',
         preserveDrawingBuffer: true,
       });
 
       this.map.on('load', () => {
+        this.positionMapAttribution();
         this.getBuildings();
       });
 
@@ -161,19 +144,34 @@ export class MapComponent implements OnInit, OnDestroy {
         this.zoom = + this.map.getZoom().toFixed(2);
       });
 
-      this.map.addControl(new mapboxgl.NavigationControl());
+      this.map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+      this.map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left');
+      // Keep required Mapbox/source credits visible, but group them with the
+      // upper-right controls instead of overlaying the map's bottom status bar.
+      requestAnimationFrame(() => this.positionMapAttribution());
 
 
     }, 500);
   }
 
+  private positionMapAttribution(): void {
+    const container = this.map?.getContainer();
+    const attribution = container?.querySelector('.mapboxgl-ctrl-attrib');
+    const topRightControls = container?.querySelector('.mapboxgl-ctrl-top-right');
+
+    if (attribution && topRightControls && attribution.parentElement !== topRightControls) {
+      topRightControls.appendChild(attribution);
+    }
+  }
+
   ngOnDestroy() {
     var el = document.getElementById("kt_content_container");
     var el2 = document.getElementById("kt_content");
+    var wrapper = document.getElementById("kt_wrapper");
 
-    if (el) {
-      el?.classList.remove("map-container-xxl");
-      el2?.classList.remove("map-content");
-    }
+    el?.classList.remove("map-container-xxl");
+    el2?.classList.remove("map-content");
+    wrapper?.classList.remove("map-page-wrapper");
+    this.map?.remove();
   }
 }

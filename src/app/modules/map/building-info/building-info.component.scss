@@ -1,6 +1,7 @@
 #buildingInfo {
-    left: 10px;
-    margin-top: 10px;
+    left: 72px;
+    top: 16px;
+    margin-top: 0;
     z-index: 999;
     position: absolute;
     cursor: pointer;
@@ -20,7 +21,9 @@
 
 @media screen and (max-width: 819px) {
     #buildingInfo {
-        right: 5px;
+        left: 56px;
+        right: 8px;
+        top: 16px;
         width: auto;
     }
 }

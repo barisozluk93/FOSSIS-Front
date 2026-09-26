@@ -1,24 +1,65 @@
-.map-toolbar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
+ .map-toolbar {
+    position: absolute;
+    top: 16px;
+    left: 16px;
     z-index: 98;
-    display: flex;
-    background-color: var(--bs-aside-bg-color);
-    width: 100px;
-    transition: width 0.3s ease;
-    border-right: var(--bs-aside-border);
-    box-shadow: var(--bs-aside-box-shadow);
+    width: auto;
+    max-width: calc(100vw - 24px);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 
-.hr {
-    margin: 1px 0;
-    width: 100%;
+.map-tool-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 0;
+}
+
+.map-tool-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    padding: 0;
+    border: 1px solid rgba(24, 28, 50, 0.06);
+    border-radius: 7px;
+    color: var(--bs-primary, #ffc700);
+    background: var(--bs-body-bg, #fff);
+    box-shadow: 0 2px 8px rgba(24, 28, 50, 0.16);
+    cursor: pointer;
+    transition: background-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+
+.map-tool-button:hover,
+.map-tool-button:focus-visible {
+    background: var(--bs-gray-100, #f5f8fa);
+    outline: 2px solid var(--bs-primary, #ffc700);
+    outline-offset: -2px;
+}
+
+.map-tool-button:active {
+    transform: scale(0.96);
+}
+
+.map-tool-separator {
+    width: 26px;
+    height: 1px;
+    margin: 2px 0;
+    background: var(--bs-gray-300, #e1e3ea);
 }
 
 .toolbar-backdrop {
     pointer-events: none;
-    background-color: rgba(255, 255, 255, 0.4);
-    opacity: 0.5;
+    opacity: 0.55;
+}
+
+@media (max-width: 767.98px) {
+    .map-toolbar { top: 16px; left: 8px; max-width: calc(100vw - 16px); }
+    .map-tool-button { width: 40px; height: 40px; flex-basis: 40px; }
 }

@@ -11,6 +11,24 @@
 @import "./assets/plugins/keenicons/outline/style.css";
 @import "./assets/plugins/keenicons/solid/style.css";
 
+.app-modal-window .modal-dialog {
+    width: calc(100vw - 2rem);
+    max-width: 680px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.app-modal-backdrop.show {
+    background: rgba(20, 24, 40, 0.42);
+    opacity: 1;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+[data-bs-theme='dark'] .app-modal-backdrop.show {
+    background: rgba(0, 0, 0, 0.58);
+}
+
 
 .map-container-xxl {
     padding: 0px !important;
@@ -21,17 +39,277 @@
     max-width: 100% !important;
 }
 
-.map-aside-menu-container-xxl {
-    padding-left: 100px !important;
-    max-width: 100% !important;
-}
-
-.map-header-menu-height {
-    height: 65px !important;
-    padding-left: 100px !important;
-    left: 100px !important
-}
 
 input[type="search"]::-webkit-search-cancel-button {
     cursor: pointer;
+}
+
+/* Keep a consistent breathing space between the global header and every page. */
+#kt_content.app-content-header-gap {
+  padding-top: 16px !important;
+}
+
+/* Modal fields mirror the shared authentication form styles. */
+.app-modal-body .fv-row {
+  min-width: 0;
+  margin-bottom: 19px;
+}
+.app-modal-body .fv-row > label,
+.app-modal-body .fv-row .form-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--bs-body-color);
+  font-size: 13px;
+  font-weight: 700;
+}
+.app-modal-body .fv-row .form-control,
+.app-modal-body .fv-row .form-select {
+  min-height: 47px;
+  padding: 10px 13px;
+  border: 1px solid var(--bs-gray-300);
+  border-radius: 9px;
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  box-shadow: none;
+}
+.app-modal-body .fv-row textarea.form-control { min-height: 100px; }
+.app-modal-body .fv-row .form-control:focus,
+.app-modal-body .fv-row .form-select:focus {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 2px var(--bs-primary-light);
+}
+.app-modal-body .fv-row .form-control.is-invalid,
+.app-modal-body .fv-row .form-select.is-invalid {
+  border-color: var(--bs-danger);
+}
+.app-modal-body .fv-row .form-control.is-invalid:not(.ng-dirty):not(.ng-touched),
+.app-modal-body .fv-row .form-select.is-invalid:not(.ng-dirty):not(.ng-touched) {
+  border-color: var(--bs-gray-300);
+  background-image: none;
+  box-shadow: none;
+}
+.app-modal-body .fv-row .form-control.is-valid,
+.app-modal-body .fv-row .form-select.is-valid {
+  border-color: var(--bs-gray-300);
+  background-image: none;
+}
+.app-modal-body .fv-plugins-message-container { margin-top: 6px; }
+.app-modal-body .fv-plugins-message-container > span[role='alert'],
+.app-modal-body .fv-plugins-message-container .invalid-feedback {
+  display: block;
+  margin-top: 0;
+  color: var(--bs-danger);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Compact confirmation dialogs used for destructive actions. */
+.app-confirmation-modal-dialog,
+.app-confirmation-modal-window .modal-dialog {
+  width: min(calc(100vw - 2rem), 380px) !important;
+  max-width: 380px !important;
+}
+.app-confirmation-modal-window .app-modal-header {
+  min-height: 56px;
+  padding: 13px 18px;
+}
+.app-confirmation-modal-window .app-modal-header .modal-title {
+  font-size: 1.15rem !important;
+}
+.app-confirmation-modal-window .app-modal-body {
+  max-height: 50vh;
+  padding: 18px 20px;
+  color: var(--bs-gray-700);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.app-confirmation-modal-window .app-modal-footer {
+  gap: 8px;
+  padding: 12px 18px;
+}
+.app-confirmation-modal-window .app-modal-footer .btn {
+  min-width: 78px;
+  min-height: 36px;
+  border-radius: 8px;
+}
+
+/* Let the map and its status/attribution bars share exactly one viewport with the header. */
+#kt_wrapper.map-page-wrapper {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+#kt_content.map-content {
+  height: auto;
+  min-height: 0;
+  padding-top: 0 !important;
+  flex: 1 1 auto;
+  overflow: hidden;
+  padding-bottom: 0 !important;
+}
+#kt_content_container.map-container-xxl {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Keep the authenticated header aligned to the landing header's 86px row. */
+app-header.header {
+  display: flex;
+  height: 86px !important;
+  min-height: 86px !important;
+  align-items: center;
+}
+app-header.header .app-header-inner {
+  height: 100%;
+  min-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  align-items: center;
+}
+app-header.header .app-header-navigation,
+app-header.header .app-header-actions,
+app-header.header .app-brand {
+  align-self: center;
+}
+@media (max-width: 1199.98px) {
+  app-header.header {
+    height: auto !important;
+    min-height: 70px !important;
+  }
+  app-header.header .app-header-inner {
+    height: auto;
+    min-height: 70px;
+    padding-top: 0;
+    padding-bottom: 0;
+    align-items: center;
+  }
+}
+
+/* Profile settings share the same neutral controls and focus/validation states as auth forms. */
+.profile-settings-page app-profile-details,
+.profile-settings-page app-sign-in-method { display: block; min-width: 0; }
+.profile-settings-page app-profile-details .card,
+.profile-settings-page app-sign-in-method .card {
+  overflow: hidden;
+  margin-bottom: 0 !important;
+  border: 1px solid var(--bs-gray-200);
+  border-radius: 16px;
+  background: var(--bs-body-bg);
+  box-shadow: 0 8px 28px rgba(24, 28, 50, .045);
+}
+.profile-settings-page .profile-card-header,
+.profile-settings-page app-sign-in-method .card-header {
+  display: flex;
+  min-height: 70px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--bs-gray-200);
+  background: var(--bs-body-bg);
+}
+.profile-settings-page .profile-card-heading { display: flex; align-items: center; gap: 13px; }
+.profile-settings-page .profile-card-icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 12px;
+  color: var(--bs-primary);
+  background: var(--bs-gray-100);
+  font-size: 23px;
+}
+.profile-settings-page .profile-card-title,
+.profile-settings-page app-sign-in-method .card-title h3 {
+  display: block;
+  margin: 0;
+  color: var(--bs-body-color);
+  font-size: 16px;
+  font-weight: 750;
+}
+.profile-settings-page .profile-card-subtitle { display: block; margin-top: 3px; color: var(--bs-gray-600); font-size: 12px; }
+.profile-settings-page .profile-card-body,
+.profile-settings-page app-sign-in-method .card-body { padding: 24px !important; }
+.profile-settings-page .profile-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 25px;
+  padding: 16px;
+  border: 1px solid var(--bs-gray-200);
+  border-radius: 12px;
+  background: var(--bs-gray-100);
+}
+.profile-settings-page .profile-avatar-preview {
+  display: grid;
+  width: 68px;
+  height: 68px;
+  flex: 0 0 68px;
+  overflow: hidden;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--bs-body-bg);
+}
+.profile-settings-page .profile-avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
+.profile-settings-page .profile-avatar-copy { display: grid; justify-items: start; gap: 4px; color: var(--bs-gray-600); font-size: 12px; }
+.profile-settings-page .profile-avatar-copy strong { color: var(--bs-body-color); font-size: 13px; }
+.profile-settings-page .profile-file-input { display: none; }
+.profile-settings-page .profile-upload-button { margin-top: 4px; }
+.profile-settings-page .profile-fields-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 16px; }
+.profile-settings-page .profile-field { min-width: 0; }
+.profile-settings-page .profile-field label,
+.profile-settings-page app-sign-in-method .fv-row > label {
+  display: block;
+  margin: 0 0 7px;
+  color: var(--bs-gray-800);
+  font-size: 13px;
+  font-weight: 650;
+}
+.profile-settings-page .required-mark { color: var(--bs-danger); }
+.profile-settings-page .profile-field-wide { grid-column: 1 / -1; }
+.profile-settings-page input.form-control,
+.profile-settings-page textarea.form-control {
+  min-height: 47px;
+  padding: 10px 13px;
+  border: 1px solid var(--bs-gray-300);
+  border-radius: 9px;
+  color: var(--bs-body-color);
+  background: var(--bs-body-bg);
+  box-shadow: none;
+  font-size: 14px;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.profile-settings-page textarea.form-control { min-height: 100px; resize: vertical; }
+.profile-settings-page input.form-control:focus,
+.profile-settings-page textarea.form-control:focus {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 2px var(--bs-primary-light);
+}
+.profile-settings-page .form-control.is-invalid,
+.profile-settings-page .form-control.ng-invalid.ng-dirty,
+.profile-settings-page .form-control.ng-invalid.ng-touched { border-color: var(--bs-danger); }
+.profile-settings-page .form-control.is-valid { border-color: var(--bs-gray-300); background-image: none; }
+.profile-settings-page .form-control.is-invalid:not(.ng-dirty):not(.ng-touched) { border-color: var(--bs-gray-300); background-image: none; }
+.profile-settings-page .profile-field-error,
+.profile-settings-page .fv-plugins-message-container { display: block; margin-top: 6px; color: var(--bs-danger); font-size: 12px; line-height: 1.4; }
+.profile-settings-page .fv-help-block { color: inherit; }
+.profile-settings-page .profile-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 14px 24px;
+  border-top: 1px solid var(--bs-gray-200);
+  background: var(--bs-body-bg);
+}
+.profile-settings-page .profile-save-button { min-height: 40px; padding-inline: 18px; border-radius: 9px; }
+.profile-settings-page app-sign-in-method .separator { border-color: var(--bs-gray-200); }
+@media (max-width: 767.98px) {
+  .profile-settings-page .profile-fields-grid { grid-template-columns: minmax(0, 1fr); }
+  .profile-settings-page .profile-field-wide { grid-column: auto; }
+  .profile-settings-page .profile-card-body,
+  .profile-settings-page app-sign-in-method .card-body { padding: 18px !important; }
+  .profile-settings-page .profile-card-header,
+  .profile-settings-page app-sign-in-method .card-header { padding-inline: 18px; }
 }

@@ -1,24 +1,16 @@
-<div [ngClass]="headerContainerCssClasses" class="d-flex align-items-center justify-content-between"
-  id="kt_header_container">
-  <app-page-title #ktPageTitle
-    class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap mt-n5 mt-lg-0 me-lg-2 pb-2 pb-lg-0"
-    data-kt-swapper="true" data-kt-swapper-mode="prepend"
-    data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}"></app-page-title>
+<div [ngClass]="headerContainerCssClasses" class="app-header-inner" id="kt_header_container">
+  <a routerLink="/dashboard" class="app-brand" aria-label="Fossis ana sayfa">
+    <img alt="FOSSIS 3" src="./assets/media/logos/favicon.png" class="app-brand-logo" />
+  </a>
 
-  <!-- begin::Wrapper -->
-  <div class="d-flex d-lg-none align-items-center ms-n2 me-2">
-    <!--begin::Aside mobile toggle-->
-    <div class="aside-toggle btn btn-icon btn-active-icon-primary" id="kt_aside_toggle">
-      <span [inlineSVG]="'./assets/media/icons/duotune/abstract/abs015.svg'" class="svg-icon svg-icon-1"></span>
-    </div>
-    <!--end::Aside mobile toggle-->
-    <!--begin::Logo-->
-    <a routerLink="/dashboard" class="d-flex align-items-center">
-      <img alt="Logo" src="./assets/media/logos/favicon.png" class="h-35px w-90px" />
-    </a>
-    <!--end::Logo-->
+  <button type="button" class="app-mobile-menu-toggle" (click)="toggleMobileMenu()"
+    [attr.aria-expanded]="mobileMenuOpen" aria-controls="app-primary-navigation" [attr.aria-label]="'NAV_MENU' | translate">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="app-header-navigation" id="app-primary-navigation" [class.is-open]="mobileMenuOpen">
+    <app-header-menu></app-header-menu>
   </div>
-  <!-- end::Wrapper -->
-  <app-header-menu *ngIf="headerDisplay"></app-header-menu>
-  <app-topbar class="d-flex flex-shrink-0"></app-topbar>
+
+  <app-topbar class="app-header-actions"></app-topbar>
 </div>

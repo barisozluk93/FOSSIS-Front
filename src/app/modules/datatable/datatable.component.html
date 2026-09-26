@@ -1,130 +1,87 @@
-<!-- begin::Header -->
+<div class="card-header datatable-header">
+  <div class="datatable-heading">
+    <span class="datatable-title">{{ header }}</span>
+    <span class="datatable-count">{{ totalCount || 0 }}</span>
+  </div>
 
-<div class="card-header border-0 pt-5">
-  <h3 class="card-title align-items-start flex-column">
-    <span class="card-label fw-bolder fs-3 mb-1">{{header}}</span>
-  </h3>
-  <div
-    class="card-toolbar"
-    data-bs-toggle="tooltip"
-    data-bs-placement="top"
-    data-bs-trigger="hover"
-  >
-  <button
-      type="button"
-      class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary me-4"
-      data-kt-menu-trigger="click"
-      data-kt-menu-placement="bottom-end"
-      data-kt-menu-flip="top-end"
-      title="Filter"
-    >
-      <span
-        [inlineSVG]="'./assets/media/icons/duotune/general/gen024.svg'"
-        class="svg-icon svg-icon-2"
-      ></span>
+  <div class="card-toolbar" *ngIf="hasNewRecordPermission">
+    <button type="button" class="btn btn-sm datatable-new-button" (click)="openSaveModal()">
+      <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'" class="svg-icon svg-icon-3"></span>
+      {{ 'NEW' | translate }}
     </button>
-    <!-- <app-dropdown-menu1></app-dropdown-menu1> -->
-    <a *ngIf="hasNewRecordPermission" (click)="openSaveModal()" title="Click to Add"
-     class="btn btn-sm btn-light-primary">
-      <span
-        [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
-        class="svg-icon svg-icon-3"
-      ></span>
-      {{'NEW' | translate}}
-    </a>
   </div>
 </div>
-<!-- end::Header -->
-<!-- begin::Body -->
-<div class="card-body py-3">
-  <!-- begin::Table container -->
-  <div class="table-responsive">
-    <!-- begin::Table -->
-    <table
-      class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
-    >
-      <!-- begin::Table head -->
+
+<div class="card-body datatable-body">
+  <div class="table-responsive datatable-table-wrap">
+    <table class="table table-row-dashed table-row-gray-300 align-middle gy-4 datatable-table">
       <thead>
-        <tr class="fw-bolder text-muted">
+        <tr>
           <ng-container *ngFor="let column of columnList">
-            <th *ngIf="column.visibility && column.index != null">{{column.name}}</th>
-            <th *ngIf="column.visibility && column.index == null" class="min-w-100px text-end">{{column.name}}</th>
-          </ng-container>          
+            <th *ngIf="column.visibility && (column.index !== null || hasEditPermission || hasDeletePermission)"
+              [class.text-end]="column.index === null">
+              {{ column.name }}
+            </th>
+          </ng-container>
         </tr>
       </thead>
-      <!-- end::Table head -->
-      <!-- begin::Table body -->
+
       <tbody>
         <tr *ngFor="let data of dataSource">
           <ng-container *ngFor="let column of columnList">
-            <td *ngIf="column.visibility && column.index != null && column.index != 'isDeleted'">
-              <div class="d-flex justify-content-start flex-column">
-                <a class="text-gray-900 fw-bolder text-hover-primary fs-6">
-                  {{data[column?.index!]}}
-                </a>
-              </div>
+            <td *ngIf="column.visibility && column.index !== null && column.index !== 'isDeleted'">
+              <span class="datatable-cell-value">{{ data[column.index!] }}</span>
             </td>
-            <td *ngIf="column.visibility && column.index != null && column.index == 'isDeleted'">
-              <span *ngIf="!data[column?.index!]" class="badge badge-light-success fs-8 fw-bolder">{{'ACTIVE' | translate}}</span>
-              <span *ngIf="data[column?.index!]" class="badge badge-light-danger fs-8 fw-bolder">{{'PASSIVE' | translate}}</span>
+
+            <td *ngIf="column.visibility && column.index === 'isDeleted'">
+              <span *ngIf="!data[column.index!]" class="badge badge-light-success datatable-status">
+                {{ 'ACTIVE' | translate }}
+              </span>
+              <span *ngIf="data[column.index!]" class="badge badge-light-danger datatable-status">
+                {{ 'PASSIVE' | translate }}
+              </span>
             </td>
-            <td *ngIf="column.visibility && column.index == null && 
-                  !data['isSystemData'] && !data['isDeleted'] &&
-                  (hasEditPermission || hasDeletePermission)">
-              <div class="d-flex justify-content-end flex-shrink-0">
-                <a *ngIf="hasEditPermission"
-                  (click)="openEditModal(data['id'])"
-                  class="
-                    btn btn-icon btn-bg-light btn-active-color-primary btn-sm
-                    me-1
-                  "
-                >
-                  <span
-                    [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"
-                    class="svg-icon svg-icon-3"
-                  ></span>
-                </a>
-                <a *ngIf="hasDeletePermission"
-                  (click)="openDeleteModal(data['id'])"
-                  class="
-                    btn btn-icon btn-bg-light btn-active-color-primary btn-sm
-                  "
-                >
-                  <span
-                    [inlineSVG]="
-                      './assets/media/icons/duotune/general/gen027.svg'
-                    "
-                    class="svg-icon svg-icon-3"
-                  ></span>
-                </a>
+
+            <td *ngIf="column.visibility && column.index === null && (hasEditPermission || hasDeletePermission)"
+              class="text-end">
+              <div class="datatable-row-actions" *ngIf="!data['isSystemData'] && !data['isDeleted']">
+                <button *ngIf="hasEditPermission" type="button" class="btn btn-icon btn-sm datatable-action-button"
+                  [attr.aria-label]="'EDIT' | translate" [title]="'EDIT' | translate"
+                  (click)="openEditModal(data['id'])">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'" class="svg-icon svg-icon-4"></span>
+                </button>
+                <button *ngIf="hasDeletePermission" type="button" class="btn btn-icon btn-sm datatable-action-button"
+                  [attr.aria-label]="'DELETE' | translate" [title]="'DELETE' | translate"
+                  (click)="openDeleteModal(data['id'])">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'" class="svg-icon svg-icon-4"></span>
+                </button>
               </div>
             </td>
           </ng-container>
-            
         </tr>
-        <tr *ngIf="totalCount == 0">
-          <td colspan="columnList.length">
-            <div class="d-flex justify-content-start flex-column">
-              <a class="text-gray-900 fw-bolder text-hover-primary fs-6">
-                {{'NO_DATA_AVAILABLE' | translate}}
-              </a>
+
+        <tr *ngIf="!dataSource || dataSource.length === 0" class="datatable-empty-row">
+          <td [attr.colspan]="visibleColumnCount" class="datatable-empty-cell">
+            <div class="datatable-empty-state">
+              <span class="datatable-empty-icon" aria-hidden="true">
+                <span [inlineSVG]="'./assets/media/icons/duotune/general/gen044.svg'" class="svg-icon svg-icon-2"></span>
+              </span>
+              <span class="fw-semibold">{{ 'NO_DATA_AVAILABLE' | translate }}</span>
             </div>
           </td>
         </tr>
       </tbody>
-      <!-- end::Table body -->
     </table>
-    <!-- end::Table -->
+  </div>
 
-    <ngb-pagination [collectionSize]="totalCount"
+  <div class="datatable-pagination" *ngIf="paginationModel">
+    <ngb-pagination [collectionSize]="totalCount || 0"
       [(page)]="paginationModel.pageNumber"
       [pageSize]="paginationModel.pageSize"
       [rotate]="true"
-      [ellipses]="false"
+      [ellipses]="true"
       [boundaryLinks]="true"
       (pageChange)="onPageChanges()">
     </ngb-pagination>
   </div>
-  <!-- end::Table container -->
 </div>
-<!-- begin::Body -->

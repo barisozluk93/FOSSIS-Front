@@ -8,7 +8,7 @@
       <div id="auth-language-menu" *ngIf="languageOpen" class="auth-language-menu" role="menu">
         <button *ngFor="let language of languages" type="button" role="menuitemradio" [attr.aria-checked]="selectedLanguage === language.lang" (click)="selectLanguage(language.lang, $event)">
           <img [src]="language.flag" alt="" />{{ language.label }}
-          <span *ngIf="selectedLanguage === language.lang" aria-hidden="true">✓</span>
+          
         </button>
       </div>
     </div>

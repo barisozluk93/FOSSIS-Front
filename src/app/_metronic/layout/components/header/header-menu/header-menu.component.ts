@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuModel } from 'src/app/models/menu.model';
 import { AuthService } from 'src/app/modules/auth';
+import { MenuComponent } from 'src/app/_metronic/kt/components';
 
 const menuList = [
   {
@@ -237,38 +238,40 @@ export class HeaderMenuComponent implements OnInit {
 
         this.menuList.forEach(menu => {
           if (menu.permissionId) {
-            if (this.permissionList?.includes(menu.permissionId)) {
-              menu.isForbid = false;
-            }
-            else {
-              menu.isForbid = true;
-            }
+            menu.isForbid = !this.permissionList?.includes(menu.permissionId);
+            return;
           }
-          else {
-            menu.childMenus?.forEach(childMenu => {
-              if (this.permissionList?.includes(childMenu.permissionId!)) {
-                childMenu.isForbid = false;
-                menu.isForbid = false;
-              }
-              else {
-                childMenu.isForbid = true;
-              }
 
-              if(!childMenu.isForbid) {
-                menu.isForbid = false;
-              }
-              else {
-                menu.isForbid = true;
-              }
-            })
-          }
-        })
+          menu.childMenus?.forEach(childMenu => {
+            childMenu.isForbid = !this.permissionList?.includes(childMenu.permissionId!);
+          });
+          menu.isForbid = !menu.childMenus?.some(childMenu => !childMenu.isForbid);
+        });
+
+        // Permission based *ngIf blocks add dropdown elements after the initial page init.
+        // Wait for Angular to render them before creating Metronic menu instances.
+        setTimeout(() => MenuComponent.reinitialization());
       }
     })
   }
 
+  toggleMenu(event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    const trigger = event.currentTarget as HTMLElement;
+    MenuComponent.reinitialization();
+    MenuComponent.getInstance(trigger)?.click(trigger, event);
+  }
+
   calculateMenuItemCssClass(url: string): string {
     return checkIsActive(this.router.url, url) ? 'active' : '';
+  }
+
+  isMenuActive(menu: MenuModel): boolean {
+    if (menu.url && checkIsActive(this.router.url, menu.url)) {
+      return true;
+    }
+    return !!menu.childMenus?.some((child) => child.url && checkIsActive(this.router.url, child.url));
   }
 }
 

@@ -1,30 +1,31 @@
 <ng-template #modal>
-  <div class="modal-content">
-    <div class="modal-header">
-      <!--begin::Modal title-->
-      <h2>{{ modalConfig.modalTitle }}</h2>
-      <!--end::Modal title-->
-      <!--begin::Close-->
-      <div class="btn btn-sm btn-icon btn-active-color-primary" (click)="close()"
-        *ngIf="modalConfig.hideDismissButton === undefined || !modalConfig.hideDismissButton()">
-        <span class="svg-icon svg-icon-1" [inlineSVG]="'./assets/media/icons/duotune/arrows/arr061.svg'"></span>
-        <!--end::Svg Icon-->
-      </div>
-      <!--end::Close-->
+  <div class="modal-content app-modal-content">
+    <div class="modal-header app-modal-header">
+      <h2 class="modal-title fs-2 fw-bold text-gray-900">{{ modalConfig?.modalTitle }}</h2>
+      <button type="button" class="btn btn-icon btn-sm btn-active-light-danger app-modal-close"
+        (click)="close()"
+        *ngIf="showCloseButton()"
+        [disabled]="closeButtonDisabled()"
+        [attr.aria-label]="'CLOSE' | translate" [title]="'CLOSE' | translate">
+        <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/arrows/arr061.svg'"></span>
+      </button>
     </div>
-    <div class="modal-body">
+
+    <div class="modal-body app-modal-body">
       <ng-content></ng-content>
     </div>
-    <div class="modal-footer" *ngIf="modalConfig.submitCancellView==true || modalConfig.submitCancellView==undefined">
-      <button type="button" class="btn btn-sm btn-primary" (click)="dismiss()"
-        *ngIf="modalConfig.hideDismissButton === undefined || !modalConfig.hideDismissButton()"
-        [disabled]="modalConfig.disableDismissButton !== undefined && modalConfig.disableDismissButton()">
-        {{ modalConfig.dismissButtonLabel }}
+
+    <div class="modal-footer app-modal-footer"
+      *ngIf="showFooter()">
+      <button type="button" class="btn btn-primary app-modal-primary-action" (click)="dismiss()"
+        *ngIf="showDismissButton()"
+        [disabled]="dismissButtonDisabled()">
+        {{ modalConfig?.dismissButtonLabel }}
       </button>
-      <button type="button" class="btn btn-sm btn-secondary" (click)="close()"
-        *ngIf="modalConfig.hideCloseButton === undefined || !modalConfig.hideCloseButton()"
-        [disabled]="modalConfig.disableCloseButton !== undefined && modalConfig.disableCloseButton()">
-        {{ modalConfig.closeButtonLabel }}
+      <button type="button" class="btn btn-light app-modal-secondary-action" (click)="close()"
+        *ngIf="showCloseButton()"
+        [disabled]="closeButtonDisabled()">
+        {{ modalConfig?.closeButtonLabel }}
       </button>
     </div>
   </div>

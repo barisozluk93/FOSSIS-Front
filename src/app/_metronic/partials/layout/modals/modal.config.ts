@@ -1,5 +1,7 @@
 export interface ModalConfig {
   modalTitle: string;
+  modalWindowClass?: string;
+  modalDialogClass?: string;
   dismissButtonLabel?: string;
   closeButtonLabel?: string;
   submitCancellView?: boolean ;

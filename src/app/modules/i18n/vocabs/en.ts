@@ -3,6 +3,8 @@ export const locale = {
   lang: 'en',
   data: {
     LANG: 'en',
+    NAV_MENU: 'Open or close the navigation menu',
+    MAP_TOOLBAR_LABEL: 'Map tools',
     LANGUAGE: "Language",
     AUTH_UI: {
       KICKER: 'SOLAR ENERGY ANALYSIS',

@@ -3,6 +3,8 @@ export const locale = {
     lang: 'tr',
     data: {
         LANG: 'tr',
+        NAV_MENU: 'Gezinme menüsünü aç veya kapat',
+        MAP_TOOLBAR_LABEL: 'Harita araçları',
         LANGUAGE: "Dil",
         AUTH_UI: {
             KICKER: 'GÜNEŞ ENERJİSİ ANALİZİ',

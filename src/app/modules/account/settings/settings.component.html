@@ -1,3 +1,23 @@
-<app-profile-details [user]="userData"></app-profile-details>
-<app-sign-in-method [user]="userData"></app-sign-in-method>
-<!-- <app-deactivate-account [user]="user"></app-deactivate-account> -->
+<section class="profile-settings-page" *ngIf="userData as user">
+  <header class="profile-settings-heading">
+    <div class="profile-settings-heading-copy">
+      <span class="profile-settings-eyebrow">{{ 'USER_PROFILE' | translate }}</span>
+      <h1>{{ 'PROFILE_DETAILS' | translate }}</h1>
+    </div>
+    <div class="profile-settings-identity">
+      <span class="profile-settings-avatar">
+        <img *ngIf="user.fileId && user.fileResult?.fileContents" [src]="user.fileResult.fileContents" alt="" />
+        <span *ngIf="!user.fileId || !user.fileResult?.fileContents" aria-hidden="true">{{ (user.name || 'U').charAt(0) | uppercase }}</span>
+      </span>
+      <span class="profile-settings-identity-copy">
+        <strong>{{ user.name }} {{ user.surname }}</strong>
+        <small>{{ user.email }}</small>
+      </span>
+    </div>
+  </header>
+
+  <div class="profile-settings-sections">
+    <app-profile-details [user]="user"></app-profile-details>
+    <app-sign-in-method [user]="user"></app-sign-in-method>
+  </div>
+</section>

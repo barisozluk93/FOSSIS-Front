@@ -5,6 +5,7 @@ import { NotificationModel } from 'src/app/models/notification.model';
 import { AuthService } from 'src/app/modules/auth';
 import { UserModel } from 'src/app/modules/user-management/models/user.model';
 import { UserManagementService } from 'src/app/modules/user-management/user-management.service';
+import { MenuComponent } from 'src/app/_metronic/kt/components';
 
 @Component({
   selector: 'app-topbar',
@@ -92,6 +93,14 @@ export class TopbarComponent implements OnInit {
     }
 
     return message;
+  }
+
+  toggleHeaderMenu(event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    const trigger = event.currentTarget as HTMLElement;
+    MenuComponent.reinitialization();
+    MenuComponent.getInstance(trigger)?.click(trigger, event);
   }
 
   getNotifications() {

@@ -8,6 +8,7 @@ import { AuthHTTPService } from './auth-http';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ResultModel } from 'src/app/models/result.model';
+import { MenuComponent } from 'src/app/_metronic/kt/components';
 
 export type UserType = UserModelAuth | undefined;
 
@@ -69,10 +70,10 @@ export class AuthService implements OnDestroy {
   }
 
   logout() {
+    MenuComponent.hideDropdowns(undefined);
     localStorage.removeItem(this.authLocalStorageToken);
-    this.router.navigate(['/auth/login'], {
-      queryParams: {},
-    });
+    this.currentUserSubject.next(undefined);
+    this.router.navigate(['/']);
   }
 
   getUserByToken(): Observable<UserType> {

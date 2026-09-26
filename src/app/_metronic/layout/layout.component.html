@@ -6,12 +6,12 @@
       data-kt-drawer-toggle="#kt_aside_toggle"></app-aside>
 
     <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-      <app-header id="kt_header" class="header" [ngClass]="headerCSSClasses" [headerDisplay]="headerDisplay" #ktHeader data-kt-sticky="true"
+      <app-header id="kt_header" class="header" [ngClass]="headerCSSClasses" #ktHeader data-kt-sticky="true"
         data-kt-sticky-name="header">
       </app-header>
 
 
-      <div id="kt_content" class="content d-flex flex-column flex-column-fluid">
+      <div id="kt_content" class="content d-flex flex-column flex-column-fluid app-content-header-gap">
         <app-alert #alert></app-alert>
         <app-content id="kt_content_container" [ngClass]="contentContainerClasses"></app-content>
       </div>

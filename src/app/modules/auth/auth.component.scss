@@ -7,7 +7,7 @@
 .auth-chevron { width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); margin: 0 3px 0 2px; }
 .auth-language-menu { position: absolute; top: calc(100% + 8px); right: 0; min-width: 160px; padding: 7px; border: 1px solid var(--bs-gray-200); background: var(--bs-body-bg); border-radius: 10px; box-shadow: var(--bs-box-shadow); z-index: 30; }
 .auth-language-menu button { width: 100%; display: flex; gap: 10px; align-items: center; border: 0; border-radius: 6px; padding: 9px; color: var(--bs-body-color); background: transparent; cursor: pointer; text-align: left; }
-.auth-language-menu button:hover, .auth-language-menu button[aria-checked="true"] { background: var(--bs-primary-light); color: var(--bs-primary); }
+.auth-language-menu button:hover, .auth-language-menu button[aria-checked="true"] { background: var(--bs-gray-100); color: var(--bs-primary); }
 .auth-language-menu button span { margin-left: auto; }
 .auth-theme { display: flex; align-items: center; }
 .auth-main { height: 100vh; height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(470px, 1fr); }
@@ -18,12 +18,10 @@
 .auth-visual h1 span { color: var(--bs-primary); }
 .auth-emblem { position: relative; width: min(100%, 260px, 34vh); aspect-ratio: 1.2; overflow: hidden; margin-inline: auto; }
 .auth-emblem img { position: absolute; top: 0; left: 0; display: block; width: auto; max-width: none; height: 100%; }
-:host-context([data-bs-theme="dark"]) .auth-emblem img { filter: brightness(2.2); }
 .auth-form-side { min-height: 0; overflow-y: auto; display: grid; justify-items: center; align-items: safe center; padding: 78px clamp(22px, 5vw, 90px) 28px; }
 .auth-card { position: relative; width: min(100%, 440px); }
 .auth-logo { display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
 .auth-logo img { display: block; width: 136px; height: 50px; object-fit: contain; object-position: center; }
-:host-context([data-bs-theme="dark"]) .auth-logo img { filter: brightness(2.2); }
 .auth-page a:focus-visible, .auth-page button:focus-visible { outline: 2px solid var(--bs-primary); outline-offset: 3px; }
 @media (max-width: 991px) { .auth-main { grid-template-columns: 1fr; }.auth-visual { display: none; }.auth-form-side { padding: 95px 24px 32px; }.auth-card { width: min(100%, 470px); } }
 @media (max-width: 575px) { .auth-controls { top: 18px; right: 18px; gap: 7px; }.auth-form-side { padding: 86px 22px 24px; }.auth-logo img { width: 98px; height: 44px; } }

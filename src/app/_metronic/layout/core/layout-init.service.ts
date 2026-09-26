@@ -108,6 +108,13 @@ export class LayoutInitService {
   private initAside() {
     const display = this.layout.getProp('aside.display') as boolean;
     if (!display) {
+      // Clear any prior aside layout state so the wrapper can use the full width.
+      document.body.classList.remove(
+        'aside-fixed',
+        'aside-secondary-enabled',
+        'aside-secondary-disabled'
+      );
+      document.body.removeAttribute('data-kt-aside-minimize');
       return;
     }
 
