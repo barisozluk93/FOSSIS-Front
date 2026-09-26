@@ -62,8 +62,13 @@ export const locale = {
             FEATURE_TEXT: 'FOSSIS 3, harita üzerinde seçtiğiniz yapı ile panel ve çatı yerleşimi tercihlerinizi aynı çalışma akışında bir araya getirir.',
             FEATURE_ONE: 'Harita üzerinden yapı seçimi', FEATURE_TWO: 'Çatı üzerinde panel yerleşimi',
             FEATURE_THREE: 'Yerleşime göre üretim tahmini',
-            CLOSING_TITLE: 'Çatınızın potansiyelini keşfetmeye başlayın.', BACK_TOP: 'Başa dön'
+            CLOSING_TITLE: 'Çatınızın potansiyelini keşfetmeye başlayın.', BACK_TOP: 'Başa dön',
+            APP_DOWNLOAD_TITLE: 'FOSSIS 3 cebinizde', APP_DOWNLOAD_TEXT: 'Uygulamayı indirmek için telefonunuzla mağaza QR kodunu tarayın.',
+            APP_STORE: 'App Store', PLAY_STORE: 'Google Play', SCAN_QR: 'İndirmek için QR kodu tarayın',
+            APP_STORE_QR_ALT: 'FOSSIS 3 App Store indirme QR kodu', PLAY_STORE_QR_ALT: 'FOSSIS 3 Google Play indirme QR kodu'
         },
+        MAP_ROOF_DRAW_WARNING: "Lütfen binaya ait çatı modellemesini yapınız veya iptal etmek için 'Escape' tuşuna basınız.",
+        MAP_LOCATION_SELECT_WARNING: "Lütfen bir konum seçiniz veya iptal etmek için 'Escape' tuşuna basınız.",
         SIGN_OUT: 'Çıkış Yap',
         SIGN_UP: "Üye Ol",
         INDIVIDUAL: "Bireysel",

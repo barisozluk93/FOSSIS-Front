@@ -63,8 +63,13 @@ export const locale = {
       FEATURE_TEXT: 'FOSSIS 3 brings building selection, panel choice, and rooftop placement together in one workflow.',
       FEATURE_ONE: 'Map-based building selection', FEATURE_TWO: 'Rooftop panel placement',
       FEATURE_THREE: 'Layout-based output estimates',
-      CLOSING_TITLE: 'Start exploring your roof’s potential.', BACK_TOP: 'Back to top'
+      CLOSING_TITLE: 'Start exploring your roof’s potential.', BACK_TOP: 'Back to top',
+      APP_DOWNLOAD_TITLE: 'FOSSIS 3 in your pocket', APP_DOWNLOAD_TEXT: 'Scan a store QR code with your phone to download the app.',
+      APP_STORE: 'App Store', PLAY_STORE: 'Google Play', SCAN_QR: 'Scan the QR code to download',
+      APP_STORE_QR_ALT: 'FOSSIS 3 App Store download QR code', PLAY_STORE_QR_ALT: 'FOSSIS 3 Google Play download QR code'
     },
+    MAP_ROOF_DRAW_WARNING: "Please model the building roof, or press 'Escape' to cancel.",
+    MAP_LOCATION_SELECT_WARNING: "Please select a location, or press 'Escape' to cancel.",
     SIGN_OUT: 'Sign Out',
     SIGN_UP: "Sign Up",
     INDIVIDUAL: "Individual",

@@ -114,6 +114,16 @@
   <footer class="site-footer">
     <div class="container-xxl footer-main">
       <div class="footer-identity"><a class="footer-logo" routerLink="/" aria-label="FOSSIS 3"><img src="./assets/media/logos/favicon.png" alt="FOSSIS 3" /></a><p>{{ 'LANDING.FOOTER_DESCRIPTION' | translate }}</p></div>
+      <div class="app-download-cards" [attr.aria-label]="'LANDING.APP_DOWNLOAD_TITLE' | translate">
+        <a class="app-download-card" href="https://apps.apple.com/tr/app/fossis3d/id6760351808?l=tr" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/media/qr/fossis3d-app-store.svg" [alt]="'LANDING.APP_STORE_QR_ALT' | translate" />
+          <span class="app-download-copy"><strong><img class="app-store-logo" src="./assets/media/svg/brand-logos/apple-black.svg" alt="" />{{ 'LANDING.APP_STORE' | translate }}</strong><small>{{ 'LANDING.SCAN_QR' | translate }}</small></span>
+        </a>
+        <a class="app-download-card" href="https://play.google.com/store/apps/details?id=com.klcsoft.fossis3d" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/media/qr/fossis3d-play-store.svg" [alt]="'LANDING.PLAY_STORE_QR_ALT' | translate" />
+          <span class="app-download-copy"><strong><img class="app-store-logo" src="./assets/media/svg/brand-logos/google-play-store.svg" alt="" />{{ 'LANDING.PLAY_STORE' | translate }}</strong><small>{{ 'LANDING.SCAN_QR' | translate }}</small></span>
+        </a>
+      </div>
     </div>
     <div class="container-xxl footer-bottom">
       <span>© {{ year }} FOSSIS 3</span>

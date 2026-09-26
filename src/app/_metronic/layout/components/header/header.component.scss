@@ -83,7 +83,8 @@
 
   .app-header-inner {
     min-height: 70px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    position: relative;
   }
 
   .app-brand {
@@ -110,9 +111,16 @@
 
   .app-header-navigation {
     display: none;
-    order: 3;
-    flex: 0 0 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 30;
     width: 100%;
+    padding: 8px 16px 14px;
+    background: var(--bs-body-bg, #fff);
+    border-top: 1px solid var(--bs-gray-200, #eff2f5);
+    box-shadow: 0 12px 24px rgba(24, 28, 50, 0.10);
   }
 
   .app-header-navigation.is-open {

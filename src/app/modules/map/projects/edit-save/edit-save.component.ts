@@ -9,6 +9,7 @@ import { MapService } from "../../map.service";
 import * as turf from '@turf/turf';
 import wkt from 'terraformer-wkt-parser';
 import { Polygon } from "terraformer";
+import { TranslateService } from "@ngx-translate/core";
 
 type Tabs =
     | 'mainInfos'
@@ -39,7 +40,8 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
 
     constructor(
         private projectManagementService: ProjectManagementService,
-        private readonly mapService: MapService
+        private readonly mapService: MapService,
+        private readonly translate: TranslateService
     ) { }
 
     addClickEventToMap() {
@@ -225,7 +227,7 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
         }
         else {
             this.addClickEventToMap();
-            this.alertComponent.showPanel("Lütfen, bir lokasyon seçiniz veya iptal etmek için 'Escape' tuşuna basınız.");
+            this.alertComponent.showPanel(this.translate.instant('MAP_LOCATION_SELECT_WARNING'));
             this.project = this.mainInfosComponent.form.getRawValue();
 
             this.isSelectionMode = true;
@@ -399,7 +401,7 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
             center: [lng, lat],
         });
 
-        this.alertComponent.showPanel("Lütfen, binaya ait çatı modellemesini yapınız veya iptal etmek için 'Escape' tuşuna basınız.");
+        this.alertComponent.showPanel(this.translate.instant('MAP_ROOF_DRAW_WARNING'));
     }
 
     convertToWkt() {
