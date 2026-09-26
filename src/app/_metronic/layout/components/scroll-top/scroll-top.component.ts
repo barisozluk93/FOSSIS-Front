@@ -1,35 +1,28 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, OnInit, Inject, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'scroll-top',
   templateUrl: './scroll-top.component.html',
-  styleUrls: ['./scroll-top.component.scss']
+  styleUrls: ['./scroll-top.component.scss'],
 })
 export class AppScrollTopComponent implements OnInit {
+  windowScrolled = false;
 
-  windowScrolled: boolean;
-  constructor(@Inject(DOCUMENT) private document: Document) {}
-  @HostListener("window:scroll", [])
-  onWindowScroll() {
-      if (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop > 100) {
-          this.windowScrolled = true;
-      } 
-     else if (this.windowScrolled && window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop < 10) {
-          this.windowScrolled = false;
-      }
-  }
-  scrollToTop() {
-      (function smoothscroll() {
-          var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
-          if (currentScroll > 0) {
-              window.requestAnimationFrame(smoothscroll);
-              window.scrollTo(0, currentScroll - (currentScroll / 8));
-          }
-      })();
+  ngOnInit(): void {
+    this.updateVisibility();
   }
 
-  ngOnInit() {
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    this.updateVisibility();
   }
 
+  private updateVisibility(): void {
+    this.windowScrolled = window.scrollY > Math.max(250, window.innerHeight * 0.6);
+  }
+
+  scrollToTop(): void {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+  }
 }

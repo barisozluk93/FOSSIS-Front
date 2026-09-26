@@ -16,7 +16,7 @@ enum ErrorStates {
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss'],
+  styleUrls: ['./registration.component.scss', '../../auth-form.shared.scss'],
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   registrationForm: FormGroup;
@@ -35,7 +35,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.isLoading$ = this.authService.isLoading$;
     // redirect to home if already logged in
     if (this.authService.currentUserValue) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

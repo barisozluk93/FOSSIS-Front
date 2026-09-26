@@ -15,7 +15,7 @@ enum ErrorStates {
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss'],
+  styleUrls: ['./reset-password.component.scss', '../../auth-form.shared.scss'],
 })
 export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;

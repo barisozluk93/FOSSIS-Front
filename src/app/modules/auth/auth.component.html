@@ -1,34 +1,34 @@
-<!-- <div class="d-flex flex-column flex-center flex-column-fluid">
-  <div class="d-flex flex-column flex-center text-center p-10">
-    <div class="card card-flush  w-lg-650px py-5">
-      <div class="card-body py-15 py-lg-20">
-        <router-outlet></router-outlet>
+<div class="auth-page">
+  <div class="auth-controls">
+    <div class="auth-language">
+      <button type="button" class="auth-language-toggle" [attr.aria-label]="'LANGUAGE' | translate" [attr.aria-expanded]="languageOpen" aria-controls="auth-language-menu" (click)="toggleLanguage($event)">
+        <img [src]="selectedLanguage === 'tr' ? languages[0].flag : languages[1].flag" alt="" />
+        {{ selectedLanguage === 'tr' ? 'TR' : 'EN' }} <span class="auth-chevron" aria-hidden="true"></span>
+      </button>
+      <div id="auth-language-menu" *ngIf="languageOpen" class="auth-language-menu" role="menu">
+        <button *ngFor="let language of languages" type="button" role="menuitemradio" [attr.aria-checked]="selectedLanguage === language.lang" (click)="selectLanguage(language.lang, $event)">
+          <img [src]="language.flag" alt="" />{{ language.label }}
+          <span *ngIf="selectedLanguage === language.lang" aria-hidden="true">✓</span>
+        </button>
       </div>
     </div>
+    <app-theme-mode-switcher class="auth-theme" toggleBtnClass="btn btn-icon btn-primary w-40px h-40px" [attr.aria-label]="'LANDING.THEME_LABEL' | translate"></app-theme-mode-switcher>
   </div>
-</div> -->
 
-<div class="d-flex flex-column flex-lg-row flex-column-fluid">
-
-  <!--begin::Body-->
-  <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
-    <!--begin::Form-->
-    <div class="d-flex flex-center flex-column flex-lg-row-fluid">
-      <!--begin::Wrapper-->
-      <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+  <main class="auth-main">
+    <aside class="auth-visual" aria-labelledby="auth-story-title">
+      <div class="auth-visual-content">
+        <h1 id="auth-story-title">{{ 'AUTH_UI.STORY_TITLE' | translate }} <span>{{ 'AUTH_UI.STORY_ACCENT' | translate }}</span></h1>
+        <div class="auth-emblem" aria-hidden="true"><img src="./assets/media/logos/favicon.png" alt="" /></div>
+      </div>
+    </aside>
+    <section class="auth-form-side" [attr.aria-label]="'AUTH_UI.FORM_REGION' | translate">
+      <div class="auth-card">
+        <a routerLink="/" class="auth-logo" aria-label="FOSSIS 3 ana sayfa">
+          <img src="./assets/media/logos/favicon.png" alt="FOSSIS 3" />
+        </a>
         <router-outlet></router-outlet>
       </div>
-      <!--end::Wrapper-->
-    </div>
-    <!--end::Form-->
-
-    <!--begin::Footer-->
-    
-    <!--end::Footer-->
-  </div>
-  <!--end::Body-->
-
-  <!--begin::Aside-->
-  
-  <!--end::Aside-->
+    </section>
+  </main>
 </div>

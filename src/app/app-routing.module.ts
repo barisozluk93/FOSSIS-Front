@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './modules/auth/services/auth.guard';
+import { LandingComponent } from './landing/landing.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    component: LandingComponent,
+  },
   {
     path: 'auth',
     loadChildren: () =>

@@ -1,0 +1,123 @@
+<div class="fossis-landing">
+  <header class="site-header">
+    <div class="container-xxl header-inner">
+      <a class="brand" routerLink="/" aria-label="FOSSIS 3">
+        <img src="./assets/media/logos/favicon.png" alt="" class="brand-logo" />
+      </a>
+      <nav class="header-links" aria-label="Ana menü">
+        <button type="button" (click)="scrollTo('nasil-calisir')">{{ 'LANDING.NAV_HOW' | translate }}</button>
+        <button type="button" (click)="scrollTo('ozellikler')">{{ 'LANDING.NAV_FEATURES' | translate }}</button>
+        <button type="button" (click)="scrollTo('proje-yaklasimi')">{{ 'LANDING.NAV_VISION' | translate }}</button>
+      </nav>
+      <div class="header-actions">
+        <div class="language-control">
+          <button type="button" class="header-control language-toggle" (click)="toggleLanguageMenu($event)" [attr.aria-expanded]="languageOpen" aria-haspopup="true" aria-controls="landing-languages" [attr.aria-label]="'LANGUAGE' | translate">
+            <img [src]="selectedLanguage === 'tr' ? languages[0].flag : languages[1].flag" alt="" />
+            <span>{{ selectedLanguage === 'tr' ? 'TR' : 'EN' }}</span><span class="language-chevron" aria-hidden="true"></span>
+          </button>
+          <div id="landing-languages" class="language-menu menu menu-sub menu-sub-dropdown menu-rounded shadow-sm" *ngIf="languageOpen" role="menu">
+            <button *ngFor="let language of languages" type="button" class="menu-link" role="menuitemradio" [attr.aria-checked]="selectedLanguage === language.lang" (click)="selectLanguage(language.lang, $event)">
+              <img [src]="language.flag" alt="" />{{ language.label }}<span *ngIf="selectedLanguage === language.lang" aria-hidden="true">✓</span>
+            </button>
+          </div>
+        </div>
+        <app-theme-mode-switcher class="theme-control" toggleBtnClass="btn btn-icon btn-primary w-40px h-40px" [attr.aria-label]="'LANDING.THEME_LABEL' | translate"></app-theme-mode-switcher>
+        <a class="btn btn-primary login-button" routerLink="/auth/login">{{ 'LOG_IN' | translate }} <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container-xxl" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="status-dot"></span>{{ 'LANDING.EYEBROW' | translate }}</span>
+        <h1 id="hero-title">{{ 'LANDING.HERO_TITLE' | translate }} <span>{{ 'LANDING.HERO_ACCENT' | translate }}</span></h1>
+        <p class="hero-description">{{ 'LANDING.HERO_DESCRIPTION' | translate }}</p>
+        <div class="hero-caption"><span class="caption-line"></span>{{ 'LANDING.HERO_CAPTION' | translate }}</div>
+      </div>
+
+      <div class="product-stage">
+        <div class="stage-glow"></div>
+        <div class="mock-window">
+          <div class="mock-toolbar">
+            <div class="mock-brand"><img src="./assets/media/logos/favicon.png" alt="" class="mock-logo" /> <span class="mock-divider"></span> {{ 'LANDING.PREVIEW_TITLE' | translate }}</div>
+            <span class="mock-avatar" aria-hidden="true">F</span>
+          </div>
+          <div class="mock-body">
+            <div class="mock-sidebar" aria-hidden="true"><span class="active"></span><span></span><span></span><span></span></div>
+            <div class="mock-map">
+              <div class="map-road road-a"></div><div class="map-road road-b"></div><div class="map-road road-c"></div>
+              <div class="map-block block-a"></div><div class="map-block block-b"></div><div class="map-block block-c"></div>
+              <div class="map-block block-d"></div><div class="map-block block-e"></div><div class="map-block block-f"></div>
+              <div class="roof" aria-hidden="true"><div class="roof-ridge"></div><div class="solar-grid"><i *ngFor="let panel of [1,2,3,4,5,6,7,8,9,10,11,12]"></i></div></div>
+              <div class="map-pin" aria-hidden="true">✦</div>
+              <div class="map-label">{{ 'LANDING.MAP_LABEL' | translate }}</div>
+              <div class="map-zoom" aria-hidden="true">+<span></span>−</div>
+            </div>
+            <div class="mock-insights">
+              <div class="insights-top"><span class="insights-icon">✦</span><span>{{ 'LANDING.PREVIEW_ANALYSIS' | translate }}</span></div>
+              <div class="insights-content">
+                <span class="micro-label">{{ 'LANDING.PREVIEW_BUILDING' | translate }}</span>
+                <strong>{{ 'LANDING.PREVIEW_ROOF' | translate }}</strong>
+                <div class="insights-rule"></div>
+                <span class="micro-label">{{ 'LANDING.PREVIEW_PLACEMENT' | translate }}</span>
+                <div class="placement"><span>▦</span> {{ 'LANDING.PREVIEW_PANELS' | translate }}</div>
+                <div class="insights-rule"></div>
+                <span class="micro-label">{{ 'LANDING.PREVIEW_OUTPUT' | translate }}</span>
+                <div class="chart-bars" aria-hidden="true"><i style="height:35%"></i><i style="height:42%"></i><i style="height:55%"></i><i style="height:68%"></i><i style="height:82%"></i><i style="height:96%"></i><i style="height:100%"></i><i style="height:92%"></i><i style="height:76%"></i><i style="height:59%"></i><i style="height:43%"></i><i style="height:34%"></i></div>
+                <span class="chart-footnote">{{ 'LANDING.PREVIEW_CHART' | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="floating-note"><span class="floating-icon">↗</span><div><strong>{{ 'LANDING.FLOAT_TITLE' | translate }}</strong><span>{{ 'LANDING.FLOAT_SUBTITLE' | translate }}</span></div></div>
+      </div>
+      <button type="button" class="scroll-cue" (click)="scrollTo('nasil-calisir')" [attr.aria-label]="'LANDING.SCROLL_DOWN' | translate">
+        <span>{{ 'LANDING.SCROLL_DOWN' | translate }}</span><span class="scroll-cue-icon" aria-hidden="true">↓</span>
+      </button>
+    </section>
+
+    <section class="process-section" id="nasil-calisir" aria-labelledby="process-title">
+      <div class="container-xxl">
+        <div class="section-heading"><div><span class="section-kicker">01 / {{ 'LANDING.NAV_HOW' | translate }}</span><h2 id="process-title">{{ 'LANDING.PROCESS_TITLE' | translate }}</h2></div><p>{{ 'LANDING.PROCESS_DESCRIPTION' | translate }}</p></div>
+        <div class="steps-grid">
+          <article class="step-card"><span class="step-number">01</span><span class="step-icon" aria-hidden="true">⌖</span><h3>{{ 'LANDING.STEP_ONE_TITLE' | translate }}</h3><p>{{ 'LANDING.STEP_ONE_TEXT' | translate }}</p></article>
+          <article class="step-card"><span class="step-number">02</span><span class="step-icon" aria-hidden="true">▦</span><h3>{{ 'LANDING.STEP_TWO_TITLE' | translate }}</h3><p>{{ 'LANDING.STEP_TWO_TEXT' | translate }}</p></article>
+          <article class="step-card"><span class="step-number">03</span><span class="step-icon" aria-hidden="true">↗</span><h3>{{ 'LANDING.STEP_THREE_TITLE' | translate }}</h3><p>{{ 'LANDING.STEP_THREE_TEXT' | translate }}</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="method-section container-xxl" id="yontem" aria-labelledby="method-title">
+      <div class="section-heading"><div><span class="section-kicker">02 / {{ 'LANDING.METHOD_KICKER' | translate }}</span><h2 id="method-title">{{ 'LANDING.METHOD_TITLE' | translate }}</h2></div><p>{{ 'LANDING.METHOD_INTRO' | translate }}</p></div>
+      <div class="method-grid">
+        <article><span class="method-index">01</span><h3>{{ 'LANDING.METHOD_ROOF_TITLE' | translate }}</h3><p>{{ 'LANDING.METHOD_ROOF_TEXT' | translate }}</p></article>
+        <article><span class="method-index">02</span><h3>{{ 'LANDING.METHOD_LOCATION_TITLE' | translate }}</h3><p>{{ 'LANDING.METHOD_LOCATION_TEXT' | translate }}</p></article>
+        <article><span class="method-index">03</span><h3>{{ 'LANDING.METHOD_RADIATION_TITLE' | translate }}</h3><p>{{ 'LANDING.METHOD_RADIATION_TEXT' | translate }}</p></article>
+        <article><span class="method-index">04</span><h3>{{ 'LANDING.METHOD_SCENARIO_TITLE' | translate }}</h3><p>{{ 'LANDING.METHOD_SCENARIO_TEXT' | translate }}</p></article>
+      </div>
+      <p class="method-source">{{ 'LANDING.METHOD_SOURCE' | translate }}</p>
+    </section>
+
+    <section class="feature-section container-xxl" id="ozellikler" aria-labelledby="feature-title">
+      <div class="feature-copy"><span class="section-kicker">02 / {{ 'LANDING.NAV_FEATURES' | translate }}</span><h2 id="feature-title">{{ 'LANDING.FEATURE_TITLE' | translate }}</h2><p>{{ 'LANDING.FEATURE_TEXT' | translate }}</p><a routerLink="/auth/login" class="feature-link">{{ 'LOG_IN' | translate }} <span aria-hidden="true">↗</span></a></div>
+      <div class="feature-list"><div><span>01</span><strong>{{ 'LANDING.FEATURE_ONE' | translate }}</strong><span aria-hidden="true">↗</span></div><div><span>02</span><strong>{{ 'LANDING.FEATURE_TWO' | translate }}</strong><span aria-hidden="true">↗</span></div><div><span>03</span><strong>{{ 'LANDING.FEATURE_THREE' | translate }}</strong><span aria-hidden="true">↗</span></div></div>
+    </section>
+
+    <section class="vision-section" id="proje-yaklasimi" aria-labelledby="vision-title"><div class="container-xxl vision-inner">
+      <div><span class="section-kicker">03 / {{ 'LANDING.NAV_VISION' | translate }}</span><h2 id="vision-title">{{ 'LANDING.VISION_TITLE' | translate }}</h2><p>{{ 'LANDING.VISION_TEXT' | translate }}</p></div>
+      <div class="vision-points"><p><strong>{{ 'LANDING.VISION_CITY_TITLE' | translate }}</strong>{{ 'LANDING.VISION_CITY_TEXT' | translate }}</p><p><strong>{{ 'LANDING.VISION_MAP_TITLE' | translate }}</strong>{{ 'LANDING.VISION_MAP_TEXT' | translate }}</p></div>
+    </div></section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container-xxl footer-main">
+      <div class="footer-identity"><a class="footer-logo" routerLink="/" aria-label="FOSSIS 3"><img src="./assets/media/logos/favicon.png" alt="FOSSIS 3" /></a><p>{{ 'LANDING.FOOTER_DESCRIPTION' | translate }}</p></div>
+    </div>
+    <div class="container-xxl footer-bottom">
+      <span>© {{ year }} FOSSIS 3</span>
+      <nav class="footer-nav" [attr.aria-label]="'LANDING.FOOTER_NAV' | translate"><button type="button" (click)="scrollTo('nasil-calisir')">{{ 'LANDING.NAV_HOW' | translate }}</button><button type="button" (click)="scrollTo('ozellikler')">{{ 'LANDING.NAV_FEATURES' | translate }}</button><button type="button" (click)="scrollTo('proje-yaklasimi')">{{ 'LANDING.NAV_VISION' | translate }}</button></nav>
+    </div>
+  </footer>
+</div>

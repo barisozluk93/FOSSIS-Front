@@ -42,7 +42,6 @@ import { FormsModule } from '@angular/forms';
 import { ThemeModeModule } from '../partials/layout/theme-mode-switcher/theme-mode.module';
 import { SharedModule } from '../shared/shared.module';
 import { AlertModule } from '../partials/layout/alert/alert.module';
-import { AppScrollTopComponent } from './components/scroll-top/scroll-top.component';
 
 const routes: Routes = [
   {
@@ -75,7 +74,6 @@ const routes: Routes = [
     SubscriptionsTabComponent,
     TasksTabComponent,
     SearchComponent,
-    AppScrollTopComponent
   ],
   imports: [
     CommonModule,

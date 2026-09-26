@@ -1,13 +1,14 @@
 import { AfterViewInit, Component, HostListener } from '@angular/core';
-import { TranslationService } from '../i18n';
-import { MenuComponent } from '../../_metronic/kt/components';
+import { TranslationService } from '../modules/i18n';
+import { MenuComponent } from '../_metronic/kt/components';
 
 @Component({
-  selector: '<body[root]>',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss'],
+  selector: 'app-landing',
+  templateUrl: './landing.component.html',
+  styleUrls: ['./landing.component.scss'],
 })
-export class AuthComponent implements AfterViewInit {
+export class LandingComponent implements AfterViewInit {
+  readonly year = new Date().getFullYear();
   languageOpen = false;
   selectedLanguage: string;
   readonly languages = [
@@ -20,6 +21,8 @@ export class AuthComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    // The protected layout normally initializes Metronic menus. This public route
+    // initializes the same menu system so the shared theme switcher works here.
     setTimeout(() => MenuComponent.bootstrap());
   }
 
@@ -28,7 +31,7 @@ export class AuthComponent implements AfterViewInit {
     this.languageOpen = false;
   }
 
-  toggleLanguage(event: MouseEvent): void {
+  toggleLanguageMenu(event: MouseEvent): void {
     event.stopPropagation();
     this.languageOpen = !this.languageOpen;
   }
@@ -40,4 +43,7 @@ export class AuthComponent implements AfterViewInit {
     this.languageOpen = false;
   }
 
+  scrollTo(id: string): void {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  }
 }

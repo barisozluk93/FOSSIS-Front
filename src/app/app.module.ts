@@ -9,6 +9,9 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LandingComponent } from './landing/landing.component';
+import { ThemeModeModule } from './_metronic/partials/layout/theme-mode-switcher/theme-mode.module';
+import { AppScrollTopComponent } from './_metronic/layout/components/scroll-top/scroll-top.component';
 import { AuthService } from './modules/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
 // #fake-start#
@@ -26,7 +29,7 @@ function appInitializer(authService: AuthService) {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LandingComponent, AppScrollTopComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -42,6 +45,7 @@ function appInitializer(authService: AuthService) {
     //   : [],
     // #fake-end#
     AppRoutingModule,
+    ThemeModeModule,
     InlineSVGModule.forRoot(),
     NgbModule,
   ],

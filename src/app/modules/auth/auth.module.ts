@@ -10,6 +10,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { AuthComponent } from './auth.component';
 import { TranslationModule } from '../i18n/translation.module';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ThemeModeModule } from '../../_metronic/partials/layout/theme-mode-switcher/theme-mode.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
   imports: [
     CommonModule,
     TranslationModule,
+    ThemeModeModule,
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
