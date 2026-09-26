@@ -313,3 +313,14 @@ app-header.header .app-brand {
   .profile-settings-page .profile-card-header,
   .profile-settings-page app-sign-in-method .card-header { padding-inline: 18px; }
 }
+
+/* Keep every map overlay inside the map viewport on short screens. */
+#goToCoordinate,
+#areaMeasurement,
+#lengthMeasurement,
+#buildingInfo,
+#alert {
+  max-height: calc(100% - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}

@@ -356,7 +356,7 @@ export class ProjectEditSaveComponent implements OnInit, OnDestroy {
             type: "fill",
             source: "buildings-2d",
             paint: {
-                'fill-color': '#DFFFEA',
+                'fill-color': '#FDC60A',
                 'fill-opacity': 1,
             },
             filter: ['==', '$id', layerId]

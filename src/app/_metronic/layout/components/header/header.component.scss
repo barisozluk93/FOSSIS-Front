@@ -22,15 +22,15 @@
 .app-brand {
   display: inline-flex;
   align-items: center;
-  flex: 0 0 90px;
+  flex: 0 0 100px;
   min-width: 0;
   text-decoration: none;
 }
 
 .app-brand-logo {
   display: block;
-  width: 90px;
-  height: 36px;
+  width: 100px;
+  height: 40px;
   object-fit: contain;
 }
 
@@ -72,7 +72,7 @@
   }
 
   .app-brand {
-    flex-basis: 90px;
+    flex-basis: 100px;
   }
 }
 
@@ -87,27 +87,30 @@
   }
 
   .app-brand {
+    order: 1;
     flex: 1 1 auto;
   }
 
   .app-brand-logo {
-    width: 48px;
-    height: 36px;
+    width: 56px;
+    height: 40px;
   }
 
   .app-mobile-menu-toggle {
     display: block;
-    order: 2;
+    order: 0;
+    flex: 0 0 42px;
+    margin-right: 0;
   }
 
   .app-header-actions {
-    order: 3;
+    order: 2;
     margin-left: 0;
   }
 
   .app-header-navigation {
     display: none;
-    order: 4;
+    order: 3;
     flex: 0 0 100%;
     width: 100%;
   }

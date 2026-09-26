@@ -32,6 +32,11 @@ export class DataTableComponent {
     return Math.max(visibleColumns, 1);
   }
 
+  get showPagination(): boolean {
+    const pageSize = Number(this.paginationModel?.pageSize);
+    return Number.isFinite(pageSize) && pageSize > 0 && Number(this.totalCount) > pageSize;
+  }
+
   openDeleteModal(id: number) {
     this.deleteButtonClick.emit(id);
   }

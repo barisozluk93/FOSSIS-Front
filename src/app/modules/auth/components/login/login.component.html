@@ -18,7 +18,7 @@
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{ control: f.password, validation: 'maxlength', message: ('PASSWORD_SHOULD_HAVE_MAXIMUM_100_SYMBOLS' | translate) }"></ng-container>
   </div>
   <button type="submit" class="btn btn-primary auth-submit" id="kt_sign_in_submit" [disabled]="loginForm.invalid || (isLoading$ | async)">
-    <span *ngIf="(isLoading$ | async) === false">{{ 'LOG_IN' | translate }} <span aria-hidden="true">↗</span></span>
+    <span *ngIf="(isLoading$ | async) === false">{{ 'LOG_IN' | translate }}</span>
     <span *ngIf="isLoading$ | async">{{ 'PLEASE_WAIT' | translate }} <span class="spinner-border spinner-border-sm ms-2" aria-hidden="true"></span></span>
   </button>
   <p class="auth-form-switch">{{ 'NOT_A_MEMBER_YET' | translate }} <a routerLink="/auth/registration">{{ 'SIGN_UP' | translate }}</a></p>

@@ -79,7 +79,7 @@ export class RoofStyleComponent implements OnInit, OnDestroy {
                                 'source': 'roof',
                                 'layout': {},
                                 'paint': {
-                                    'fill-color': 'lightblue',
+                                    'fill-color': '#FFECB3',
                                     'fill-opacity': 0.5
                                 }
                             });
@@ -90,7 +90,7 @@ export class RoofStyleComponent implements OnInit, OnDestroy {
                                 'source': 'roof',
                                 'layout': {},
                                 'paint': {
-                                    'line-color': 'lightblue', // Stroke color
+                                    'line-color': '#FDC60A', // Stroke color
                                     'line-width': 2 // Stroke width
                                 }
                             });
@@ -106,7 +106,7 @@ export class RoofStyleComponent implements OnInit, OnDestroy {
                                     'text-offset': [0, 0] // Offset the text if needed
                                 },
                                 'paint': {
-                                    'text-color': '#fff' // Text color
+                                    'text-color': '#FDC60A' // Text color
                                 }
                             });
                         });

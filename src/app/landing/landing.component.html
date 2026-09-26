@@ -22,7 +22,7 @@
           </div>
         </div>
         <app-theme-mode-switcher class="theme-control" toggleBtnClass="btn btn-icon btn-primary w-40px h-40px" [attr.aria-label]="'LANDING.THEME_LABEL' | translate"></app-theme-mode-switcher>
-        <a class="btn btn-primary login-button" routerLink="/auth/login">{{ 'LOG_IN' | translate }} <span aria-hidden="true">↗</span></a>
+        <a class="btn btn-primary login-button" routerLink="/auth/login">{{ 'LOG_IN' | translate }}</a>
       </div>
     </div>
   </header>
@@ -96,11 +96,11 @@
         <article><span class="method-index">03</span><h3>{{ 'LANDING.METHOD_RADIATION_TITLE' | translate }}</h3><p>{{ 'LANDING.METHOD_RADIATION_TEXT' | translate }}</p></article>
         <article><span class="method-index">04</span><h3>{{ 'LANDING.METHOD_SCENARIO_TITLE' | translate }}</h3><p>{{ 'LANDING.METHOD_SCENARIO_TEXT' | translate }}</p></article>
       </div>
-      <p class="method-source">{{ 'LANDING.METHOD_SOURCE' | translate }}</p>
+      <!-- <p class="method-source">{{ 'LANDING.METHOD_SOURCE' | translate }}</p> -->
     </section>
 
     <section class="feature-section container-xxl" id="ozellikler" aria-labelledby="feature-title">
-      <div class="feature-copy"><span class="section-kicker">02 / {{ 'LANDING.NAV_FEATURES' | translate }}</span><h2 id="feature-title">{{ 'LANDING.FEATURE_TITLE' | translate }}</h2><p>{{ 'LANDING.FEATURE_TEXT' | translate }}</p><a routerLink="/auth/login" class="feature-link">{{ 'LOG_IN' | translate }} <span aria-hidden="true">↗</span></a></div>
+      <div class="feature-copy"><span class="section-kicker">02 / {{ 'LANDING.NAV_FEATURES' | translate }}</span><h2 id="feature-title">{{ 'LANDING.FEATURE_TITLE' | translate }}</h2><p>{{ 'LANDING.FEATURE_TEXT' | translate }}</p><a routerLink="/auth/login" class="feature-link">{{ 'LOG_IN' | translate }}</a></div>
       <div class="feature-list"><div><span>01</span><strong>{{ 'LANDING.FEATURE_ONE' | translate }}</strong><span aria-hidden="true">↗</span></div><div><span>02</span><strong>{{ 'LANDING.FEATURE_TWO' | translate }}</strong><span aria-hidden="true">↗</span></div><div><span>03</span><strong>{{ 'LANDING.FEATURE_THREE' | translate }}</strong><span aria-hidden="true">↗</span></div></div>
     </section>
 

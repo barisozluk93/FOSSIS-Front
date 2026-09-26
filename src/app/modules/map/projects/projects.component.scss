@@ -5,19 +5,73 @@
     z-index: 999;
     position: absolute;
     cursor: pointer;
+    width: min(640px, calc(100vw - 104px));
+    height: min(680px, calc(100% - 32px));
+    max-height: calc(100% - 32px);
+    overflow: hidden;
 }
 
-@media screen and (min-width: 1541px) {
-    #project {
-        width: 600px;
-    }
+#project > .card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
 }
 
-@media screen and (min-width: 820px) and (max-width: 1540px) {
-    #project {
-        width: 600px;
-    }
+#project > .card > .card-header { flex: 0 0 auto; }
+
+#project > .card > .card-body {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 14px;
+    overflow: hidden;
 }
+
+:host ::ng-deep app-datatable {
+    display: flex !important;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+}
+
+:host ::ng-deep app-datatable > .card {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    margin: 0 !important;
+}
+
+:host ::ng-deep app-datatable .datatable-header,
+:host ::ng-deep app-datatable .datatable-pagination { flex: 0 0 auto; }
+
+:host ::ng-deep app-datatable .datatable-header {
+    min-height: 62px;
+    padding: 12px 16px;
+}
+
+:host ::ng-deep app-datatable .datatable-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    padding: 12px 16px;
+    overflow: hidden;
+}
+
+:host ::ng-deep app-datatable .datatable-table-wrap {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+}
+
+:host ::ng-deep app-datatable .datatable-pagination { padding: 8px 12px 12px; }
 
 @media screen and (max-width: 819px) {
     #project {
@@ -25,6 +79,8 @@
         right: 8px;
         top: 16px;
         width: auto;
+        height: min(620px, calc(100% - 32px));
+        max-height: calc(100% - 32px);
     }
 }
 

@@ -74,7 +74,7 @@
     </table>
   </div>
 
-  <div class="datatable-pagination" *ngIf="paginationModel">
+  <div class="datatable-pagination" *ngIf="showPagination">
     <ngb-pagination [collectionSize]="totalCount || 0"
       [(page)]="paginationModel.pageNumber"
       [pageSize]="paginationModel.pageSize"
