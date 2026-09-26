@@ -3,10 +3,10 @@ import { BehaviorSubject } from 'rxjs';
 import { ThemeModeComponent } from '../../../kt/layout';
 
 export type ThemeModeType = 'dark' | 'light' | 'system';
-const systemMode = ThemeModeComponent.getSystemMode() as 'light' | 'dark';
+const getSystemMode = () => ThemeModeComponent.getSystemMode() as 'light' | 'dark';
 const themeModeSwitchHelper = (_mode: ThemeModeType) => {
   // change background image url
-  const mode = _mode !== 'system' ? _mode : systemMode;
+  const mode = _mode !== 'system' ? _mode : getSystemMode();
   const imageUrl =
     './assets/media/patterns/header-bg' +
     (mode === 'light' ? '.jpg' : '-dark.png');
@@ -53,7 +53,7 @@ export class ThemeModeService {
   constructor() {}
 
   public updateMode(_mode: ThemeModeType) {
-    const updatedMode = _mode === 'system' ? systemMode : _mode;
+    const updatedMode = _mode === 'system' ? getSystemMode() : _mode;
     this.mode.next(updatedMode);
     // themeModeSwitchHelper(updatedMode)
     if (localStorage) {
@@ -61,7 +61,7 @@ export class ThemeModeService {
     }
 
     document.documentElement.setAttribute('data-bs-theme', updatedMode);
-    ThemeModeComponent.init();
+    ThemeModeComponent.flipImages();
   }
 
   public updateMenuMode(_menuMode: ThemeModeType) {
@@ -77,11 +77,7 @@ export class ThemeModeService {
   }
 
   public switchMode(_mode: ThemeModeType) {
-    if (localStorage) {
-      const updatedMode = _mode === 'system' ? systemMode : _mode;
-      localStorage.setItem(themeModeLSKey, updatedMode);
-      localStorage.setItem(themeMenuModeLSKey, _mode);
-    }
-    document.location.reload()
+    this.updateMode(_mode);
+    this.updateMenuMode(_mode);
   }
 }

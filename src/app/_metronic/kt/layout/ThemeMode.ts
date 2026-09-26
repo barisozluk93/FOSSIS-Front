@@ -111,7 +111,7 @@ class ThemeMode {
   }
 
   public getSystemMode = (): Mode => {
-    return window.matchMedia('(prefers-color-scheme: dark)') ? 'dark' : 'light'
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   }
 
   private initMode = (): void => {
