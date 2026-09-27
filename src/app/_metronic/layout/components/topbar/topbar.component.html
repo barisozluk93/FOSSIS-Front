@@ -1,4 +1,9 @@
-
+<!-- begin::Theme mode -->
+<app-theme-mode-switcher class="d-flex align-items-center me-3"
+  toggleBtnClass="btn btn-icon btn-primary w-40px h-40px pulse pulse-white">
+</app-theme-mode-switcher>
+<!-- end::Theme mode -->
+ 
 <!--begin::User-->
 <div *ngIf="isCurrentUserExist" class="d-flex align-items-center me-3" id="kt_header_user_menu_toggle">
   <!--begin::Menu wrapper-->
@@ -23,9 +28,3 @@
   </div>
   <app-notifications-inner [notifications]="notifications" [totalNotificationCount]="totalNotificationCount" [unreadedNotificationCount]=unreadedNotificationCount></app-notifications-inner>
 </div> -->
-
-<!-- begin::Theme mode -->
-<app-theme-mode-switcher class="d-flex align-items-center me-3"
-  toggleBtnClass="btn btn-icon btn-primary w-40px h-40px pulse pulse-white">
-</app-theme-mode-switcher>
-<!-- end::Theme mode -->
